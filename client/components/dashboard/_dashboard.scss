@@ -1,0 +1,135 @@
+.dashboard {
+	height: calc(100% - 50px);
+	width: 100%;
+	@include center;
+	margin-top: 100px;
+	&>div {
+		@include center;
+		width: 100%;
+		flex-direction: column;
+		justify-content: flex-start;
+		height: 100%;
+		&>.select-week {
+			@include center;
+			background: $redish;
+			width: 100%;
+			height: 45px;
+			color: #fff;
+			&>h2 {
+				font-weight: 200;
+				font-size: 1.5em;
+			}
+		}
+		&>.days {
+			width: 100%;
+			@include center;
+			align-self: flex-end;
+			&>.time-header {
+				width: 35px;
+				height: 35px;
+				background: url('clock.svg') no-repeat center;
+				background-size: 25px;
+			}
+			&>.day {
+				width: calc(14.285% - 5px);
+				height: 35px;
+				position: relative;
+				cursor: pointer;
+				&::after {	
+					content: attr(data-sm);
+					position: absolute;
+					top: 0;
+					left: 0;
+					height: 100%;
+					width: 100%;
+					@include center;
+					color: #fff;
+					text-transform: uppercase;
+					font-weight: 900;
+					font-size: 0.85em;
+					z-index: 2;
+					border-right: 1px solid rgba(#fff, 0.05);
+					@media #{$mq-670} {
+						content: attr(data-lg);
+					}
+				}
+				&::before {
+					content: "";
+					position: absolute;
+					top: 0;
+					left: 0;
+					height: 0%;
+					width: 100%;
+					background: #415D87;
+					z-index: 1;
+					transition-duration: 0.2s;
+				}
+				&:hover::before {
+					height: 100%;
+				}
+			}
+			&>.selected {
+				&::after {
+					border-right: none;
+					height: 100%;
+				}
+				&::before {
+					height: 100%;
+				}
+			}
+		}
+		&>.schedule {
+			width: 100%;
+			height: calc(100% - 75px);
+			@include center;
+			flex-direction: row;
+			justify-content: flex-start;
+			&>.times {
+				height: 100%;
+				width: 35px;
+				@include center;
+				flex-direction: column;
+				justify-content: space-between;
+				border-right: 1px solid rgba(#fff, 0.05);
+				&>.time {
+					height: 9.091%;
+					@include center;
+					align-items: flex-start;
+					flex-direction: row;
+					color: #fff;
+					font-size: 0.8em;
+					font-weight: 200;
+				}
+			}
+			&>.fullday {
+				width: calc(14.285% - 5px);
+				height: 100%;
+				border-right: 1px solid rgba(#fff, 0.05);
+				position: relative;
+				&>.slot{
+					position: absolute;
+					width: 40%;
+					background: #5EB0AE;
+					height: 50%;
+					top: 50%;
+					left: 30%;
+					@include center;
+					border-radius: 10px;
+					&>p {
+						color: #fff;
+						transform: rotate(90deg);
+					}
+				}
+			}
+			&>.fullday:nth-of-type(even) {
+				background: #253245;
+			}
+			&>.selected {
+				background: #415D87;
+			}
+			&>.fullday:last-of-type {
+				border-right: none;
+			}
+		}
+	}
+}

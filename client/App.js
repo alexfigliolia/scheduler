@@ -3,6 +3,7 @@ import { Meteor } from 'meteor/meteor';
 import update from 'immutability-helper';
 import Header from './components/header/Header';
 import Dashboard from './components/dashboard/Dashboard';
+import MobileMenu from './components/mobileMenu/MobileMenu';
 import './App.scss';
 
 export default class App extends Component {
@@ -11,6 +12,7 @@ export default class App extends Component {
 		this.state = {
 			burgerClasses: "hamburglar is-open",
 			burgerToggle: true,
+      dashboardClasses: "dashboard",
       height: (window.innerHeight - 50) + "px",
       startDay: 8,
       endDay: 7,
@@ -18,59 +20,44 @@ export default class App extends Component {
       [
         [
           {
-            employee: "Name", 
+            employee: "Alex", 
             times: {
               on: "10am",
               off: "4pm"
             }
           },
           {
-            employee: "Farts", 
+            employee: "Steve", 
             times: {
               on: "8am",
+              off: "7pm"
+            }
+          },
+          {
+            employee: "Larry", 
+            times: {
+              on: "10am",
               off: "7pm"
             }
           }
         ],
         [
           {
-            employee: "Name", 
+            employee: "Steve", 
+            times: {
+              on: "8am",
+              off: "5pm"
+            }
+          },
+          {
+            employee: "Alex", 
             times: {
               on: "9am",
               off: "4pm"
             }
-          }
-        ],
-        [
+          },
           {
-            employee: "Name", 
-            times: {
-              on: "10am",
-              off: "4pm"
-            }
-          }
-        ],
-        [
-          {
-            employee: "Name", 
-            times: {
-              on: "8am",
-              off: "4pm"
-            }
-          }
-        ],
-        [
-          {
-            employee: "Name", 
-            times: {
-              on: "12pm",
-              off: "4pm"
-            }
-          }
-        ],
-        [
-          {
-            employee: "Name", 
+            employee: "Larry", 
             times: {
               on: "4pm",
               off: "7pm"
@@ -79,9 +66,115 @@ export default class App extends Component {
         ],
         [
           {
-            employee: "Name", 
+            employee: "Alex", 
             times: {
               on: "10am",
+              off: "4pm"
+            }
+          },
+          {
+            employee: "Steve", 
+            times: {
+              on: "8am",
+              off: "7pm"
+            }
+          },
+          {
+            employee: "Larry", 
+            times: {
+              on: "12am",
+              off: "6pm"
+            }
+          }
+        ],
+        [
+          {
+            employee: "Alex", 
+            times: {
+              on: "8am",
+              off: "4pm"
+            }
+          },
+          {
+            employee: "Steve", 
+            times: {
+              on: "8am",
+              off: "3pm"
+            }
+          },
+          {
+            employee: "Larry", 
+            times: {
+              on: "12pm",
+              off: "7pm"
+            }
+          }
+        ],
+        [
+          {
+            employee: "Alex", 
+            times: {
+              on: "12pm",
+              off: "4pm"
+            }
+          },
+          {
+            employee: "Steve", 
+            times: {
+              on: "12pm",
+              off: "4pm"
+            }
+          },
+          {
+            employee: "Larry", 
+            times: {
+              on: "8pm",
+              off: "7pm"
+            }
+          }
+        ],
+        [
+          {
+            employee: "Alex", 
+            times: {
+              on: "8am",
+              off: "7pm"
+            }
+          },
+          {
+            employee: "Steve", 
+            times: {
+              on: "12pm",
+              off: "7pm"
+            }
+          },
+          {
+            employee: "Larry", 
+            times: {
+              on: "4pm",
+              off: "7pm"
+            }
+          }
+        ],
+        [
+          {
+            employee: "Steve", 
+            times: {
+              on: "12pm",
+              off: "7pm"
+            }
+          },
+          {
+            employee: "Alex", 
+            times: {
+              on: "10am",
+              off: "4pm"
+            }
+          },
+          {
+            employee: "Larry", 
+            times: {
+              on: "8am",
               off: "4pm"
             }
           }
@@ -107,6 +200,9 @@ export default class App extends Component {
         burgerClasses : (prevState.burgerClasses === "hamburglar is-closed") ? 
                           "hamburglar is-open" : 
                           "hamburglar is-closed",
+        dashboardClasses : (prevState.dashboardClasses === "dashboard") ? 
+                          "dashboard dashboard-move" : 
+                          "dashboard"
         // menuClasses : (prevState.menuClasses === "mobile-menu") ? 
         //                   "mobile-menu mobile-menu-show" : 
         //                   "mobile-menu",
@@ -132,9 +228,12 @@ export default class App extends Component {
 					burger={this.toggleBurger.bind(this)} />
 
         <Dashboard
+          classes={this.state.dashboardClasses}
           schedule={this.state.schedule}
           startDay={this.state.startDay}
           endDay={this.state.endDay} />
+
+        <MobileMenu />
 
 			</div>
 		);

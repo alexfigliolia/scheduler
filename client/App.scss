@@ -4,7 +4,7 @@
 html,
 body,
 .App {
-	background: #263346;
+	background: #fff;
 	font-family: -apple-system, BlinkMacSystemFont, “Segoe UI”, Roboto, Helvetica, Arial, sans-serif;
 	height: 100%;
 	&::after {
@@ -20,3 +20,4 @@ body,
 @import 'components/header/header';
 @import 'components/header/burger/burger';
 @import 'components/dashboard/dashboard';
+@import 'components/mobileMenu/mobile-menu';

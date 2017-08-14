@@ -6,7 +6,9 @@ export default class Dashboard extends Component {
 		this.state = {
 			height: (window.innerHeight - 50) + "px",
 			scheduleHeight: (window.innerHeight - 130) + "px",
-			hours: []
+			hours: [],
+			barClasses: "slot",
+			colors: ["#48CBC3", "#D463C5", "#E2C83C"]
 		}
 	}
 	componentDidMount(){
@@ -18,6 +20,11 @@ export default class Dashboard extends Component {
 			})
 		});
 		self.createHours(this.props.startDay, this.props.endDay);
+		setTimeout(function(){
+			this.setState({
+				barClasses: "slot slotted"
+			});
+		}.bind(self), 1000)
 	}
 
 	createHours(start, end){
@@ -42,7 +49,7 @@ export default class Dashboard extends Component {
 
 	render(){
 		return(
-			<section className="dashboard" style={{height: this.state.height}}>
+			<section className={this.props.classes} style={{height: this.state.height}}>
 				<div>
 					<div className="select-week">
 						<h2>Current Week</h2>
@@ -81,10 +88,14 @@ export default class Dashboard extends Component {
 												return (
 													<div 
 														key={j} 
-														className="slot" 
+														className={this.state.barClasses} 
 														style={{
 															top: this.calcDif(this.props.startDay, parseInt(slot.times.on.substring( 0, slot.times.on.length-2 ))) * (100 / this.state.hours.length) + "%",
-															height: this.calcDif(parseInt(slot.times.on.substring( 0, slot.times.on.length-2 )), parseInt(slot.times.off.substring( 0, slot.times.on.length-2 ))) * (100 / this.state.hours.length) + "%"
+															height: this.calcDif(parseInt(slot.times.on.substring( 0, slot.times.on.length-2 )), parseInt(slot.times.off.substring( 0, slot.times.on.length-2 ))) * (100 / this.state.hours.length) + "%",
+															width: 80 / day.length + "%",
+															left: ((80 / day.length) * j) + 10 + "%",
+															background: this.state.colors[j],
+															transition: "transform 0.5s 0." + j + "s"
 														}}>
 														<p>{slot.employee}</p>
 													</div>

@@ -3,6 +3,10 @@
 	width: 100%;
 	@include center;
 	margin-top: 100px;
+	background: #263346;
+	@include headerShadow;
+	z-index: 2;
+	transition-duration: 0.3s;
 	&>div {
 		@include center;
 		width: 100%;
@@ -25,9 +29,10 @@
 			@include center;
 			align-self: flex-end;
 			&>.time-header {
+				align-self: flex-start;
 				width: 35px;
-				height: 35px;
-				background: url('clock.svg') no-repeat center;
+				height: 32px;
+				background: #415D87 url('clock.svg') no-repeat center;
 				background-size: 25px;
 			}
 			&>.day {
@@ -58,14 +63,14 @@
 					position: absolute;
 					top: 0;
 					left: 0;
-					height: 0%;
+					height: 90%;
 					width: 100%;
 					background: #415D87;
 					z-index: 1;
 					transition-duration: 0.2s;
 				}
 				&:hover::before {
-					height: 100%;
+					height: 90%;
 				}
 			}
 			&>.selected {
@@ -74,7 +79,7 @@
 					height: 100%;
 				}
 				&::before {
-					height: 100%;
+					height: 90%;
 				}
 			}
 		}
@@ -115,10 +120,21 @@
 					left: 30%;
 					@include center;
 					border-radius: 10px;
+					transform: scaleY(0);
+					transform-origin: 50% 0%;
+					transition: transform 0.5s;
+					align-items: flex-start;
 					&>p {
 						color: #fff;
 						transform: rotate(90deg);
+						font-size: 0.7em;
+						@media #{$mq-670} {
+							font-size: 0.85em;
+						}
 					}
+				}
+				&>.slotted {
+					transform: scaleY(1);
 				}
 			}
 			&>.fullday:nth-of-type(even) {
@@ -132,4 +148,8 @@
 			}
 		}
 	}
+}
+
+.dashboard-move{
+	transform: scale(0.9) translateX(-70%);
 }

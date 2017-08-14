@@ -13,6 +13,7 @@ export default class App extends Component {
 			burgerClasses: "hamburglar is-open",
 			burgerToggle: true,
       dashboardClasses: "dashboard",
+      menuClasses: "mobile-menu",
       height: (window.innerHeight - 50) + "px",
       startDay: 8,
       endDay: 7,
@@ -202,10 +203,10 @@ export default class App extends Component {
                           "hamburglar is-closed",
         dashboardClasses : (prevState.dashboardClasses === "dashboard") ? 
                           "dashboard dashboard-move" : 
-                          "dashboard"
-        // menuClasses : (prevState.menuClasses === "mobile-menu") ? 
-        //                   "mobile-menu mobile-menu-show" : 
-        //                   "mobile-menu",
+                          "dashboard",
+        menuClasses : (prevState.menuClasses === "mobile-menu") ? 
+                          "mobile-menu mobile-menu-show" : 
+                          "mobile-menu"
         // dashboardClasses : (prevState.dashboardClasses === "dashboard") ? 
         //                   "dashboard dashboard-move-left" : 
         //                   "dashboard",
@@ -233,7 +234,8 @@ export default class App extends Component {
           startDay={this.state.startDay}
           endDay={this.state.endDay} />
 
-        <MobileMenu />
+        <MobileMenu
+          classes={this.state.menuClasses} />
 
 			</div>
 		);

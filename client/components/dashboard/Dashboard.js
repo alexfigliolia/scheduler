@@ -48,6 +48,7 @@ export default class Dashboard extends Component {
 	}
 
 	render(){
+		const week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
 		return(
 			<section className={this.props.classes} style={{height: this.state.height}}>
 				<div>
@@ -56,13 +57,18 @@ export default class Dashboard extends Component {
 					</div>
 					<div className="days">
 						<div className="time-header"></div>
-						<div className="day" data-sm="Mon" data-lg="Monday"></div>
-						<div className="day" data-sm="Tue" data-lg="Tuesday"></div>
-						<div className="day" data-sm="Wed" data-lg="Wednesday"></div>
-						<div className="day" data-sm="Thu" data-lg="Thursday"></div>
-						<div className="day selected" data-sm="Fri" data-lg="Friday"></div>
-						<div className="day" data-sm="Sat" data-lg="Saturday"></div>
-						<div className="day" data-sm="Sun" data-lg="Sunday"></div>
+						{
+							week.map((day, i) => {
+								return (
+									<div 
+										className="day"
+										data-sm={day.substring(0,3)}
+										data-lg={day}
+										key={i}>
+									</div>
+								);
+							})
+						}
 					</div>
 					<div className="schedule" style={{height: this.state.scheduleHeight}}>
 						<div className="times">

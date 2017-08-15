@@ -49,6 +49,7 @@
 			display: none;
 			@media #{$mq-800} {
 				position: static;
+				@include center;
 			}
 			@media #{$mq-1070} {
 				width: calc(100% - 300px);

@@ -49,7 +49,6 @@
 			display: none;
 			@media #{$mq-800} {
 				position: static;
-				@include center;
 			}
 			@media #{$mq-1070} {
 				width: calc(100% - 300px);
@@ -69,7 +68,7 @@
 			// background: #263346;
 			@media #{$mq-800}{
 				width: 100%;
-				margin-top: 0;
+				// margin-top: 0;
 			}
 			@media #{$mq-1070}{
 				width: calc(100% - 300px);
@@ -116,30 +115,30 @@
 						content: attr(data-lg);
 					}
 				}
-				&::before {
-					content: "";
-					position: absolute;
-					top: 0;
-					left: 0;
-					height: 90%;
-					width: 100%;
-					// background: #263346;
-					z-index: 1;
-					transition-duration: 0.2s;
-				}
-				&:hover::before {
-					height: 90%;
-				}
+				// &::before {
+				// 	content: "";
+				// 	position: absolute;
+				// 	top: 0;
+				// 	left: 0;
+				// 	height: 90%;
+				// 	width: 100%;
+				// 	// background: #263346;
+				// 	z-index: 1;
+				// 	transition-duration: 0.2s;
+				// }
+				// &:hover::before {
+				// 	height: 90%;
+				// }
 			}
-			&>.selected {
-				&::after {
-					border-right: none;
-					height: 100%;
-				}
-				&::before {
-					height: 90%;
-				}
-			}
+			// &>.selected {
+			// 	&::after {
+			// 		border-right: none;
+			// 		height: 100%;
+			// 	}
+			// 	&::before {
+			// 		height: 90%;
+			// 	}
+			// }
 		}
 		&>.schedule {
 			width: 170%;
@@ -152,6 +151,7 @@
 			overflow-x: scroll;
 			overflow-y: hidden;
 			-webkit-overflow-scrolling: touch;
+			
 			@media #{$mq-800}{
 				width: 100%;
 			}
@@ -342,6 +342,7 @@
 					transform-origin: 50% 0%;
 					transition: transform 0.5s;
 					align-items: flex-start;
+					overflow: hidden;
 					&>p {
 						color: #fff;
 						transform: rotate(90deg);

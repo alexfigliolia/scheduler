@@ -8,7 +8,6 @@ export default class Dashboard extends Component {
 			scheduleHeight: (window.innerHeight - 87.5) + "px",
 			hours: [],
 			barClasses: "slot",
-			colors: ["#48CBC3", "#D46096", "#91D723"],
 			month: []
 		}
 	}
@@ -58,6 +57,12 @@ export default class Dashboard extends Component {
 		this.setState({
 			month: m
 		});
+	}
+
+	handleClick(e){
+		var day = e.target.dataset.day,
+			shift = e.target.dataset.shift;
+		this.props.editShift(day, shift);
 	}
 
 	render(){
@@ -127,6 +132,7 @@ export default class Dashboard extends Component {
 											day.map((slot, j) => {
 												return (
 													<div 
+														onClick={this.handleClick.bind(this)}
 														key={j} 
 														className={this.state.barClasses} 
 														style={{
@@ -134,9 +140,11 @@ export default class Dashboard extends Component {
 															height: this.calcDif(parseInt(slot.times.on.substring( 0, slot.times.on.length-2 )), parseInt(slot.times.off.substring( 0, slot.times.on.length-2 ))) * (100 / this.state.hours.length) + "%",
 															width: 80 / day.length + "%",
 															left: ((80 / day.length) * j) + 10 + "%",
-															background: this.state.colors[j],
-															transition: "transform 0.5s 0." + j + "s"
-														}}>
+															background: slot.color,
+															transition: "transform 0.5s 0." + j + "s, height 0.3s 0s, width 0.3s 0s, border-radius 0.3s 0s"
+														}}
+														data-day={i}
+														data-shift={j}>
 														<p>{slot.employee}</p>
 													</div>
 												);

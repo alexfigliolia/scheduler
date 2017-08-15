@@ -1,0 +1,114 @@
+.edit-bar {
+	position: fixed;
+	top: 25%;
+	left: 5%;
+	height: 50%;
+	width: 90%;
+	background: rgba(#FFF, 1);
+	@include center;
+	z-index: 35;
+	border-radius: 5px;
+	@include headerShadow;
+	transform: translateY(-10%) scale(0.4);
+	transition-duration: 0.4s;
+	opacity: 0;
+	visibility: hidden;
+	transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+	@media #{$mq-670} {
+		top: 25%;
+		left: 15%;
+		height: 50%;
+		width: 70%;
+	}
+	@media #{$mq-1070} {
+		top: 25%;
+		left: 37.5%;
+		height: 50%;
+		width: 50%;
+	}
+	&>button {
+		position: absolute;
+		right: 5px;
+		top: 5px;
+		height: 30px;
+		width: 30px;
+		border-radius: 50%;
+		outline: none;
+		border: none;
+		background: #35D2E5 url('cross.svg') no-repeat center;
+		background-size: 70%;
+		@include center;
+		@include buttonShadow;
+	}
+	&>div {
+		@include center;
+		flex-direction: column;
+		&>h3 {
+			font-weight: 300;
+			margin: 0;
+			margin-bottom: 30px;
+		}
+		&>div {
+			@include center;
+			flex-direction: row;
+			width: 90%;
+			background: #35D2E5;
+			border-radius: 20px;
+			justify-content: space-between;
+			height: 50px;
+			@include buttonShadow;
+			&>input {
+				width: 20%;
+				margin-left: 20px;
+				background: transparent;
+				border: none;
+				color: #fff;
+				text-align: center;
+				font-weight: 700;
+				border-bottom: 1px solid #fff;
+				border-radius: 0;
+				outline: none;
+			}
+			&>input:last-of-type {
+				margin-left: 0;
+				margin-right: 20px;
+			}
+			&>h4 {
+				color: #fff;
+				font-weight: 600;
+				font-size: 1.25em;
+				margin: 0;
+			}
+			::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+			  color: #fff;
+			}
+			::-moz-placeholder { /* Firefox 19+ */
+			  color: #fff;
+			}
+			:-ms-input-placeholder { /* IE 10+ */
+			  color: #fff;
+			}
+			:-moz-placeholder { /* Firefox 18- */
+			  color: #fff;
+			}
+		}
+		&>button {
+			border: none;
+			outline: none;
+			width: 100px;
+			height: 40px;
+			border-radius: 2.5px;
+			color: #35D2E5;
+			margin-top: 30px;
+			background: #fff;
+			border: 2px solid #35D2E5;
+		}
+	}
+}
+
+.edit-bar-show {
+	visibility: visible;
+	transform: translateY(0%) scale(1);
+	opacity: 1;
+	transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}

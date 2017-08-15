@@ -4,6 +4,7 @@ import update from 'immutability-helper';
 import Header from './components/header/Header';
 import Dashboard from './components/dashboard/Dashboard';
 import MobileMenu from './components/mobileMenu/MobileMenu';
+import EditBar from './components/editBar/EditBar';
 import './App.scss';
 
 export default class App extends Component {
@@ -14,6 +15,7 @@ export default class App extends Component {
 			burgerToggle: true,
       dashboardClasses: "dashboard",
       menuClasses: "mobile-menu",
+      editBarClasses: "edit-bar",
       height: (window.innerHeight - 50) + "px",
       startDay: 8,
       endDay: 7,
@@ -25,21 +27,24 @@ export default class App extends Component {
             times: {
               on: "10am",
               off: "4pm"
-            }
+            },
+            color: "#48CBC3"
           },
           {
             employee: "Steve", 
             times: {
               on: "8am",
               off: "7pm"
-            }
+            },
+            color: "#D46096"
           },
           {
             employee: "Larry", 
             times: {
               on: "10am",
               off: "7pm"
-            }
+            },
+            color: "#91D723"
           }
         ],
         [
@@ -48,21 +53,24 @@ export default class App extends Component {
             times: {
               on: "8am",
               off: "5pm"
-            }
+            },
+            color: "#D46096"
           },
           {
             employee: "Alex", 
             times: {
               on: "9am",
               off: "4pm"
-            }
+            },
+            color: "#48CBC3"
           },
           {
             employee: "Larry", 
             times: {
               on: "4pm",
               off: "7pm"
-            }
+            },
+            color: "#91D723"
           }
         ],
         [
@@ -71,21 +79,24 @@ export default class App extends Component {
             times: {
               on: "10am",
               off: "4pm"
-            }
+            },
+            color: "#48CBC3"
           },
           {
             employee: "Steve", 
             times: {
               on: "8am",
               off: "7pm"
-            }
+            },
+            color: "#D46096"
           },
           {
             employee: "Larry", 
             times: {
               on: "12am",
               off: "6pm"
-            }
+            },
+            color: "#91D723"
           }
         ],
         [
@@ -94,21 +105,24 @@ export default class App extends Component {
             times: {
               on: "8am",
               off: "4pm"
-            }
+            },
+            color: "#48CBC3"
           },
           {
             employee: "Steve", 
             times: {
               on: "8am",
               off: "3pm"
-            }
+            },
+            color: "#D46096"
           },
           {
             employee: "Larry", 
             times: {
               on: "12pm",
               off: "7pm"
-            }
+            },
+            color: "#91D723"
           }
         ],
         [
@@ -117,21 +131,24 @@ export default class App extends Component {
             times: {
               on: "12pm",
               off: "4pm"
-            }
+            },
+            color: "#48CBC3"
           },
           {
             employee: "Steve", 
             times: {
               on: "12pm",
               off: "4pm"
-            }
+            },
+            color: "#D46096"
           },
           {
             employee: "Larry", 
             times: {
               on: "8pm",
               off: "7pm"
-            }
+            },
+            color: "#91D723"
           }
         ],
         [
@@ -140,21 +157,24 @@ export default class App extends Component {
             times: {
               on: "8am",
               off: "7pm"
-            }
+            },
+            color: "#48CBC3"
           },
           {
             employee: "Steve", 
             times: {
               on: "12pm",
               off: "7pm"
-            }
+            },
+            color: "#D46096"
           },
           {
             employee: "Larry", 
             times: {
               on: "4pm",
               off: "7pm"
-            }
+            },
+            color: "#91D723"
           }
         ],
         [
@@ -163,24 +183,35 @@ export default class App extends Component {
             times: {
               on: "12pm",
               off: "7pm"
-            }
+            },
+            color: "#D46096"
           },
           {
             employee: "Alex", 
             times: {
               on: "10am",
               off: "4pm"
-            }
+            },
+            color: "#48CBC3"
           },
           {
             employee: "Larry", 
             times: {
               on: "8am",
               off: "4pm"
-            }
+            },
+            color: "#91D723"
           }
         ],
-      ]
+      ],
+      currentShift: {
+        employee: "Alex", 
+        times: {
+          on: "10am",
+          off: "4pm"
+        },
+        color: "#48CBC3"
+      }
 		}
 	}
 
@@ -207,17 +238,23 @@ export default class App extends Component {
         menuClasses : (prevState.menuClasses === "mobile-menu") ? 
                           "mobile-menu mobile-menu-show" : 
                           "mobile-menu"
-        // dashboardClasses : (prevState.dashboardClasses === "dashboard") ? 
-        //                   "dashboard dashboard-move-left" : 
-        //                   "dashboard",
-        // newPropertyFormClasses : (!prevState.burgerToggle) ? 
-        //                   "new-property-form" : 
-        //                   prevState.newPropertyFormClasses,
-        // propertyPageClasses: (prevState.menuClasses === "mobile-menu") ?
-        //                   prevState.propertyPageClasses + " property-page-shift" :
-        //                   prevState.propertyPageClasses.replace("property-page-shift", "")
       }
     });
+  }
+
+  editShift(day, shift){
+    if(this.state.editBarClasses === "edit-bar") {
+      var skedge = this.state.schedule;
+      var c = skedge[day][shift];
+      this.setState({
+        editBarClasses: "edit-bar edit-bar-show",
+        currentShift: c
+      });
+    } else {
+      this.setState({
+        editBarClasses: "edit-bar"
+      });
+    }
   }
 
 	render(){
@@ -232,10 +269,16 @@ export default class App extends Component {
           classes={this.state.dashboardClasses}
           schedule={this.state.schedule}
           startDay={this.state.startDay}
-          endDay={this.state.endDay} />
+          endDay={this.state.endDay}
+          editShift={this.editShift.bind(this)} />
 
         <MobileMenu
           classes={this.state.menuClasses} />
+
+        <EditBar 
+          classes={this.state.editBarClasses}
+          currentShift={this.state.currentShift}
+          editShift={this.editShift.bind(this)} />
 
 			</div>
 		);

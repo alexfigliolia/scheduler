@@ -8,7 +8,8 @@ export default class Dashboard extends Component {
 			scheduleHeight: (window.innerHeight - 130) + "px",
 			hours: [],
 			barClasses: "slot",
-			colors: ["#48CBC3", "#D463C5", "#E2C83C"]
+			colors: ["#48CBC3", "#D46096", "#91D723"],
+			month: []
 		}
 	}
 	componentDidMount(){
@@ -24,7 +25,8 @@ export default class Dashboard extends Component {
 			this.setState({
 				barClasses: "slot slotted"
 			});
-		}.bind(self), 1000)
+		}.bind(self), 1000);
+		this.getDays(getDaysInMonth(8));
 	}
 
 	createHours(start, end){
@@ -45,6 +47,17 @@ export default class Dashboard extends Component {
 			hours.push(i);
 		}
 		return (hours[hours.length - 1] - hours[0] >= 12) ? (hours[hours.length - 1] - hours[0]) - 12 : hours[hours.length - 1] - hours[0] ;
+	}
+
+	getDays(num){
+		var m = [];
+		for(var i = 0; i<num; i++) {
+			var d = i + 1
+			m.push(d);
+		}
+		this.setState({
+			month: m
+		});
 	}
 
 	render(){
@@ -71,7 +84,24 @@ export default class Dashboard extends Component {
 						}
 					</div>
 					<div className="schedule" style={{height: this.state.scheduleHeight}}>
-						<div className="times">
+						<div className="date-picker">
+							<h3>Select a date</h3>
+							<div className="picker">
+								<div className="month-picker">
+									August
+								</div>
+								<div className="day-picker">
+									{
+										this.state.month.map((day, i) => {
+											return(
+												<div data-num={i + 1} key={i}>{i+1}</div>
+											);
+										})
+									}
+								</div>
+							</div>
+						</div>
+						<div className="times" style={{height: this.state.scheduleHeight}}>
 							{
 								this.state.hours.map((hour, i) => {
 									return (
@@ -90,7 +120,6 @@ export default class Dashboard extends Component {
 									<div key={i} className="fullday">
 										{
 											day.map((slot, j) => {
-												console.log(80 / day.length + "%");
 												return (
 													<div 
 														key={j} 
@@ -118,3 +147,7 @@ export default class Dashboard extends Component {
 		);
 	}
 }
+
+var getDaysInMonth = function(month, year = 2017) {
+ return new Date(year, month, 0).getDate();
+};

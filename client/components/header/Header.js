@@ -6,7 +6,7 @@ export default class Header extends Component {
 		return(
 			<header className="header">
 				<div>
-					<h1>Name</h1>
+					<h1>Scheduler</h1>
 					<Burger classes={this.props.burgerStuff} burger={this.props.burger}/>
 				</div>
 			</header>

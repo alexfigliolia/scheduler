@@ -5,8 +5,11 @@
 	margin-top: 100px;
 	background: #263346;
 	box-shadow: -5px 10px 20px rgba(0,0,0,0.19), -5px 6px 6px rgba(0,0,0,0.23);
-	z-index: 2;
+	z-index: 5;
 	transition-duration: 0.3s;
+	transform-style: preserve-3d;
+	perspective: 1000px;
+	transform-origin: 100% 50%;
 	&>div {
 		@include center;
 		width: 100%;
@@ -20,6 +23,14 @@
 			height: 45px;
 			color: #fff;
 			position: fixed;
+			background: #5960BF;
+			@media #{$mq-800} {
+				position: static;
+			}
+			@media #{$mq-957} {
+				width: 80%;
+				align-self: flex-end;
+			}
 			&>h2 {
 				font-weight: 200;
 				font-size: 1.5em;
@@ -34,6 +45,12 @@
 			background: #263346;
 			@media #{$mq-800}{
 				width: 100%;
+				margin-top: 0;
+			}
+			@media #{$mq-957}{
+				width: 80%;
+				justify-content: flex-end;
+				align-self: flex-end;
 			}
 			&>.time-header {
 				align-self: flex-start;
@@ -44,6 +61,9 @@
 				position: fixed;
 				left: 0px;
 				z-index: 4;
+				@media #{$mq-800} {
+					position: static;
+				}
 			}
 			&>.day {
 				width: calc(14.285% - 5px);
@@ -105,6 +125,103 @@
 			@media #{$mq-800}{
 				width: 100%;
 			}
+			&>.date-picker {
+				display: none;
+				@media #{$mq-957} {
+					@include center;
+					width: 20%;
+					flex-direction: column;
+					color: #fff;
+					margin-top: -5%;
+				}
+				&>.picker{
+					width: 90%;
+					height: 280px;
+					@include center;
+					justify-content: flex-start;
+					flex-direction: column;
+					background: #fff;
+					background: #666DD2;
+					border-radius: 5px;
+					@include headerShadow;
+					&>.month-picker{
+						width: 100%;
+						// border-bottom: 1px solid #fff;
+						height: 40px;
+						text-transform: uppercase;
+						font-weight: 900;
+						background: #5B61BC;
+						color: #fff;
+						@include center;
+						border-top-right-radius: 5px;
+						border-top-left-radius: 5px;
+						font-size: 0.9em;
+					}
+					&>.day-picker {
+						@include center;
+						width: 95%;
+						height: 100%;
+						flex-wrap: wrap;
+						flex-direction: row;
+						justify-content: space-between;
+						overflow: scroll;
+						&>div {
+							cursor: pointer;
+							margin: 1.5px;
+							width: 30px;
+							height: 30px;
+							border-radius: 50%;
+							background: #666DD2;
+							@include center;
+							color: #fff;
+							font-size: 0.85em;
+							position: relative;
+							transition-duration: 0.3s;
+							&::before {
+								content: attr(data-num);
+								background: #fff;
+								position: absolute;
+								top: 0;
+								left: 0;
+								height: 100%;
+								width: 100%;
+								border-radius: 50%;
+								transform: scale(0);
+								transition-duration: 0.3s;
+								z-index: 2;
+								@include center;
+								color: #666DD2;
+								font-weight: 900;
+							}
+							&::after {
+								content: "";
+								background: #fff;
+								position: absolute;
+								top: 0;
+								left: 0;
+								height: 100%;
+								width: 100%;
+								border-radius: 50%;
+								transform: scale(0);
+								transition-duration: 0.3s;
+								z-index: 1;
+
+							}
+							&:hover {
+								// background: #fff;
+								@include headerShadow;
+								color: #666DD2;
+								&::after {
+									transform: scale(1);
+								}
+								&::before {
+									transform: scale(1);
+								}
+							}
+						}
+					}
+				}
+			}
 			&>.times {
 				height: calc(100% - 127px);
 				width: 35px;
@@ -119,6 +236,7 @@
 				box-shadow: 10px 0px 20px rgba(0,0,0,0.19), 6px 0px 6px rgba(0,0,0,0.23);
 				@media #{$mq-800}{
 					box-shadow: none;
+					position: static;
 				}
 				&>.time {
 					height: 9.091%;
@@ -148,6 +266,9 @@
 				height: 100%;
 				border-right: 1px solid rgba(#fff, 0.05);
 				position: relative;
+				@media #{$mq-957} {
+					width: calc(11.42857% - 5px);
+				}
 				&>.slot{
 					position: absolute;
 					width: 40%;
@@ -165,6 +286,7 @@
 						color: #fff;
 						transform: rotate(90deg);
 						font-size: 0.7em;
+						margin-top: 20px;
 						@media #{$mq-670} {
 							font-size: 0.85em;
 						}
@@ -188,5 +310,6 @@
 }
 
 .dashboard-move{
-	transform: translateX(50%) scale(0.9) rotateY(-30deg) translateZ(100px);
+	transform: translateX(60%) scale(0.9) rotateY(-30deg) translateZ(200px);
+	overflow: hidden;
 }

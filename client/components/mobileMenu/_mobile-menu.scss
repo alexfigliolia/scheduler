@@ -5,7 +5,7 @@
 	height: calc(100% - 50px);
 	width: 50%;
 	@include center;
-	background: #fff;
+	// background: #fff;
 	transform: scale(0.9);
 	transition-duration: 0.3s;
 	@media #{$mq-800} {
@@ -23,14 +23,14 @@
 			font-size: 1.4em;
 			// text-transform: uppercase;
 			font-weight: 300;
-			color: #2E405A;
+			color:#666DD2;
 			cursor: pointer;
 			&:hover {
 				color: #2E405A;
 			}
 		}
 		&>a:last-of-type {
-			background: $redish;
+			background: #666DD2;
 			width: 80%;
 			max-width: 300px;
 			@include center;

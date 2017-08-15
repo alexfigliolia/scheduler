@@ -7,7 +7,7 @@
 	height: 50px;
 	// @include headerShadow;
 	background: #2E405A;
-	z-index: 5;
+	z-index: 10;
 	&>div {
 		@include center;
 		justify-content: space-between;
@@ -17,6 +17,7 @@
 			margin-left: 10px;
 			color:#fff;
 			font-size: 1.5em;
+			text-transform: uppercase;
 		}
 	}
 }

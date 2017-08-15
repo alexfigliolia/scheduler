@@ -37,7 +37,7 @@
 		@include center;
 		width: 100%;
 		flex-direction: column;
-		justify-content: flex-start;
+		justify-content: flex-end;
 		height: 100%;
 		&>.select-week {
 			@include center;
@@ -46,6 +46,7 @@
 			height: 45px;
 			color: #fff;
 			position: fixed;
+			display: none;
 			@media #{$mq-800} {
 				position: static;
 			}
@@ -59,7 +60,7 @@
 			}
 		}
 		&>.days {
-			margin-top: 45px;
+			// margin-top: 45px;
 			width: 170%;
 			@include center;
 			align-self: flex-start;
@@ -88,6 +89,7 @@
 				@media #{$mq-800} {
 					position: static;
 					background: url('clock.svg') no-repeat center;
+					box-shadow: none;
 				}
 			}
 			&>.day {
@@ -148,6 +150,7 @@
 			// background: #263346;
 			overflow-x: scroll;
 			overflow-y: hidden;
+			-webkit-overflow-scrolling: touch;
 			@media #{$mq-800}{
 				width: 100%;
 			}
@@ -172,7 +175,7 @@
 					// width: 85%;
 					&>button {
 						padding: 10px 20px;
-						background: #4D55B4;
+						background: #646FF7;
 						border: none;
 						outline: none;
 						border-radius: 2.5px;
@@ -291,6 +294,7 @@
 				@media #{$mq-800}{
 					background: none;
 					position: static;
+					box-shadow: none;
 				}
 				&>.time {
 					height: 9.091%;

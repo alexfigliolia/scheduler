@@ -5,9 +5,10 @@
 	@include center;
 	width: 100%;
 	height: 50px;
-	background: url('blur.jpg') no-repeat 50% 100%;
+	background: url('blur.jpg') no-repeat 50% 00%;
 	background-size: 100% 100vh;
 	z-index: 10;
+	// @include headerShadow;
 	&::after {
 		content: '';
 		position: absolute;
@@ -15,7 +16,7 @@
 		left: 0;
 		width: 100%;
 		height: 50px;
-		background: rgba(#5364D8, 0.45); 
+		background: rgba(#000, 0.25); 
 		z-index: 2;
 		@media #{$mq-800} {
 			display: none;
@@ -35,6 +36,30 @@
 			font-size: 1.5em;
 			text-transform: uppercase;
 			z-index: 10;
+		}
+		&>nav {
+			display: none;
+			@media #{$mq-800} {
+				@include center;
+			}
+			&>a {
+				margin: auto 20px;
+				text-transform: uppercase;
+				color: #fff;
+				font-size: 0.9em;
+				cursor: pointer;
+			}
+			&>a:last-of-type {
+				width: 100px;
+				height: 35px;
+				@include center;
+				border-radius: 5px;
+				margin-right: 10px;
+				color: #fff;
+				@include buttonShadow;
+				background: #727AFF;
+				font-size: 0.8em;
+			}
 		}
 	}
 }

@@ -8,6 +8,11 @@ export default class Header extends Component {
 				<div>
 					<h1>Schedge</h1>
 					<Burger classes={this.props.burgerStuff} burger={this.props.burger}/>
+					<nav>
+						<a>Employees</a>
+						<a>Farts</a>
+						<a>Log Out</a>
+					</nav>
 				</div>
 			</header>
 		);

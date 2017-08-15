@@ -5,7 +5,7 @@ export default class Dashboard extends Component {
 		super(props);
 		this.state = {
 			height: (window.innerHeight - 50) + "px",
-			scheduleHeight: (window.innerHeight - 130) + "px",
+			scheduleHeight: (window.innerHeight - 87.5) + "px",
 			hours: [],
 			barClasses: "slot",
 			colors: ["#48CBC3", "#D46096", "#91D723"],

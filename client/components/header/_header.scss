@@ -5,10 +5,25 @@
 	@include center;
 	width: 100%;
 	height: 50px;
-	// @include headerShadow;
-	background: #2E405A;
-	background: #5960BF;
+	background: url('blur.jpg') no-repeat 50% 100%;
+	background-size: 100% 100vh;
 	z-index: 10;
+	&::after {
+		content: '';
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 100%;
+		height: 50px;
+		background: rgba(#5364D8, 0.45); 
+		z-index: 2;
+		@media #{$mq-800} {
+			display: none;
+		}
+	}
+	@media #{$mq-800} {
+		background: rgba(#000, 0.25);
+	}
 	&>div {
 		@include center;
 		justify-content: space-between;
@@ -19,12 +34,14 @@
 			color:#fff;
 			font-size: 1.5em;
 			text-transform: uppercase;
+			z-index: 10;
 		}
 	}
 }
 #burg {
 	height: 50px;
 	width: 50px;
+	z-index: 10;
 	@media #{$mq-800} {
 		display: none;
 	}

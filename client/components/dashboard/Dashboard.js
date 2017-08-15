@@ -26,7 +26,7 @@ export default class Dashboard extends Component {
 				barClasses: "slot slotted"
 			});
 		}.bind(self), 1000);
-		this.getDays(getDaysInMonth(2));
+		this.getDays(getDaysInMonth(8));
 	}
 
 	createHours(start, end){

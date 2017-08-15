@@ -3,13 +3,36 @@
 	width: 100%;
 	@include center;
 	margin-top: 100px;
-	background: #263346;
 	box-shadow: -5px 10px 20px rgba(0,0,0,0.19), -5px 6px 6px rgba(0,0,0,0.23);
 	z-index: 5;
 	transition-duration: 0.3s;
 	transform-style: preserve-3d;
 	perspective: 1000px;
 	transform-origin: 100% 50%;
+	&::after {
+		content: "";
+		position: fixed;
+		top: 0;
+		left: 0;
+		height: 120%;
+		width: 120%;
+		background: url('blur.jpg') no-repeat center;
+		background-size: cover;
+		z-index: -2;
+		@media #{$mq-800} {
+			background: none;
+		}
+	}
+	&::before {
+		content: "";
+		position: fixed;
+		top: 0;
+		left: 0;
+		height: 120%;
+		width: 120%;
+		background: rgba(#000, 0.25);
+		z-index: -1;
+	}
 	&>div {
 		@include center;
 		width: 100%;
@@ -18,18 +41,16 @@
 		height: 100%;
 		&>.select-week {
 			@include center;
-			background: $redish;
+			// background: $redish;
 			width: 100%;
 			height: 45px;
 			color: #fff;
 			position: fixed;
-			// background: #263346;
-			// background: #5A63CB;
 			@media #{$mq-800} {
 				position: static;
 			}
 			@media #{$mq-1070} {
-				width: 80%;
+				width: calc(100% - 300px);
 				align-self: flex-end;
 			}
 			&>h2 {
@@ -43,27 +64,30 @@
 			@include center;
 			align-self: flex-start;
 			justify-content: flex-end;
-			background: #263346;
+			// background: #263346;
 			@media #{$mq-800}{
 				width: 100%;
 				margin-top: 0;
 			}
 			@media #{$mq-1070}{
-				width: 80%;
+				width: calc(100% - 300px);
 				justify-content: flex-end;
 				align-self: flex-end;
 			}
 			&>.time-header {
 				align-self: flex-start;
 				width: 35px;
-				height: 32px;
-				background: #263346 url('clock.svg') no-repeat center;
+				height: 35px;
+				background: rgba(#000, 0.35) url('clock.svg') no-repeat center;
 				background-size: 25px;
+				box-shadow: 10px 0px 20px rgba(0,0,0,0.19), 6px 0px 6px rgba(0,0,0,0.23);
 				position: fixed;
 				left: 0px;
 				z-index: 4;
+				border-top-right-radius: 5px;
 				@media #{$mq-800} {
 					position: static;
+					background: url('clock.svg') no-repeat center;
 				}
 			}
 			&>.day {
@@ -84,7 +108,7 @@
 					font-weight: 900;
 					font-size: 0.85em;
 					z-index: 2;
-					border-right: 1px solid rgba(#fff, 0.05);
+					border-right: 1px solid rgba(#fff, 0.15);
 					@media #{$mq-670} {
 						content: attr(data-lg);
 					}
@@ -96,7 +120,7 @@
 					left: 0;
 					height: 90%;
 					width: 100%;
-					background: #263346;
+					// background: #263346;
 					z-index: 1;
 					transition-duration: 0.2s;
 				}
@@ -121,8 +145,9 @@
 			flex-direction: row;
 			justify-content: flex-end;
 			align-self: flex-start;
-			background: #263346;
-			overflow-y: scroll;
+			// background: #263346;
+			overflow-x: scroll;
+			overflow-y: hidden;
 			@media #{$mq-800}{
 				width: 100%;
 			}
@@ -130,7 +155,7 @@
 				display: none;
 				@media #{$mq-1070} {
 					@include center;
-					width: 20%;
+					width: 300px;
 					height: 100%;
 					flex-direction: column;
 					color: #fff;
@@ -154,6 +179,7 @@
 						font-weight: 200;
 						text-transform: uppercase;
 						font-size: 0.9em;
+						@include buttonShadow;
 					}
 					&>button:first-of-type {
 						margin-right: 7.5px;
@@ -168,7 +194,6 @@
 					@include center;
 					justify-content: flex-start;
 					flex-direction: column;
-					background: #fff;
 					background: #666DD2;
 					border-radius: 5px;
 					@include headerShadow;
@@ -258,12 +283,13 @@
 				justify-content: flex-start;
 				border-right: 1px solid rgba(#fff, 0.05);
 				position: fixed;
-				background: #263346;
+				// background: #263346;
+				background: rgba(#000, 0.35);
 				z-index: 2;
 				left: 0px;
 				box-shadow: 10px 0px 20px rgba(0,0,0,0.19), 6px 0px 6px rgba(0,0,0,0.23);
 				@media #{$mq-800}{
-					box-shadow: none;
+					background: none;
 					position: static;
 				}
 				&>.time {
@@ -292,11 +318,11 @@
 			&>.fullday {
 				width: calc(14.285% - 5px);
 				height: 100%;
-				border-right: 1px solid rgba(#fff, 0.05);
+				border-right: 1px solid rgba(#fff, 0.25);
 				position: relative;
-				background: #263346;
+				// background: #263346;
 				@media #{$mq-1070} {
-					width: calc(11.42857% - 5px);
+					width: calc(((100% - 300px) / 7) - 5px);
 				}
 				&>.slot{
 					position: absolute;
@@ -326,7 +352,7 @@
 				}
 			}
 			&>.fullday:nth-of-type(even) {
-				background: #293850;
+				// background: #293850;
 			}
 			&>.selected {
 				background: #415D87;

@@ -6,12 +6,18 @@ html,
 body,
 .App {
 	// background: #263346;
+	// background: url('blur.jpg') no-repeat center;
+	// background-size: cover;
 	font-family: -apple-system, BlinkMacSystemFont, “Segoe UI”, Roboto, Helvetica, Arial, sans-serif;
 	height: 100%;
 	width: 100%;
 	&::after {
 		transition-duration: 0.3s;
 		background: rgba(#000, 0);
+	}
+	@media #{$mq-800} {
+		background: url('blur.jpg') no-repeat center;
+		background-size: cover;
 	}
 }
 .App {

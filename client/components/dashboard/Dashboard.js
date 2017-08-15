@@ -26,7 +26,7 @@ export default class Dashboard extends Component {
 				barClasses: "slot slotted"
 			});
 		}.bind(self), 1000);
-		this.getDays(getDaysInMonth(8));
+		this.getDays(getDaysInMonth(2));
 	}
 
 	createHours(start, end){
@@ -85,6 +85,11 @@ export default class Dashboard extends Component {
 					</div>
 					<div className="schedule" style={{height: this.state.scheduleHeight}}>
 						<div className="date-picker">
+							<h3>Manage your schedules</h3>
+							<div className="buttons">
+								<button>Create</button>
+								<button>Edit</button>
+							</div>
 							<h3>Select a date</h3>
 							<div className="picker">
 								<div className="month-picker">

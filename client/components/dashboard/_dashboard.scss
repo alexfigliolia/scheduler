@@ -23,11 +23,12 @@
 			height: 45px;
 			color: #fff;
 			position: fixed;
-			background: #5960BF;
+			// background: #263346;
+			// background: #5A63CB;
 			@media #{$mq-800} {
 				position: static;
 			}
-			@media #{$mq-957} {
+			@media #{$mq-1070} {
 				width: 80%;
 				align-self: flex-end;
 			}
@@ -47,7 +48,7 @@
 				width: 100%;
 				margin-top: 0;
 			}
-			@media #{$mq-957}{
+			@media #{$mq-1070}{
 				width: 80%;
 				justify-content: flex-end;
 				align-self: flex-end;
@@ -56,7 +57,7 @@
 				align-self: flex-start;
 				width: 35px;
 				height: 32px;
-				background: #415D87 url('clock.svg') no-repeat center;
+				background: #263346 url('clock.svg') no-repeat center;
 				background-size: 25px;
 				position: fixed;
 				left: 0px;
@@ -95,7 +96,7 @@
 					left: 0;
 					height: 90%;
 					width: 100%;
-					background: #415D87;
+					background: #263346;
 					z-index: 1;
 					transition-duration: 0.2s;
 				}
@@ -127,16 +128,43 @@
 			}
 			&>.date-picker {
 				display: none;
-				@media #{$mq-957} {
+				@media #{$mq-1070} {
 					@include center;
 					width: 20%;
+					height: 100%;
 					flex-direction: column;
 					color: #fff;
 					margin-top: -5%;
 				}
+				&>h3 {
+					width: 95%;
+					text-align: center;
+				}
+				&>.buttons {
+					@include center;
+					flex-direction: row;
+					justify-content: space-between;
+					// width: 85%;
+					&>button {
+						padding: 10px 20px;
+						background: #4D55B4;
+						border: none;
+						outline: none;
+						border-radius: 2.5px;
+						font-weight: 200;
+						text-transform: uppercase;
+						font-size: 0.9em;
+					}
+					&>button:first-of-type {
+						margin-right: 7.5px;
+					}
+					&>button:last-of-type {
+						margin-left: 7.5px;
+					}
+				}
 				&>.picker{
 					width: 90%;
-					height: 280px;
+					height: 300px;
 					@include center;
 					justify-content: flex-start;
 					flex-direction: column;
@@ -147,7 +175,7 @@
 					&>.month-picker{
 						width: 100%;
 						// border-bottom: 1px solid #fff;
-						height: 40px;
+						height: 80px;
 						text-transform: uppercase;
 						font-weight: 900;
 						background: #5B61BC;
@@ -266,7 +294,8 @@
 				height: 100%;
 				border-right: 1px solid rgba(#fff, 0.05);
 				position: relative;
-				@media #{$mq-957} {
+				background: #263346;
+				@media #{$mq-1070} {
 					width: calc(11.42857% - 5px);
 				}
 				&>.slot{

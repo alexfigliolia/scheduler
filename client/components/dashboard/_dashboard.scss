@@ -343,6 +343,7 @@
 					transition: transform 0.5s;
 					align-items: flex-start;
 					overflow: hidden;
+					cursor: pointer;
 					&>p {
 						color: #fff;
 						transform: rotate(90deg);

@@ -26,19 +26,12 @@
 		height: 50%;
 		width: 50%;
 	}
-	&>button {
+	&>svg {
 		position: absolute;
-		right: 5px;
 		top: 5px;
-		height: 30px;
-		width: 30px;
+		right: 5px;
 		border-radius: 50%;
-		outline: none;
-		border: none;
-		background: #35D2E5 url('cross.svg') no-repeat center;
-		background-size: 70%;
-		@include center;
-		@include buttonShadow;
+		cursor: pointer;
 	}
 	&>div {
 		@include center;

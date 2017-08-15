@@ -211,8 +211,10 @@ export default class App extends Component {
           off: "4pm"
         },
         color: "#48CBC3"
-      }
+      },
+      currentShiftDay: "Monday"
 		}
+    this.week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 	}
 
   componentWillMount(){
@@ -248,7 +250,8 @@ export default class App extends Component {
       var c = skedge[day][shift];
       this.setState({
         editBarClasses: "edit-bar edit-bar-show",
-        currentShift: c
+        currentShift: c,
+        currentShiftDay: this.week[day]
       });
     } else {
       this.setState({
@@ -278,6 +281,7 @@ export default class App extends Component {
         <EditBar 
           classes={this.state.editBarClasses}
           currentShift={this.state.currentShift}
+          shiftDay={this.state.currentShiftDay}
           editShift={this.editShift.bind(this)} />
 
 			</div>

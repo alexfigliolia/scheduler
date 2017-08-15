@@ -16,7 +16,7 @@ export default class Dashboard extends Component {
 		window.addEventListener('resize', function(){
 			self.setState({
 				height: (window.innerHeight - 50) + "px",
-				scheduleHeight: (window.innerHeight - 130) + "px"
+				scheduleHeight: (window.innerHeight - 87.5) + "px"
 			})
 		});
 		self.createHours(this.props.startDay, this.props.endDay);

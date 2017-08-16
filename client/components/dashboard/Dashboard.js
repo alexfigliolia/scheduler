@@ -70,9 +70,6 @@ export default class Dashboard extends Component {
 		return(
 			<section className={this.props.classes} style={{height: this.state.height}}>
 				<div>
-					<div className="select-week">
-						<h2>Current Week</h2>
-					</div>
 					<div className="days">
 						<div className="time-header"></div>
 						{
@@ -116,9 +113,9 @@ export default class Dashboard extends Component {
 								this.state.hours.map((hour, i) => {
 									return (
 										<div 
-											key={(hour > 12) ? (hour - 12) + "pm" : hour + "am"} 
+											key={(hour >= 12) ? (hour - 12 === 0) ? hour + "pm" : (hour - 12) + "pm": hour + "am"} 
 											className="time">
-											<div>{(hour > 12) ? (hour - 12) + "pm" : hour + "am"}</div>
+											<div>{(hour >= 12) ? (hour - 12 === 0) ? hour + "pm" : (hour - 12) + "pm": hour + "am"} </div>
 										</div>
 									);
 								})

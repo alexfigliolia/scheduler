@@ -8,18 +8,30 @@ body,
 	font-family: -apple-system, BlinkMacSystemFont, “Segoe UI”, Roboto, Helvetica, Arial, sans-serif;
 	height: 100%;
 	width: 100%;
-	&::after {
-		transition-duration: 0.3s;
-		background: rgba(#000, 0);
-	}
-	@media #{$mq-800} {
-		background: url('blur.jpg') no-repeat center;
-		background-size: cover;
-	}
+	position: relative;
 }
 .App {
-	position: relative;
 	@include center;
+	background: url('blur.jpg') no-repeat center;
+	background-size: cover;
+	position: relative;
+	height: 100%;
+	width: 100%;
+	overflow-y: hidden;
+	-webkit-overflow-scrolling: touch;
+	&::after {
+		content: "";
+		height: 100%;
+		width: 170%;
+		position: absolute;
+		top: 0;
+		left: 0;
+		transition-duration: 0.3s;
+		background: rgba(#000, 0.15);
+		@media #{$mq-800} {
+			width: 100%;
+		}
+	}
 }
 
 @import 'components/header/header';

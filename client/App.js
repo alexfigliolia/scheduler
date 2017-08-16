@@ -16,7 +16,7 @@ export default class App extends Component {
       dashboardClasses: "dashboard",
       menuClasses: "mobile-menu",
       editBarClasses: "edit-bar",
-      height: (window.innerHeight - 50) + "px",
+      height: window.innerHeight + "px",
       startDay: 8,
       endDay: 7,
       schedule: 
@@ -93,7 +93,7 @@ export default class App extends Component {
           {
             employee: "Larry", 
             times: {
-              on: "12am",
+              on: "12pm",
               off: "6pm"
             },
             color: "#91D723"
@@ -221,7 +221,7 @@ export default class App extends Component {
     var self = this;
     window.addEventListener('resize', function(){
       self.setState({
-        height: (window.innerHeight - 50) + "px"
+        height: window.innerHeight + "px"
       })
     });
   }

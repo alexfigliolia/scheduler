@@ -32,6 +32,9 @@
 		right: 5px;
 		border-radius: 50%;
 		cursor: pointer;
+		height: 27.5px;
+		width: 27.5px;
+		padding: 2.5px;
 	}
 	&>div {
 		@include center;

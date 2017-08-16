@@ -36,7 +36,7 @@ export default class App extends Component {
               on: "8am",
               off: "7pm"
             },
-            color: "#D46096"
+            color: "#EB7CDA"
           },
           {
             employee: "Larry", 
@@ -44,7 +44,7 @@ export default class App extends Component {
               on: "10am",
               off: "7pm"
             },
-            color: "#91D723"
+            color: "#7D78D4"
           }
         ],
         [
@@ -54,7 +54,7 @@ export default class App extends Component {
               on: "8am",
               off: "5pm"
             },
-            color: "#D46096"
+            color: "#EB7CDA"
           },
           {
             employee: "Alex", 
@@ -67,10 +67,10 @@ export default class App extends Component {
           {
             employee: "Larry", 
             times: {
-              on: "4pm",
+              on: "3pm",
               off: "7pm"
             },
-            color: "#91D723"
+            color: "#7D78D4"
           }
         ],
         [
@@ -88,7 +88,7 @@ export default class App extends Component {
               on: "8am",
               off: "7pm"
             },
-            color: "#D46096"
+            color: "#EB7CDA"
           },
           {
             employee: "Larry", 
@@ -96,7 +96,7 @@ export default class App extends Component {
               on: "12pm",
               off: "6pm"
             },
-            color: "#91D723"
+            color: "#7D78D4"
           }
         ],
         [
@@ -114,7 +114,7 @@ export default class App extends Component {
               on: "8am",
               off: "3pm"
             },
-            color: "#D46096"
+            color: "#EB7CDA"
           },
           {
             employee: "Larry", 
@@ -122,7 +122,7 @@ export default class App extends Component {
               on: "12pm",
               off: "7pm"
             },
-            color: "#91D723"
+            color: "#7D78D4"
           }
         ],
         [
@@ -140,15 +140,15 @@ export default class App extends Component {
               on: "12pm",
               off: "4pm"
             },
-            color: "#D46096"
+            color: "#EB7CDA"
           },
           {
             employee: "Larry", 
             times: {
-              on: "8pm",
+              on: "8am",
               off: "7pm"
             },
-            color: "#91D723"
+            color: "#7D78D4"
           }
         ],
         [
@@ -166,15 +166,15 @@ export default class App extends Component {
               on: "12pm",
               off: "7pm"
             },
-            color: "#D46096"
+            color: "#EB7CDA"
           },
           {
             employee: "Larry", 
             times: {
-              on: "4pm",
+              on: "3pm",
               off: "7pm"
             },
-            color: "#91D723"
+            color: "#7D78D4"
           }
         ],
         [
@@ -184,7 +184,7 @@ export default class App extends Component {
               on: "12pm",
               off: "7pm"
             },
-            color: "#D46096"
+            color: "#EB7CDA"
           },
           {
             employee: "Alex", 
@@ -200,7 +200,7 @@ export default class App extends Component {
               on: "8am",
               off: "4pm"
             },
-            color: "#91D723"
+            color: "#7D78D4"
           }
         ],
       ],
@@ -244,7 +244,7 @@ export default class App extends Component {
     });
   }
 
-  editShift(day, shift){
+  displayEditShift(day, shift){
     if(this.state.editBarClasses === "edit-bar") {
       var skedge = this.state.schedule;
       var c = skedge[day][shift];
@@ -260,6 +260,19 @@ export default class App extends Component {
     }
   }
 
+  editShift(timeOn, timeOff, day){
+    var skedge = this.state.schedule,
+        employee;
+    for(var i = 0; i<skedge[day].length; i++) {
+      if(skedge[day][i].employee === this.state.currentShift.employee) { employee = i; break;}
+    }
+    var updateTimeOn = update(skedge, {[day]: {[employee]: {times: {on: {$set: timeOn}}}}});
+    var updateTimeOnAndOff = update(updateTimeOn, {[day]: {[employee]: {times: {off: {$set: timeOff}}}}});
+    this.setState({
+      schedule: updateTimeOnAndOff
+    }, this.displayEditShift());
+  }
+
 	render(){
 		return (
 			<div className="App" style={{height: this.state.height}}>
@@ -273,7 +286,7 @@ export default class App extends Component {
           schedule={this.state.schedule}
           startDay={this.state.startDay}
           endDay={this.state.endDay}
-          editShift={this.editShift.bind(this)} />
+          editShift={this.displayEditShift.bind(this)} />
 
         <MobileMenu
           classes={this.state.menuClasses} />
@@ -281,7 +294,9 @@ export default class App extends Component {
         <EditBar 
           classes={this.state.editBarClasses}
           currentShift={this.state.currentShift}
+          currentShiftDay={this.state.currentShiftDay}
           shiftDay={this.state.currentShiftDay}
+          displayEditShift={this.displayEditShift.bind(this)}
           editShift={this.editShift.bind(this)} />
 
 			</div>

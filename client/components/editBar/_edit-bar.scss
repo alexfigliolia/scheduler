@@ -20,6 +20,18 @@
 		height: 50%;
 		width: 70%;
 	}
+	@media #{$mq-890} {
+		top: 25%;
+		left: 25%;
+		height: 50%;
+		width: 50%;
+	}
+	@media #{$mq-957} {
+		top: 25%;
+		left: 25%;
+		height: 50%;
+		width: 50%;
+	}
 	@media #{$mq-1070} {
 		top: 25%;
 		left: 37.5%;
@@ -34,25 +46,29 @@
 		cursor: pointer;
 		height: 27.5px;
 		width: 27.5px;
-		padding: 2.5px;
+		transform: scale(0) rotate(360deg);
+		transition-duration: 0.3s;
 	}
 	&>div {
 		@include center;
 		flex-direction: column;
+		width: 100%;
 		&>h3 {
 			font-weight: 300;
 			margin: 0;
-			margin-bottom: 30px;
+			margin-bottom: 25px;
+			width: 80%;
+			text-align: center;
 		}
 		&>div {
 			@include center;
 			flex-direction: row;
 			width: 90%;
 			background: #35D2E5;
-			border-radius: 20px;
+			border-radius: 25px;
 			justify-content: space-between;
 			height: 50px;
-			@include buttonShadow;
+			max-width: 350px;
 			&>input {
 				width: 20%;
 				margin-left: 20px;
@@ -64,6 +80,7 @@
 				border-bottom: 1px solid #fff;
 				border-radius: 0;
 				outline: none;
+				width: 60px;
 			}
 			&>input:last-of-type {
 				margin-left: 0;
@@ -72,7 +89,7 @@
 			&>h4 {
 				color: #fff;
 				font-weight: 600;
-				font-size: 1.25em;
+				font-size: 1.1em;
 				margin: 0;
 			}
 			::-webkit-input-placeholder { /* Chrome/Opera/Safari */
@@ -107,4 +124,9 @@
 	transform: translateY(0%) scale(1);
 	opacity: 1;
 	transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	&>svg {
+		transform: scale(1) rotate(0deg);
+		transition-delay: 0.5s;
+		transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	}
 }

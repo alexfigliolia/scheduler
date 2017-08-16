@@ -60,8 +60,9 @@ export default class Dashboard extends Component {
 	}
 
 	handleClick(e){
-		var day = e.target.dataset.day,
-			shift = e.target.dataset.shift;
+		var target = (e.target.tagName === "P") ? e.target.parentNode : e.target,
+			day = target.dataset.day,
+			shift = target.dataset.shift;
 		this.props.editShift(day, shift);
 	}
 
@@ -142,7 +143,9 @@ export default class Dashboard extends Component {
 														}}
 														data-day={i}
 														data-shift={j}>
+														<p>{slot.times.on}</p>
 														<p>{slot.employee}</p>
+														<p>{slot.times.off}</p>
 													</div>
 												);
 											})

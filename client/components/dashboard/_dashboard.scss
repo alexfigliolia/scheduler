@@ -10,7 +10,7 @@
 	perspective: 1000px;
 	transform-origin: 50% 100%;
 	background: transparent;
-	transition-delay: 0.4s;
+	transition-delay: 0.25s;
 	&>div {
 		@include center;
 		width: 100%;
@@ -270,16 +270,30 @@
 					transform: scaleY(0);
 					transform-origin: 50% 0%;
 					transition: transform 0.5s;
-					align-items: flex-start;
+					justify-content: space-between;
+					flex-direction: column;
 					overflow: hidden;
 					cursor: pointer;
 					&>p {
 						color: #fff;
 						transform: rotate(90deg);
 						font-size: 0.7em;
-						margin-top: 20px;
 						@media #{$mq-670} {
 							font-size: 0.85em;
+						}
+					}
+					&>p:first-of-type {
+						font-size: 0.65em;
+						margin-top: 20px;
+						@media #{$mq-670} {
+							font-size: 0.75em;
+						}
+					}
+					&>p:last-of-type {
+						font-size: 0.65em;
+						margin-bottom: 20px;
+						@media #{$mq-670} {
+							font-size: 0.75em;
 						}
 					}
 				}

@@ -10,10 +10,11 @@ export default class EditBar extends Component {
 		this.week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 	}
 
-	componentWillReceiveProps(){
+	componentWillReceiveProps(nextProps){
+		console.log(nextProps);
 		this.setState({
-			timeOn: this.props.currentShift.times.on,
-			timeOff: this.props.currentShift.times.off
+			timeOn: nextProps.currentShift.times.on,
+			timeOff: nextProps.currentShift.times.off,
 		});
 	}
 

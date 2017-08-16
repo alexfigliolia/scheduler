@@ -4,8 +4,8 @@ export default class Dashboard extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
-			height: (window.innerHeight - 50) + "px",
-			scheduleHeight: (window.innerHeight - 87.5) + "px",
+			height: (window.innerWidth > 799) ? (window.innerHeight - 50) + "px" : (window.innerHeight - 50) + "px" ,
+			scheduleHeight: (window.innerWidth > 799) ? (window.innerHeight - 112.5) + "px" : (window.innerHeight - 87.5) + "px",
 			hours: [],
 			barClasses: "slot",
 			month: []
@@ -15,8 +15,8 @@ export default class Dashboard extends Component {
 		var self = this;
 		window.addEventListener('resize', function(){
 			self.setState({
-				height: (window.innerHeight - 50) + "px",
-				scheduleHeight: (window.innerHeight - 87.5) + "px"
+				height: (window.innerWidth > 799) ? (window.innerHeight - 50) + "px" : (window.innerHeight - 50) + "px" ,
+				scheduleHeight: (window.innerWidth > 799) ? (window.innerHeight - 112.5) + "px" : (window.innerHeight - 87.5) + "px"
 			})
 		});
 		self.createHours(this.props.startDay, this.props.endDay);
@@ -139,7 +139,7 @@ export default class Dashboard extends Component {
 															width: 80 / day.length + "%",
 															left: ((80 / day.length) * j) + 10 + "%",
 															background: slot.color,
-															transition: "transform 0.5s 0." + j + "s, height 0.3s 0s, width 0.3s 0s, border-radius 0.3s 0s"
+															transition: "transform 0.5s 0." + j + "s, top 0.3s 0s"
 														}}
 														data-day={i}
 														data-shift={j}>

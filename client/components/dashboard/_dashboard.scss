@@ -11,6 +11,9 @@
 	transform-origin: 50% 100%;
 	background: transparent;
 	transition-delay: 0.25s;
+	@media #{$mq-800} {
+		height: calc(100% - 80px);
+	}
 	&>div {
 		@include center;
 		width: 100%;
@@ -79,7 +82,7 @@
 			@include center;
 			flex-direction: row;
 			justify-content: flex-end;
-			align-self: flex-start;
+			align-self: end;
 			overflow-x: scroll;
 			overflow-y: hidden;
 			-webkit-overflow-scrolling: touch;

@@ -38,6 +38,12 @@
 		height: 50%;
 		width: 50%;
 	}
+	@media #{$mq-1150} {
+		top: 25%;
+		left: 43%;
+		height: 50%;
+		width: 40%;
+	}
 	&>svg {
 		position: absolute;
 		top: 5px;

@@ -10,7 +10,7 @@ export default class Header extends Component {
 					<Burger classes={this.props.burgerStuff} burger={this.props.burger}/>
 					<nav>
 						<a>Employees</a>
-						<a>Farts</a>
+						<a>Create a skedge</a>
 						<a>Log Out</a>
 					</nav>
 				</div>

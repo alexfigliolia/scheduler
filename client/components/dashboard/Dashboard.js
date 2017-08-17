@@ -80,7 +80,8 @@ export default class Dashboard extends Component {
 										className="day"
 										data-sm={day.substring(0,3)}
 										data-lg={day}
-										key={i}>
+										key={i}
+										onClick={this.props.displayAddAShift}>
 									</div>
 								);
 							})
@@ -90,7 +91,7 @@ export default class Dashboard extends Component {
 						<div className="date-picker">
 							<h3>Manage your schedules</h3>
 							<div className="buttons">
-								<button>Create</button>
+								<button onClick={this.props.createSkedge}>Create</button>
 								<button>Edit</button>
 							</div>
 							<h3>Select a date</h3>
@@ -107,6 +108,9 @@ export default class Dashboard extends Component {
 										})
 									}
 								</div>
+							</div>
+							<div className="buttons">
+								<button>Manage employees</button>
 							</div>
 						</div>
 						<div className="times" style={{height: this.state.scheduleHeight}}>
@@ -127,6 +131,7 @@ export default class Dashboard extends Component {
 								return(
 									<div key={i} className="fullday">
 										{
+											day.length > 0 &&
 											day.map((slot, j) => {
 												return (
 													<div 

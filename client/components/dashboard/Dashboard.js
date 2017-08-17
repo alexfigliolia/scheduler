@@ -91,8 +91,11 @@ export default class Dashboard extends Component {
 						<div className="date-picker">
 							<h3>Manage your schedules</h3>
 							<div className="buttons">
-								<button onClick={this.props.createSkedge}>Create</button>
-								<button>Edit</button>
+								{
+									this.props.canCreate &&
+									<button onClick={this.props.createSkedge}>Create</button>
+								}
+								<button>View</button>
 							</div>
 							<h3>Select a date</h3>
 							<div className="picker">

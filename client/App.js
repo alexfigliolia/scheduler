@@ -220,7 +220,8 @@ export default class App extends Component {
         color: "#48CBC3"
       },
       currentShiftDay: "Monday",
-      currentSkedgeIndex: 0
+      currentSkedgeIndex: 0,
+      canCreate: true
 		}
     this.week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 	}
@@ -299,7 +300,12 @@ export default class App extends Component {
         newState = update(state, {$push: [newSkedge]});
     this.setState({
       schedule: newState,
-      currentSkedgeIndex: this.state.currentSkedgeIndex + 1
+      canCreate: false,
+      currentSkedgeIndex: this.state.currentSkedgeIndex + 1,
+      burgerToggle: false,
+      burgerClasses: "hamburglar is-open",
+      dashboardClasses: "dashboard",
+      menuClasses: "mobile-menu"
     });
   }
 
@@ -331,6 +337,24 @@ export default class App extends Component {
     
   }
 
+  saveShift(employee, color, start, end){
+    var state = this.state.schedule,
+        day = this.week.indexOf(this.state.currentShiftDay),
+        shift = {
+          employee: employee, 
+          times: {
+            on: start,
+            off: end
+          },
+          color: color
+        },
+        newState = update(state, {[this.state.currentSkedgeIndex]: {[day]: {$push: [shift]}}});
+    this.setState({
+      schedule: newState,
+      canCreate: true
+    });
+  }
+
 
 	render(){
 		return (
@@ -338,19 +362,22 @@ export default class App extends Component {
 
 				<Header
 					burgerStuff={this.state.burgerClasses}
-					burger={this.toggleBurger.bind(this)} />
+					burger={this.toggleBurger.bind(this)}
+          createSkedge={this.createSkedge.bind(this)} />
 
         <Dashboard
           classes={this.state.dashboardClasses}
           schedule={this.state.schedule[this.state.schedule.length - 1]}
           startDay={this.state.startDay}
           endDay={this.state.endDay}
+          canCreate={this.state.canCreate}
           createSkedge={this.createSkedge.bind(this)}
           editShift={this.displayEditShift.bind(this)}
           displayAddAShift={this.displayAddAShift.bind(this)} />
 
         <MobileMenu
-          classes={this.state.menuClasses} />
+          classes={this.state.menuClasses}
+          createSkedge={this.createSkedge.bind(this)} />
 
         <EditBar 
           classes={this.state.editBarClasses}
@@ -365,7 +392,8 @@ export default class App extends Component {
           day={this.state.currentShiftDay}
           employees={this.state.employees}
           displayAddAShift={this.displayAddAShift.bind(this)}
-          flip={this.flip.bind(this)} />
+          flip={this.flip.bind(this)}
+          saveShift={this.saveShift.bind(this)} />
 
 			</div>
 		);

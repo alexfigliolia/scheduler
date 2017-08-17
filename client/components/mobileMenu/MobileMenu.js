@@ -5,8 +5,8 @@ export default class MobileMenu extends Component {
 		return(
 			<div className={this.props.classes}>
 				<div>
-					<a>Create a skedge</a>
-					<a>manage eemployees</a>
+					<a onClick={this.props.createSkedge}>Create a skedge</a>
+					<a>manage employees</a>
 					<a>Log Out</a>
 				</div>
 			</div>

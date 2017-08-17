@@ -28,6 +28,30 @@ export default class Create extends Component {
 		}
 	}
 
+	initFlip(){
+		if(this.state.selectText !== "Select an employee") { this.props.flip() }
+	}
+
+	saveShift(){
+		var on = this.refs.timeOn.value,
+			off = this.refs.timeOff.value;
+		if(on !== "" & off !== "") {
+			this.props.saveShift(this.state.employee, this.state.color, on, off);
+			this.resetState();
+		}
+	}
+
+	resetState(){
+		this.refs.timeOn.value = "";
+		this.refs.timeOff.value = "";
+		this.setState({
+			selectOptionsClasses: "select-options",
+			selectText: "Select an employee",
+			employee: "",
+			color: "#666DD2"
+		}, this.props.displayAddAShift);
+	}
+
 	render(){
 		return(
 			<div className={this.props.classes}>
@@ -52,8 +76,8 @@ export default class Create extends Component {
 						</div>
 					</div>
 					<button 
-						onClick={this.props.flip}
-						style={{color: this.state.color}}>Set times</button>
+						onClick={this.initFlip.bind(this)}
+						style={{color: this.state.color, border: "2px solid " + this.state.color}}>Set times</button>
 				</div>
 				<div className="back">
 					<h3 style={{color: this.state.color}}>Add a times for {this.state.employee}'s shift</h3>
@@ -62,12 +86,17 @@ export default class Create extends Component {
 						<h4>To</h4>
 						<input ref="timeOff" placeholder="7pm" />
 					</div>
-					<button 
-						onClick={this.props.flip}
-						style={{color: this.state.color, border: "2px solid " + this.state.color}}>Save</button>
+					<div className="back-buttons">
+						<button 
+							onClick={this.resetState.bind(this)}
+							style={{color: this.state.color, border: "2px solid " + this.state.color}}>Cancel</button>
+						<button 
+							onClick={this.saveShift.bind(this)}
+							style={{color: this.state.color, border: "2px solid " + this.state.color}}>Save</button>
+					</div>
 				</div>
 				<svg
-					onClick={this.props.displayAddAShift}
+					onClick={this.resetState.bind(this)}
 					fill={this.state.color} height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
 					    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
 					    <path d="M0 0h24v24H0z" fill="none"/>

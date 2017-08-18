@@ -11,7 +11,6 @@ export default class EditBar extends Component {
 	}
 
 	componentWillReceiveProps(nextProps){
-		console.log(nextProps);
 		this.setState({
 			timeOn: nextProps.currentShift.times.on,
 			timeOff: nextProps.currentShift.times.off,

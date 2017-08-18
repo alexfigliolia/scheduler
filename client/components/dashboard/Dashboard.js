@@ -10,6 +10,7 @@ export default class Dashboard extends Component {
 			barClasses: "slot",
 			month: []
 		}
+		this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 	}
 	componentDidMount(){
 		var self = this;
@@ -67,7 +68,7 @@ export default class Dashboard extends Component {
 	}
 
 	render(){
-		const week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"]
+		const week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 		return(
 			<section className={this.props.classes} style={{height: this.state.height}}>
 				<div>
@@ -106,7 +107,12 @@ export default class Dashboard extends Component {
 									{
 										this.state.month.map((day, i) => {
 											return(
-												<div data-num={i + 1} key={i}>{i+1}</div>
+												<div 
+													className={(new Date(this.props.schedule[0].weekFor).getDate() === i+1) ? "date-on" : ""}
+													data-num={i + 1} 
+													key={i}>
+														{i+1}
+												</div>
 											);
 										})
 									}

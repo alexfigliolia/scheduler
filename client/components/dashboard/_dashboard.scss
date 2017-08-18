@@ -174,7 +174,7 @@
 							width: 30px;
 							height: 30px;
 							border-radius: 50%;
-							background: #666DD2;
+							// background: #666DD2;
 							@include center;
 							color: #fff;
 							font-size: 0.85em;
@@ -221,6 +221,12 @@
 									transform: scale(1);
 								}
 							}
+						}
+						&>.date-on {
+							background: #fff;
+							color: #666DD2;
+							@include headerShadow;
+							font-weight: 900;
 						}
 					}
 				}
@@ -327,6 +333,6 @@
 
 .dashboard-move{
 	transition-delay: 0s;
-	transform: translateX(-5%) scale(0.9) rotateX(-60deg);
+	transform: translateX(-5%) scale(0.9) rotateX(-65deg);
 	// overflow: hidden;
 }

@@ -8,10 +8,14 @@ export default class Dashboard extends Component {
 			height: (window.innerWidth > 799) ? (window.innerHeight - 50) + "px" : (window.innerHeight - 50) + "px" ,
 			scheduleHeight: (window.innerWidth > 799) ? (window.innerHeight - 167.5) + "px" : (window.innerHeight - 127.5) + "px",
 			hours: [],
-			barClasses: "slot"
+			barClasses: "slot",
+			month: [],
+			currentMonth: new Date().getMonth(),
+			mondays: []
 		}
 		this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 	}
+
 	componentDidMount(){
 		var self = this;
 		window.addEventListener('resize', function(){
@@ -21,6 +25,7 @@ export default class Dashboard extends Component {
 			})
 		});
 		self.createHours(this.props.startDay, this.props.endDay);
+		this.updateNumberShit();
 		setTimeout(function(){
 			this.setState({
 				barClasses: "slot slotted"
@@ -48,6 +53,43 @@ export default class Dashboard extends Component {
 		return (hours[hours.length - 1] - hours[0] >= 12) ? (hours[hours.length - 1] - hours[0]) - 12 : hours[hours.length - 1] - hours[0] ;
 	}
 
+	updateNumberShit(){
+		this.getDays(getDaysInMonth(this.state.currentMonth + 1));
+		this.setState({
+      mondays: getMondays(this.state.currentMonth + 1)
+		});
+	}
+
+	getDays(num){
+	    var m = [];
+	    for(var i = 0; i<num; i++) {
+	      var d = i + 1
+	      m.push(d);
+	    }
+	    this.setState({
+	      month: m
+	    });
+	 }
+
+	changeMonth(e){
+		var dir = e.target.dataset.dir;
+		var cm = this.state.currentMonth;
+		if(dir === "next") {
+			cm += 1;
+			if(cm === 12) {
+				cm = 0;
+			}
+		} else {
+			cm -= 1;
+			if(cm === -1) {
+				cm = 11;
+			}
+		}
+		this.setState({
+			currentMonth: cm
+		}, this.updateNumberShit);
+	}
+
 	handleClick(e){
 		var target = (e.target.tagName === "P") ? e.target.parentNode : e.target,
 			day = target.dataset.day,
@@ -55,9 +97,22 @@ export default class Dashboard extends Component {
 		this.props.editShift(day, shift);
 	}
 
+	createSkedge(e){
+		var year = new Date().getUTCFullYear(),
+				month = this.state.currentMonth,
+				day = e.target.dataset.num;
+		// console.log(month + "/" + day + "/" + year);
+		this.props.createSkedge(year, month, day);
+	}
+
 	render(){
 		const week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-		const forDate = getMonday(this.props.schedule[0].for);
+		const forDate = new Date(this.props.schedule[0].for);
+		const mondays = this.state.mondays;
+		let dates = [];
+		for(var i = 0; i < mondays.length; i++) {
+			dates.push(new Date(mondays[i]).getDate() - 1);
+		}
 		return(
 			<section className={this.props.classes} style={{height: this.state.height}}>
 				<div>
@@ -92,25 +147,26 @@ export default class Dashboard extends Component {
 					</div>
 					<div className="schedule" style={{height: this.state.scheduleHeight}}>
 						<div className="date-picker">
-							<h3>Manage your schedules</h3>
-							<div className="buttons">
-								{
-									this.props.canCreate &&
-									<button onClick={this.props.createSkedge}>Create</button>
-								}
-								<button>View</button>
-							</div>
-							<h3>Select a date</h3>
+							<h3>To create a new schedule select a Monday</h3>
 							<div className="picker">
 								<div className="month-picker">
-									August
+									<button
+										onClick={this.changeMonth.bind(this)}
+										data-dir="prev"></button>
+
+										{this.months[this.state.currentMonth]}
+
+									<button
+										onClick={this.changeMonth.bind(this)}
+										data-dir="next"></button>
 								</div>
 								<div className="day-picker">
 									{
-										this.props.month.map((day, i) => {
+										this.state.month.map((day, i) => {
 											return(
 												<div 
-													className={(new Date(this.props.schedule[0].weekFor).getDate() === i+1) ? "date-on" : ""}
+													className={(i === dates[0] || i === dates[1] || i === dates[2] || i === dates[3]) ? "date-on" : ""}
+													onClick={(i === dates[0] || i === dates[1] || i === dates[2] || i === dates[3]) ? this.createSkedge.bind(this) : null}
 													data-num={i + 1} 
 													key={i}>
 														{i+1}
@@ -181,6 +237,26 @@ export default class Dashboard extends Component {
 
 var getDaysInMonth = function(month, year = 2017) {
  return new Date(year, month, 0).getDate();
+}
+
+function getMondays(month, year = 2017) {
+  var d = new Date(year, month, 0),
+      month = d.getMonth(),
+      mondays = [];
+
+  d.setDate(1);
+
+  // Get the first Monday in the month
+  while (d.getDay() !== 1) {
+      d.setDate(d.getDate() + 1);
+  }
+
+  // Get all the other Mondays in the month
+  while (d.getMonth() === month) {
+      mondays.push(new Date(d.getTime()));
+      d.setDate(d.getDate() + 7);
+  }
+  return mondays;
 }
 
 function getMonday(d) {

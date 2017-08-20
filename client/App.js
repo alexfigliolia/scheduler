@@ -31,7 +31,7 @@ export default class App extends Component {
         [
           {
             created: new Date(),
-            for: new Date()
+            for: "Mon Aug 14 2017 00:00:00 GMT-0400 (EDT)"
           },
           [
             {
@@ -241,7 +241,6 @@ export default class App extends Component {
         height: window.innerHeight + "px"
       })
     });
-    console.log(self.state.schedule);
     this.getDays(getDaysInMonth(8));
     this.setState({
       mondays: getMondays(8)
@@ -382,7 +381,7 @@ export default class App extends Component {
 
   saveShift(employee, color, start, end){
     var state = this.state.schedule,
-        day = this.week.indexOf(this.state.currentShiftDay),
+        day = this.week.indexOf(this.state.currentShiftDay) + 1,
         shift = {
           employee: employee, 
           times: {
@@ -412,7 +411,6 @@ export default class App extends Component {
         newState = update(newState, {$set: this.state.schedule.length - 1});
       }
     }
-    console.log(newState);
     this.setState({
       currentSkedgeIndex: newState
     });

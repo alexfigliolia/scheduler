@@ -16,34 +16,34 @@ export default class DatePicker extends Component {
 	}
 
 	updateNumberShit(){
-		this.getDays(getDaysInMonth(this.state.currentMonth));
+		this.getDays(getDaysInMonth(this.state.currentMonth + 1));
 		this.setState({
-      mondays: getMondays(this.state.currentMonth + 1)
+	  		mondays: getMondays(this.state.currentMonth + 1)
 		});
 	}
 
 	getDays(num){
-    var m = [];
-    for(var i = 0; i<num; i++) {
-      var d = i + 1
-      m.push(d);
-    }
-    this.setState({
-      month: m
-    });
-  }
+	    var m = [];
+	    for(var i = 0; i<num; i++) {
+	      var d = i + 1
+	      m.push(d);
+	    }
+	    this.setState({
+	      month: m
+	    });
+	 }
 
 	changeMonth(e){
 		var dir = e.target.dataset.dir;
 		var cm = this.state.currentMonth;
 		if(dir === "next") {
 			cm += 1;
-			if(cm === 12) {
+			if(cm > 11) {
 				cm = 0;
 			}
 		} else {
 			cm -= 1;
-			if(cm === -1) {
+			if(cm < 0) {
 				cm = 11;
 			}
 		}
@@ -54,8 +54,8 @@ export default class DatePicker extends Component {
 
 	createSkedge(e){
 		var year = new Date().getUTCFullYear(),
-				month = this.state.currentMonth,
-				day = e.target.dataset.num;
+			month = this.state.currentMonth,
+			day = e.target.dataset.num;
 		// console.log(month + "/" + day + "/" + year);
 		this.props.createSkedge(year, month, day);
 	}

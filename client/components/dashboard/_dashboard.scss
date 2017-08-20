@@ -5,11 +5,7 @@
 	margin-top: 50px;
 	// box-shadow: -5px 10px 20px rgba(0,0,0,0.19), -5px 6px 6px rgba(0,0,0,0.23);
 	z-index: 1;
-	transition-duration: 0.4s;
-	transform-origin: 50% 100%;
-	background: transparent;
-	transition-delay: 0.05s;
-	transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+
 	@media #{$mq-800} {
 		height: calc(100% - 80px);
 		transform-style: preserve-3d;
@@ -29,8 +25,11 @@
 			align-self: flex-end;
 			position: fixed;
 			top: 50px;
-			transition-duration: 0.2s;
-			transition-delay: 0.3s;
+			transition-duration: 0.4s;
+			transform-origin: 50% 100%;
+			background: transparent;
+			transition-delay: 0.05s;
+			transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
 			&>button {
 				height: 25px;
 				width: 25px;
@@ -62,6 +61,11 @@
 			@include center;
 			align-self: flex-start;
 			justify-content: flex-end;
+			transition-duration: 0.4s;
+			transform-origin: 50% 100%;
+			background: transparent;
+			transition-delay: 0.05s;
+			transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
 			@media #{$mq-800}{
 				width: 100%;
 			}
@@ -123,6 +127,11 @@
 			overflow-x: scroll;
 			-webkit-overflow-scrolling: touch;
 			background: transparent;
+			transition-duration: 0.4s;
+			transform-origin: 50% 100%;
+			background: transparent;
+			transition-delay: 0.05s;
+			transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
 			@media #{$mq-800}{
 				width: 100%;
 			}
@@ -139,6 +148,8 @@
 				&>h3 {
 					width: 95%;
 					text-align: center;
+					font-weight: 200;
+					width: 85%;
 				}
 				&>.buttons {
 					@include center;
@@ -392,13 +403,23 @@
 }
 
 .dashboard-move{
-	transition-duration: 0.4s;
-	transition-delay: 0s;
-	transform: translateY(250px) translateX(-5%) scale(0.9);
-	transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-	&>div>.skedge-date {
-		opacity: 0;
+	&>div>.schedule{
+		transition-duration: 0.4s;
 		transition-delay: 0s;
+		transform: translateY(280px) translateX(-5%) scale(0.9);
+		transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	}
+	&>div>.days{
+		transition-duration: 0.4s;
+		transition-delay: 0s;
+		transform: translateY(310px) translateX(-5%) scale(0.9);
+		transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	}
+	&>div>.skedge-date {
+		transition-duration: 0.4s;
+		transition-delay: 0s;
+		transform: translateY(320px) translateX(-5%) scale(0.9);
+		transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 	}
 	// // overflow: hidden;
 }

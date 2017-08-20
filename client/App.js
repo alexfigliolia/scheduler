@@ -348,7 +348,7 @@ export default class App extends Component {
       dashboardClasses: "dashboard",
       menuClasses: "mobile-menu"
     });
-    !this.state.burgerToggle && this.toggleBurger();
+    this.state.menuClasses === "mobile-menu mobile-menu-show" && this.toggleBurger();
   }
 
   displayAddAShift(e){

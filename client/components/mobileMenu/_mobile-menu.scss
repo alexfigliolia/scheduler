@@ -6,11 +6,12 @@
 	width: 90%;
 	@include center;
 	z-index: 100000;
-	transform: scale(1.1) translateY(-50%) rotateX(40deg);
+	transform: scale(1.1) translateY(-100%) rotateX(70deg);
 	transition-duration: 0.4s;
 	opacity: 0;
 	background: rgba(#fff, 0.95);
 	visibility: hidden;
+	transform-origin: 50% 0%;
 	transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
 	@include headerShadow;
 	border-radius: 5px;

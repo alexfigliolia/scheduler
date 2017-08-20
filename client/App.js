@@ -227,9 +227,9 @@ export default class App extends Component {
       },
       currentShiftDay: "Monday",
       currentSkedgeIndex: 0,
-      canCreate: true,
       month: [],
-      mondays: []
+      mondays: [],
+      length: 0
 		}
     this.week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 	}
@@ -243,7 +243,8 @@ export default class App extends Component {
     });
     this.getDays(getDaysInMonth(8));
     this.setState({
-      mondays: getMondays(8)
+      mondays: getMondays(8),
+      length: this.state.schedule.length
     });
   }
 
@@ -346,9 +347,10 @@ export default class App extends Component {
       burgerToggle: false,
       burgerClasses: "hamburglar is-open",
       dashboardClasses: "dashboard",
-      menuClasses: "mobile-menu"
+      menuClasses: "mobile-menu",
+      length: this.state.length + 1
     });
-    this.state.menuClasses === "mobile-menu mobile-menu-show" && this.toggleBurger();
+    this.state.fixedPickerClasses === "picker fixed-picker date-picker-show" && this.toggleBurger();
   }
 
   displayAddAShift(e){
@@ -430,8 +432,9 @@ export default class App extends Component {
           schedule={this.state.schedule[this.state.currentSkedgeIndex]}
           startDay={this.state.startDay}
           endDay={this.state.endDay}
-          canCreate={this.state.canCreate}
           month={this.state.month}
+          idx={this.state.currentSkedgeIndex}
+          skedgeNumber={this.state.length}
           createSkedge={this.createSkedge.bind(this)}
           editShift={this.displayEditShift.bind(this)}
           displayAddAShift={this.displayAddAShift.bind(this)}

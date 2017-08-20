@@ -118,13 +118,15 @@ export default class Dashboard extends Component {
 				<div>
 					<div className="skedge-date">
 						<button
+							style={{opacity: (this.props.idx === 0) ? 0.25 : 1}}
 							data-dir="prev"
 							onClick={this.props.renderSkedge} 
 							className="prev-skedge"></button>
 
-						{"Monday " + this.months[forDate.getMonth()] + " " + forDate.getDate() + " - " + this.months[forDate.getMonth()] + " " + (forDate.getDate() + 6)}
+						{"Monday " + this.months[forDate.getMonth()] + " " + forDate.getDate() + " - " + this.months[new Date(forDate.getTime() + 7 * 24 * 60 * 60 * 1000).getMonth()] + " " + new Date(forDate.getTime() + 7 * 24 * 60 * 60 * 1000).getDate()}
 
 						<button
+							style={{opacity: (this.props.idx === this.props.skedgeNumber - 1) ? 0.25 : 1}}
 							data-dir="next" 
 							onClick={this.props.renderSkedge}
 							className="next-skedge"></button>

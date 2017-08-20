@@ -6,6 +6,7 @@ import Dashboard from './components/dashboard/Dashboard';
 import MobileMenu from './components/mobileMenu/MobileMenu';
 import EditBar from './components/editBar/EditBar';
 import Create from './components/create/Create';
+import DatePicker from './components/datePicker/DatePicker';
 import './App.scss';
 
 export default class App extends Component {
@@ -18,6 +19,7 @@ export default class App extends Component {
       menuClasses: "mobile-menu",
       editBarClasses: "edit-bar",
       createClasses: "create",
+      fixedPickerClasses: "picker fixed-picker",
       height: window.innerHeight + "px",
       startDay: 8,
       endDay: 7,
@@ -27,6 +29,10 @@ export default class App extends Component {
       schedule: 
       [
         [
+          {
+            created: new Date(),
+            for: new Date()
+          },
           [
             {
               employee: "Alex", 
@@ -221,7 +227,9 @@ export default class App extends Component {
       },
       currentShiftDay: "Monday",
       currentSkedgeIndex: 0,
-      canCreate: true
+      canCreate: true,
+      month: [],
+      mondays: []
 		}
     this.week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
 	}
@@ -234,22 +242,60 @@ export default class App extends Component {
       })
     });
     console.log(self.state.schedule);
+    this.getDays(getDaysInMonth(8));
+    this.setState({
+      mondays: getMondays(8)
+    });
+  }
+
+  getDays(num){
+    var m = [];
+    for(var i = 0; i<num; i++) {
+      var d = i + 1
+      m.push(d);
+    }
+    this.setState({
+      month: m
+    });
   }
 
 	//MOBILE MENU OPEN AND CLOSE
   toggleBurger(){
     this.setState((prevState, prevProps) => {
+      if(prevState.fixedPickerClasses === "picker fixed-picker date-picker-show") {
+        return {
+          burgerClasses: "hamburglar is-open",
+          burgerToggle: true,
+          dashboardClasses: "dashboard",
+          menuClasses: "mobile-menu",
+          fixedPickerClasses: "picker fixed-picker"
+        }
+      } else {
+        return {
+          burgerToggle : !prevState.burgerToggle,
+          burgerClasses : (prevState.burgerClasses === "hamburglar is-closed") ? 
+                            "hamburglar is-open" : 
+                            "hamburglar is-closed",
+          dashboardClasses : (prevState.dashboardClasses === "dashboard") ? 
+                            "dashboard dashboard-move" : 
+                            "dashboard",
+          menuClasses : (prevState.menuClasses === "mobile-menu") ? 
+                            "mobile-menu mobile-menu-show" : 
+                            "mobile-menu",
+        }
+      }
+    });
+  }
+
+  displayPicker(){
+    this.setState((prevState, prevProps) => {
       return {
-        burgerToggle : !prevState.burgerToggle,
-        burgerClasses : (prevState.burgerClasses === "hamburglar is-closed") ? 
-                          "hamburglar is-open" : 
-                          "hamburglar is-closed",
-        dashboardClasses : (prevState.dashboardClasses === "dashboard") ? 
-                          "dashboard dashboard-move" : 
-                          "dashboard",
         menuClasses : (prevState.menuClasses === "mobile-menu") ? 
                           "mobile-menu mobile-menu-show" : 
-                          "mobile-menu"
+                          "mobile-menu",
+        fixedPickerClasses: (prevState.fixedPickerClasses === "picker fixed-picker") ?
+                          "picker fixed-picker date-picker-show" :
+                          "picker fixed-picker"
       }
     });
   }
@@ -283,20 +329,16 @@ export default class App extends Component {
     }, this.displayEditShift());
   }
 
-  createSkedge(){
+  createSkedge(year = "", month = "", day = ""){
     var state = this.state.schedule,
-        emptySkedge = [[],[],[],[],[],[],[]],
-        emptyShift = {
-          employee: "", 
-          times: {
-            on: "",
-            off: ""
-          },
-          color: ""
-        },
+        emptySkedge = [[],[],[],[],[],[],[],[]],
         newSkedge = emptySkedge.map((day, i) => {
           return day[0] = [];
-        }),
+        });
+        newSkedge[0] = {
+          created: new Date(),
+          for: new Date(year, month, day)
+        }
         newState = update(state, {$push: [newSkedge]});
     this.setState({
       schedule: newState,
@@ -307,6 +349,7 @@ export default class App extends Component {
       dashboardClasses: "dashboard",
       menuClasses: "mobile-menu"
     });
+    !this.state.burgerToggle && this.toggleBurger();
   }
 
   displayAddAShift(e){
@@ -355,6 +398,25 @@ export default class App extends Component {
     });
   }
 
+  renderSkedge(e){
+    var cur = this.state.currentSkedgeIndex,
+        dir = e.target.dataset.dir;
+    if(e.target.dataset.dir === "prev"){
+      var newState = update(cur, {$apply: function(x) {return x - 1;}});
+      if(newState < 0) {
+        newState = update(newState, {$set: 0});
+      }
+    } else {
+      var newState = update(cur, {$apply: function(x) {return x + 1;}});
+      if(newState > this.state.schedule.length - 1) {
+        newState = update(newState, {$set: this.state.schedule.length - 1});
+      }
+    }
+    console.log(newState);
+    this.setState({
+      currentSkedgeIndex: newState
+    });
+  }
 
 	render(){
 		return (
@@ -367,16 +429,25 @@ export default class App extends Component {
 
         <Dashboard
           classes={this.state.dashboardClasses}
-          schedule={this.state.schedule[this.state.schedule.length - 1]}
+          schedule={this.state.schedule[this.state.currentSkedgeIndex]}
           startDay={this.state.startDay}
           endDay={this.state.endDay}
           canCreate={this.state.canCreate}
+          month={this.state.month}
           createSkedge={this.createSkedge.bind(this)}
           editShift={this.displayEditShift.bind(this)}
-          displayAddAShift={this.displayAddAShift.bind(this)} />
+          displayAddAShift={this.displayAddAShift.bind(this)}
+          renderSkedge={this.renderSkedge.bind(this)} />
 
         <MobileMenu
           classes={this.state.menuClasses}
+          month={this.state.month}
+          createSkedge={this.createSkedge.bind(this)}
+          displayPicker={this.displayPicker.bind(this)}  />
+
+        <DatePicker
+          classes={this.state.fixedPickerClasses}
+          displayPicker={this.displayPicker.bind(this)}
           createSkedge={this.createSkedge.bind(this)} />
 
         <EditBar 
@@ -398,4 +469,28 @@ export default class App extends Component {
 			</div>
 		);
 	}
+}
+
+var getDaysInMonth = function(month, year = 2017) {
+ return new Date(year, month, 0).getDate();
+}
+
+function getMondays(month, year = 2017) {
+    var d = new Date(year, month, 0),
+        month = d.getMonth(),
+        mondays = [];
+
+    d.setDate(1);
+
+    // Get the first Monday in the month
+    while (d.getDay() !== 1) {
+        d.setDate(d.getDate() + 1);
+    }
+
+    // Get all the other Mondays in the month
+    while (d.getMonth() === month) {
+        mondays.push(new Date(d.getTime()));
+        d.setDate(d.getDate() + 7);
+    }
+    return mondays;
 }

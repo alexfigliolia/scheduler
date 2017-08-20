@@ -1,14 +1,14 @@
 import React, { Component } from 'react';
+import DatePicker from '../datePicker/DatePicker';
 
 export default class Dashboard extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
 			height: (window.innerWidth > 799) ? (window.innerHeight - 50) + "px" : (window.innerHeight - 50) + "px" ,
-			scheduleHeight: (window.innerWidth > 799) ? (window.innerHeight - 112.5) + "px" : (window.innerHeight - 87.5) + "px",
+			scheduleHeight: (window.innerWidth > 799) ? (window.innerHeight - 167.5) + "px" : (window.innerHeight - 127.5) + "px",
 			hours: [],
-			barClasses: "slot",
-			month: []
+			barClasses: "slot"
 		}
 		this.months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October", "November", "December"];
 	}
@@ -17,7 +17,7 @@ export default class Dashboard extends Component {
 		window.addEventListener('resize', function(){
 			self.setState({
 				height: (window.innerWidth > 799) ? (window.innerHeight - 50) + "px" : (window.innerHeight - 50) + "px" ,
-				scheduleHeight: (window.innerWidth > 799) ? (window.innerHeight - 112.5) + "px" : (window.innerHeight - 87.5) + "px"
+				scheduleHeight: (window.innerWidth > 799) ? (window.innerHeight - 167.5) + "px" : (window.innerHeight - 127.5) + "px"
 			})
 		});
 		self.createHours(this.props.startDay, this.props.endDay);
@@ -26,7 +26,6 @@ export default class Dashboard extends Component {
 				barClasses: "slot slotted"
 			});
 		}.bind(self), 1000);
-		this.getDays(getDaysInMonth(8));
 	}
 
 	createHours(start, end){
@@ -49,17 +48,6 @@ export default class Dashboard extends Component {
 		return (hours[hours.length - 1] - hours[0] >= 12) ? (hours[hours.length - 1] - hours[0]) - 12 : hours[hours.length - 1] - hours[0] ;
 	}
 
-	getDays(num){
-		var m = [];
-		for(var i = 0; i<num; i++) {
-			var d = i + 1
-			m.push(d);
-		}
-		this.setState({
-			month: m
-		});
-	}
-
 	handleClick(e){
 		var target = (e.target.tagName === "P") ? e.target.parentNode : e.target,
 			day = target.dataset.day,
@@ -69,9 +57,23 @@ export default class Dashboard extends Component {
 
 	render(){
 		const week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+		const forDate = getMonday(this.props.schedule[0].for);
 		return(
 			<section className={this.props.classes} style={{height: this.state.height}}>
 				<div>
+					<div className="skedge-date">
+						<button
+							data-dir="prev"
+							onClick={this.props.renderSkedge} 
+							className="prev-skedge"></button>
+
+						{"Monday " + this.months[forDate.getMonth()] + " " + forDate.getDate() + " - " + this.months[forDate.getMonth()] + " " + (forDate.getDate() + 6)}
+
+						<button
+							data-dir="next" 
+							onClick={this.props.renderSkedge}
+							className="next-skedge"></button>
+					</div>
 					<div className="days">
 						<div className="time-header"></div>
 						{
@@ -105,7 +107,7 @@ export default class Dashboard extends Component {
 								</div>
 								<div className="day-picker">
 									{
-										this.state.month.map((day, i) => {
+										this.props.month.map((day, i) => {
 											return(
 												<div 
 													className={(new Date(this.props.schedule[0].weekFor).getDate() === i+1) ? "date-on" : ""}
@@ -137,35 +139,37 @@ export default class Dashboard extends Component {
 						</div>
 						{
 							this.props.schedule.map((day, i) => {
-								return(
-									<div key={i} className="fullday">
-										{
-											day.length > 0 &&
-											day.map((slot, j) => {
-												return (
-													<div 
-														onClick={this.handleClick.bind(this)}
-														key={j} 
-														className={this.state.barClasses} 
-														style={{
-															top: this.calcDif(this.props.startDay, parseInt(slot.times.on.substring( 0, slot.times.on.length-2 ))) * (100 / this.state.hours.length) + "%",
-															height: this.calcDif(parseInt(slot.times.on.substring( 0, slot.times.on.length-2 )), parseInt(slot.times.off.substring( 0, slot.times.on.length-2 ))) * (100 / this.state.hours.length) + "%",
-															width: 80 / day.length + "%",
-															left: ((80 / day.length) * j) + 10 + "%",
-															background: slot.color,
-															transition: "transform 0.5s 0." + j + "s, top 0.3s 0s"
-														}}
-														data-day={i}
-														data-shift={j}>
-														<p>{slot.times.on}</p>
-														<p>{slot.employee}</p>
-														<p>{slot.times.off}</p>
-													</div>
-												);
-											})
-										}
-									</div>
-								);
+								if(i > 0) {
+									return(
+										<div key={i} className="fullday">
+											{
+												day.length > 0 &&
+												day.map((slot, j) => {
+													return (
+														<div 
+															onClick={this.handleClick.bind(this)}
+															key={j} 
+															className={this.state.barClasses} 
+															style={{
+																top: this.calcDif(this.props.startDay, parseInt(slot.times.on.substring( 0, slot.times.on.length-2 ))) * (100 / this.state.hours.length) + "%",
+																height: this.calcDif(parseInt(slot.times.on.substring( 0, slot.times.on.length-2 )), parseInt(slot.times.off.substring( 0, slot.times.on.length-2 ))) * (100 / this.state.hours.length) + "%",
+																width: 80 / day.length + "%",
+																left: ((80 / day.length) * j) + 10 + "%",
+																background: slot.color,
+																transition: "transform 0.5s 0." + j + "s, top 0.3s 0s"
+															}}
+															data-day={i}
+															data-shift={j}>
+															<p>{slot.times.on}</p>
+															<p>{slot.employee}</p>
+															<p>{slot.times.off}</p>
+														</div>
+													);
+												})
+											}
+										</div>
+									);
+								}
 							})
 						}
 					</div>
@@ -177,4 +181,11 @@ export default class Dashboard extends Component {
 
 var getDaysInMonth = function(month, year = 2017) {
  return new Date(year, month, 0).getDate();
-};
+}
+
+function getMonday(d) {
+  d = new Date(d);
+  var day = d.getDay(),
+      diff = d.getDate() - day + (day == 0 ? -6:1); // adjust when day is sunday
+  return new Date(d.setDate(diff));
+}

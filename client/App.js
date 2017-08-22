@@ -25,7 +25,7 @@ export default class App extends Component {
       height: window.innerHeight + "px",
       startDay: 8,
       endDay: 7,
-      colors: ["#48CBC3", "#EB7CDA", "#7D78D4", "#FEABAD", "#FD9462", "#FD5A54", "#FFD66C", "#BEFF7C", "#5996FB", "#64CE87", "#EA366B", "#2EBDC9"],
+      colors: ["#48CBC3", "#EB7CDA", "#7D78D4", "#FEABAD", "#FD9462", "#FD5A54", "#FFD66C", "#9DE39E", "#3F60E9", "#64CE87", "#EA366B", "#53A8FF"],
       employees: [{employee: "Alex", color: "#48CBC3"}, 
                   {employee: "Steve", color: "#EB7CDA"}, 
                   {employee: "Larry", color: "#7D78D4"}],
@@ -280,7 +280,7 @@ export default class App extends Component {
           burgerClasses : (prevState.burgerClasses === "hamburglar is-closed") ? 
                             "hamburglar is-open" : 
                             "hamburglar is-closed",
-          dashboardClasses : (prevState.dashboardClasses === "dashboard" || prevState.dashboardClasses === "dashboard dashboard-move dashboard-move-extra") ? 
+          dashboardClasses : (prevState.dashboardClasses === "dashboard") ? 
                             "dashboard dashboard-move" : 
                             "dashboard",
           menuClasses : (prevState.menuClasses === "mobile-menu") ? 
@@ -423,22 +423,36 @@ export default class App extends Component {
     });
   }
 
-  showAddEmployee(){
-    if(this.state.burgerToggle === false) {
-      this.toggleBurger();
-      setTimeout(function(){
+  showAddEmployee(){ 
+    if(this.state.manageEmployeesClasses === "manage-employees") {
+      if(this.state.burgerToggle === false) {
+        this.toggleBurger();
+        setTimeout(function(){
+          this.setState({
+            manageEmployeesClasses: "manage-employees manage-employees-show"
+          });
+        }.bind(this), 500);
+      } else {
         this.setState({
-          dashboardClasses: "dashboard dashboard-move dashboard-move-extra",
           manageEmployeesClasses: "manage-employees manage-employees-show"
         });
-      }.bind(this), 700);
+      }
     } else {
       this.setState({
-        dashboardClasses: "dashboard dashboard-move dashboard-move-extra",
-        manageEmployeesClasses: "manage-employees manage-employees-show"
+        manageEmployeesClasses: "manage-employees"
       });
     }
-    
+  }
+
+  addEmployee(employee, color){
+    let state = this.state.employees,
+        newState = update(state, {$push: [{employee: employee, color: color}]});
+    this.setState({
+      employees: newState
+    });
+    setTimeout(function(){
+      this.showAddEmployee();
+    }.bind(this), 1600)
   }
 
 	render(){
@@ -494,7 +508,9 @@ export default class App extends Component {
         <ManageEmployees 
           classes={this.state.manageEmployeesClasses}
           employees={this.state.employees}
-          colors={this.state.colors} />
+          colors={this.state.colors}
+          addEmployee={this.addEmployee.bind(this)}
+          showAddEmployee={this.showAddEmployee.bind(this)} />
 
 			</div>
 		);

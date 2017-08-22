@@ -5,22 +5,35 @@ export default class ManageEmployees extends Component {
 		super(props);
 		this.state = {
 			employee: "",
+			color: "",
 			firstScreenClasses: "manage-screen1",
 			pickColorClasses: "pick-color"
 		}
 	}
 
 	addEmployee(){
-		this.setState({
-			firstScreenClasses: "manage-screen1 manage-screen1-move",
-			pickColorClasses: "pick-color pick-color-show"
-		});
+		if(this.state.employee !== "") {
+			this.setState({
+				firstScreenClasses: "manage-screen1 manage-screen1-move",
+				pickColorClasses: "pick-color pick-color-show"
+			});
+		}
 	}
 
-	selectAColor(){
+	selectAColor(e){
+		var color = e.target.dataset.color;
 		this.setState({
 			firstScreenClasses: "manage-screen1",
-			pickColorClasses: "pick-color"
+			pickColorClasses: "pick-color",
+			color: color
+		}, this.clearAndSend(color));
+	}
+
+	clearAndSend(color){
+		this.props.addEmployee(this.state.employee, color)
+		this.setState({
+			color: "",
+			employee: ""
 		});
 	}
 
@@ -34,6 +47,7 @@ export default class ManageEmployees extends Component {
 		return(
 			<div className={this.props.classes}>
 				<div className={this.state.firstScreenClasses}>
+					<button onClick={this.props.showAddEmployee}></button>
 					<h2>Manage your Employees</h2>
 					<div>
 						{
@@ -41,7 +55,8 @@ export default class ManageEmployees extends Component {
 								return(
 									<div 
 										style={{background: employee.color,
-														transitionDelay: (0.1 + (i/10)) + "s"}}
+														transitionDelay: (this.state.firstScreenClasses === "manage-screen1") ? 
+																						 (0.9 + (i/10)) + "s" : (0.1 + (i/10)) + "s"}}
 										className="employee"
 										key={i}>
 										<h3>{employee.employee}</h3>
@@ -70,9 +85,11 @@ export default class ManageEmployees extends Component {
 									return (
 										<div 
 											key={i}
+											data-color={color}
 											onClick={this.selectAColor.bind(this)}
 											style={{background: color,
-															transitionDelay: (0.9 + (i/20)) + "s"}}
+															transitionDelay: (this.state.pickColorClasses === "pick-color") ? 
+																							 (i/50) + "s" : (0.9 + (i/20)) + "s"}}
 											className="color"></div>
 									);
 								})

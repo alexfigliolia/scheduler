@@ -5,7 +5,6 @@
 	margin-top: 50px;
 	// box-shadow: -5px 10px 20px rgba(0,0,0,0.19), -5px 6px 6px rgba(0,0,0,0.23);
 	z-index: 1;
-
 	@media #{$mq-800} {
 		height: calc(100% - 80px);
 		transform-style: preserve-3d;
@@ -75,7 +74,7 @@
 			}
 		}
 		&>.days {
-			width: 170%;
+			width: 220%;
 			@include center;
 			align-self: flex-start;
 			justify-content: flex-end;
@@ -136,7 +135,7 @@
 			}
 		}
 		&>.schedule {
-			width: 170%;
+			width: 220%;
 			height: 100%;
 			@include center;
 			flex-direction: row;
@@ -441,25 +440,4 @@
 		transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 	}
 	// // overflow: hidden;
-}
-
-.dashboard-move-extra{
-	&>div>.schedule{
-		transition-duration: 0.45s;
-		transition-delay: 0s;
-		transform: translateY(500px) translateX(-5%) scale(0.9);
-		transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-	}
-	&>div>.days{
-		transition-duration: 0.45s;
-		transition-delay: 0s;
-		transform: translateY(530px) translateX(-5%) scale(0.9);
-		transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-	}
-	&>div>.skedge-date {
-		transition-duration: 0.45s;
-		transition-delay: 0s;
-		transform: translateY(540px) translateX(-5%) scale(0.9);
-		transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-	}
 }

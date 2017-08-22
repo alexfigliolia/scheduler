@@ -7,6 +7,7 @@ import MobileMenu from './components/mobileMenu/MobileMenu';
 import EditBar from './components/editBar/EditBar';
 import Create from './components/create/Create';
 import DatePicker from './components/datePicker/DatePicker';
+import ManageEmployees from './components/manageEmployees/ManageEmployees';
 import './App.scss';
 
 export default class App extends Component {
@@ -20,9 +21,11 @@ export default class App extends Component {
       editBarClasses: "edit-bar",
       createClasses: "create",
       fixedPickerClasses: "picker fixed-picker",
+      manageEmployeesClasses: "manage-employees",
       height: window.innerHeight + "px",
       startDay: 8,
       endDay: 7,
+      colors: ["#48CBC3", "#EB7CDA", "#7D78D4", "#FEABAD", "#FD9462", "#FD5A54", "#FFD66C", "#BEFF7C", "#5996FB", "#64CE87", "#EA366B", "#2EBDC9"],
       employees: [{employee: "Alex", color: "#48CBC3"}, 
                   {employee: "Steve", color: "#EB7CDA"}, 
                   {employee: "Larry", color: "#7D78D4"}],
@@ -235,15 +238,16 @@ export default class App extends Component {
 	}
 
   componentDidMount(){
-    var self = this;
+    var self = this,
+        d = new Date().getMonth();
     window.addEventListener('resize', function(){
       self.setState({
         height: window.innerHeight + "px"
       })
     });
-    this.getDays(getDaysInMonth(8));
+    this.getDays(getDaysInMonth(d));
     this.setState({
-      mondays: getMondays(8),
+      mondays: getMondays(d),
       length: this.state.schedule.length
     });
   }
@@ -276,12 +280,13 @@ export default class App extends Component {
           burgerClasses : (prevState.burgerClasses === "hamburglar is-closed") ? 
                             "hamburglar is-open" : 
                             "hamburglar is-closed",
-          dashboardClasses : (prevState.dashboardClasses === "dashboard") ? 
+          dashboardClasses : (prevState.dashboardClasses === "dashboard" || prevState.dashboardClasses === "dashboard dashboard-move dashboard-move-extra") ? 
                             "dashboard dashboard-move" : 
                             "dashboard",
           menuClasses : (prevState.menuClasses === "mobile-menu") ? 
                             "mobile-menu mobile-menu-show" : 
                             "mobile-menu",
+          manageEmployeesClasses: "manage-employees"
         }
       }
     });
@@ -418,6 +423,24 @@ export default class App extends Component {
     });
   }
 
+  showAddEmployee(){
+    if(this.state.burgerToggle === false) {
+      this.toggleBurger();
+      setTimeout(function(){
+        this.setState({
+          dashboardClasses: "dashboard dashboard-move dashboard-move-extra",
+          manageEmployeesClasses: "manage-employees manage-employees-show"
+        });
+      }.bind(this), 700);
+    } else {
+      this.setState({
+        dashboardClasses: "dashboard dashboard-move dashboard-move-extra",
+        manageEmployeesClasses: "manage-employees manage-employees-show"
+      });
+    }
+    
+  }
+
 	render(){
 		return (
 			<div className="App" style={{height: this.state.height}}>
@@ -444,7 +467,8 @@ export default class App extends Component {
           classes={this.state.menuClasses}
           month={this.state.month}
           createSkedge={this.createSkedge.bind(this)}
-          displayPicker={this.displayPicker.bind(this)}  />
+          displayPicker={this.displayPicker.bind(this)} 
+          showAddEmployee={this.showAddEmployee.bind(this)}/>
 
         <DatePicker
           classes={this.state.fixedPickerClasses}
@@ -466,6 +490,11 @@ export default class App extends Component {
           displayAddAShift={this.displayAddAShift.bind(this)}
           flip={this.flip.bind(this)}
           saveShift={this.saveShift.bind(this)} />
+
+        <ManageEmployees 
+          classes={this.state.manageEmployeesClasses}
+          employees={this.state.employees}
+          colors={this.state.colors} />
 
 			</div>
 		);

@@ -356,6 +356,10 @@ export default class App extends Component {
       length: this.state.length + 1
     });
     this.state.fixedPickerClasses === "picker fixed-picker date-picker-show" && this.toggleBurger();
+    this.state.fixedPickerClasses === "picker fixed-picker date-picker-show display-date-picker-large" &&
+    this.setState({
+      fixedPickerClasses: "picker fixed-picker"
+    })
   }
 
   displayAddAShift(e){
@@ -425,7 +429,7 @@ export default class App extends Component {
 
   showAddEmployee(){ 
     if(this.state.manageEmployeesClasses === "manage-employees") {
-      if(this.state.burgerToggle === false) {
+      if(window.innerWidth < 801) {
         this.toggleBurger();
         setTimeout(function(){
           this.setState({
@@ -455,6 +459,12 @@ export default class App extends Component {
     }.bind(this), 1600)
   }
 
+  displayJustDatePicker(){
+    this.setState({
+      fixedPickerClasses: "picker fixed-picker date-picker-show display-date-picker-large"
+    });
+  }
+
 	render(){
 		return (
 			<div className="App" style={{height: this.state.height}}>
@@ -462,7 +472,9 @@ export default class App extends Component {
 				<Header
 					burgerStuff={this.state.burgerClasses}
 					burger={this.toggleBurger.bind(this)}
-          createSkedge={this.createSkedge.bind(this)} />
+          createSkedge={this.createSkedge.bind(this)}
+          showAddEmployee={this.showAddEmployee.bind(this)}
+          dJDP={this.displayJustDatePicker.bind(this)} />
 
         <Dashboard
           classes={this.state.dashboardClasses}
@@ -475,7 +487,8 @@ export default class App extends Component {
           createSkedge={this.createSkedge.bind(this)}
           editShift={this.displayEditShift.bind(this)}
           displayAddAShift={this.displayAddAShift.bind(this)}
-          renderSkedge={this.renderSkedge.bind(this)} />
+          renderSkedge={this.renderSkedge.bind(this)}
+          showAddEmployee={this.showAddEmployee.bind(this)} />
 
         <MobileMenu
           classes={this.state.menuClasses}

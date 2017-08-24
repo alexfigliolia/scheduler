@@ -9,8 +9,8 @@ export default class Header extends Component {
 					<h1>Skedge</h1>
 					<Burger classes={this.props.burgerStuff} burger={this.props.burger}/>
 					<nav>
-						<a>Employees</a>
-						<a onClick={this.props.createSkedge}>Create a skedge</a>
+						<a onClick={this.props.showAddEmployee}>Employees</a>
+						<a onClick={this.props.dJDP}>Create a skedge</a>
 						<a>Log Out</a>
 					</nav>
 				</div>

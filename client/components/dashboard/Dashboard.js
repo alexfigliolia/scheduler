@@ -179,7 +179,7 @@ export default class Dashboard extends Component {
 								</div>
 							</div>
 							<div className="buttons">
-								<button>Manage employees</button>
+								<button onClick={this.props.showAddEmployee}>Manage employees</button>
 							</div>
 						</div>
 						<div className="times" style={{height: this.state.scheduleHeight}}>

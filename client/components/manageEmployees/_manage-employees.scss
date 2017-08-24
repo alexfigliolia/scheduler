@@ -11,6 +11,14 @@
 	border-radius: 5px;
 	transition-duration: 0.45s;
 	transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+	@media #{$mq-670} {
+		width: 400px;
+		left: calc(50% - 200px);
+	}
+	@media #{$mq-1070} {
+		width: 400px;
+		left: calc((100% - 150px) / 2);
+	}
 }
 
 .manage-screen1 {

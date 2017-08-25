@@ -107,7 +107,7 @@ export default class Dashboard extends Component {
 
 	render(){
 		const week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-		const forDate = new Date(this.props.schedule[0].for);
+		const forDate = (this.props.schedule !== undefined) ? new Date(this.props.schedule[0].for) : false;
 		const mondays = this.state.mondays;
 		let dates = [];
 		for(var i = 0; i < mondays.length; i++) {
@@ -118,15 +118,15 @@ export default class Dashboard extends Component {
 				<div>
 					<div className="skedge-date">
 						<button
-							style={{opacity: (this.props.idx === 0) ? 0.25 : 1}}
+							style={{opacity: (this.props.idx === 0 || this.props.skedgeNumber === 0) ? 0.25 : 1}}
 							data-dir="prev"
 							onClick={this.props.renderSkedge} 
 							className="prev-skedge"></button>
 
-						{"Monday " + this.months[forDate.getMonth()] + " " + forDate.getDate() + " - " + this.months[new Date(forDate.getTime() + 6 * 24 * 60 * 60 * 1000).getMonth()] + " " + new Date(forDate.getTime() + 6 * 24 * 60 * 60 * 1000).getDate()}
+						{(!forDate) ? "Create a schedule" : "Monday " + this.months[forDate.getMonth()] + " " + forDate.getDate() + " - " + this.months[new Date(forDate.getTime() + 6 * 24 * 60 * 60 * 1000).getMonth()] + " " + new Date(forDate.getTime() + 6 * 24 * 60 * 60 * 1000).getDate()}
 
 						<button
-							style={{opacity: (this.props.idx === this.props.skedgeNumber - 1) ? 0.25 : 1}}
+							style={{opacity: (this.props.idx === this.props.skedgeNumber - 1 || this.props.skedgeNumber === 0) ? 0.25 : 1}}
 							data-dir="next" 
 							onClick={this.props.renderSkedge}
 							className="next-skedge"></button>
@@ -197,6 +197,7 @@ export default class Dashboard extends Component {
 							}
 						</div>
 						{
+							this.props.schedule !== undefined ? 
 							this.props.schedule.map((day, i) => {
 								if(i > 0) {
 									return(
@@ -229,6 +230,11 @@ export default class Dashboard extends Component {
 										</div>
 									);
 								}
+							})
+							: week.map((day, i) => {
+								return (
+									<div key={i} className="fullday"></div>
+								);
 							})
 						}
 					</div>

@@ -22,7 +22,11 @@ export default class Options extends Component {
 	}
 
 	deleteSkedge(){
-
+		this.setState({
+			ays: "ays",
+			sad: "sad"
+		});
+		this.props.deleteSkedge();
 	}
 
 	cancelDelete(){

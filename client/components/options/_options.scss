@@ -12,7 +12,7 @@
 	font-size: 0.9em;
 	border-top-right-radius: 5px;
 	border-bottom-right-radius: 5px;
-	color: #D69E70;
+	color: #8157D7;
 	transform: scaleY(0);
 	transform-origin: 50% 0%;
 	transition-duration: 0.3s;
@@ -64,20 +64,21 @@
 			}
 		}
 	}
-	&>.ays-show,
-	&>.sad-show{
-		justify-content: space-between;
-		transform: translateY(0%);
-		transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
-	}
-	&>.ays-show {
+	&>.ays {
 		justify-content: flex-end;
 		&>div {
 			margin-top: 10%;
 		}
 	}
-	&>.sad-show {
-		@include center;
+	&>.sad{
+		& h3:last-of-type {
+			color: #8157D7;
+		}
+	}
+	&>.ays-show,
+	&>.sad-show{
+		transform: translateY(0%);
+		transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 	}
 	& h3:last-of-type {
 		color: $redish;

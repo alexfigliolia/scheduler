@@ -350,12 +350,13 @@ export default class App extends Component {
     this.setState({
       schedule: newState,
       canCreate: false,
-      currentSkedgeIndex: this.state.currentSkedgeIndex + 1,
+      currentSkedgeIndex: (this.state.length === 0) ? 0 : this.state.currentSkedgeIndex + 1,
       burgerToggle: false,
       burgerClasses: "hamburglar is-open",
       dashboardClasses: "dashboard",
       menuClasses: "mobile-menu",
-      length: this.state.length + 1
+      length: this.state.length + 1,
+      optionsClasses: "options"
     });
     this.state.fixedPickerClasses === "picker fixed-picker date-picker-show" && this.toggleBurger();
     this.state.fixedPickerClasses === "picker fixed-picker date-picker-show display-date-picker-large" &&
@@ -423,6 +424,9 @@ export default class App extends Component {
       if(newState > this.state.schedule.length - 1) {
         newState = update(newState, {$set: this.state.schedule.length - 1});
       }
+      if(newState < 0) {
+        newState = update(newState, {$set: 0});
+      }
     }
     this.setState({
       currentSkedgeIndex: newState
@@ -473,6 +477,18 @@ export default class App extends Component {
         optionsClasses: (prevState.optionsClasses === "options") ? "options options-show" : "options"
       }
     })
+  }
+
+  deleteSkedge(){
+    var data = this.state.schedule,
+        index = this.state.currentSkedgeIndex,
+        newData = update(data, {$splice: [[index, 1]]});
+        console.log(newData.length);
+    this.setState({
+      schedule: newData,
+      currentSkedgeIndex: (newData.length - 1 < 0) ? 0 : newData.length - 1,
+      length: newData.length
+    }, this.displayOptions);
   }
 
 	render(){
@@ -538,7 +554,8 @@ export default class App extends Component {
           showAddEmployee={this.showAddEmployee.bind(this)} />
 
         <Options 
-          classes={this.state.optionsClasses} />
+          classes={this.state.optionsClasses}
+          deleteSkedge={this.deleteSkedge.bind(this)} />
 
 			</div>
 		);

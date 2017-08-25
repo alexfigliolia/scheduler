@@ -8,6 +8,7 @@ import EditBar from './components/editBar/EditBar';
 import Create from './components/create/Create';
 import DatePicker from './components/datePicker/DatePicker';
 import ManageEmployees from './components/manageEmployees/ManageEmployees';
+import Options from './components/options/Options';
 import './App.scss';
 
 export default class App extends Component {
@@ -22,6 +23,7 @@ export default class App extends Component {
       createClasses: "create",
       fixedPickerClasses: "picker fixed-picker",
       manageEmployeesClasses: "manage-employees",
+      optionsClasses: "options",
       height: window.innerHeight + "px",
       startDay: 8,
       endDay: 7,
@@ -465,6 +467,14 @@ export default class App extends Component {
     });
   }
 
+  displayOptions(){
+    this.setState((prevState, prevProps) => {
+      return {
+        optionsClasses: (prevState.optionsClasses === "options") ? "options options-show" : "options"
+      }
+    })
+  }
+
 	render(){
 		return (
 			<div className="App" style={{height: this.state.height}}>
@@ -474,7 +484,8 @@ export default class App extends Component {
 					burger={this.toggleBurger.bind(this)}
           createSkedge={this.createSkedge.bind(this)}
           showAddEmployee={this.showAddEmployee.bind(this)}
-          dJDP={this.displayJustDatePicker.bind(this)} />
+          dJDP={this.displayJustDatePicker.bind(this)}
+          displayOptions={this.displayOptions.bind(this)} />
 
         <Dashboard
           classes={this.state.dashboardClasses}
@@ -488,7 +499,8 @@ export default class App extends Component {
           editShift={this.displayEditShift.bind(this)}
           displayAddAShift={this.displayAddAShift.bind(this)}
           renderSkedge={this.renderSkedge.bind(this)}
-          showAddEmployee={this.showAddEmployee.bind(this)} />
+          showAddEmployee={this.showAddEmployee.bind(this)}
+          displayOptions={this.displayOptions.bind(this)} />
 
         <MobileMenu
           classes={this.state.menuClasses}
@@ -524,6 +536,9 @@ export default class App extends Component {
           colors={this.state.colors}
           addEmployee={this.addEmployee.bind(this)}
           showAddEmployee={this.showAddEmployee.bind(this)} />
+
+        <Options 
+          classes={this.state.optionsClasses} />
 
 			</div>
 		);

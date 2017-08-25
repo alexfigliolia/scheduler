@@ -149,6 +149,7 @@ export default class Dashboard extends Component {
 					</div>
 					<div className="schedule" style={{height: this.state.scheduleHeight}}>
 						<div className="date-picker">
+							<button onClick={this.props.displayOptions}>Skedge Options</button>
 							<h3>To create a new schedule select a Monday</h3>
 							<div className="picker">
 								<div className="month-picker">

@@ -55,7 +55,7 @@ export default class ManageEmployees extends Component {
 								return(
 									<div 
 										style={{background: employee.color,
-														transitionDelay: (this.state.firstScreenClasses === "manage-screen1") ? 
+												transitionDelay: (this.state.firstScreenClasses === "manage-screen1") ? 
 																						 (0.9 + (i/10)) + "s" : (0.1 + (i/10)) + "s"}}
 										className="employee"
 										key={i}>

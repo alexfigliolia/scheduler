@@ -14,6 +14,21 @@
 		justify-content: space-between;
 		width: 100%;
 		margin-bottom: 0;
+		@media #{$mq-800} {
+			margin-top: -15px;
+		}
+		&>button {
+			width: 27.5px;
+			height: 27.5px;
+			background: url('settings.svg') no-repeat center;
+			background-size: contain;
+			border: none;
+			outline: none;
+			margin-left: 7.5px;
+			@media #{$mq-800} {
+				display: none;
+			}
+		}
 		&>h1 {
 			@include center;
 			font-weight: 200;
@@ -22,9 +37,9 @@
 			text-transform: uppercase;
 			z-index: 10;
 			margin: 0;
-			margin-left: 10px;
 			@media #{$mq-800} {
 				font-size: 2em;
+				margin-left: 10px;
 			}
 		}
 		&>nav {
@@ -32,6 +47,15 @@
 			@media #{$mq-800} {
 				@include center;
 				margin: 0;
+			}
+			&>button {
+				width: 27.5px;
+				height: 27.5px;
+				background: url('settings.svg') no-repeat center;
+				background-size: contain;
+				border: none;
+				outline: none;
+				margin-right: 20px;
 			}
 			&>a {
 				margin: 0 20px;
@@ -51,6 +75,7 @@
 				background: #727AFF;
 				font-size: 0.8em;
 			}
+			&>button,
 			&>a:first-of-type,
 			&>a:nth-of-type(2) {
 				@media #{$mq-1070} {

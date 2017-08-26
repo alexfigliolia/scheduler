@@ -13,6 +13,7 @@ export default class Options extends Component {
 		this.setState({
 			sad: "sad sad-show"
 		});
+		this.props.copySkedge();
 	}
 
 	areYouSure(){
@@ -35,9 +36,18 @@ export default class Options extends Component {
 		});
 	}
 
+	reset(){
+		this.setState({
+			ays: "ays",
+			sad: "sad"
+		});
+		this.props.displayOptions();
+	}
+
 	render(){
 		return(
 			<div className={this.props.classes}>
+				<button onClick={this.reset.bind(this)}></button>
 				<div>
 					<h3 onClick={this.selectADate.bind(this)}>Copy this skedge</h3>
 					<h3 onClick={this.areYouSure.bind(this)}>Delete this skedge</h3>
@@ -50,7 +60,7 @@ export default class Options extends Component {
 					</div>
 				</div>
 				<div className={this.state.sad}>
-					<h3>Select a monday</h3>
+					<h3 onClick={this.props.displaySmallDatePicker}>Select a monday</h3>
 				</div>
 			</div>
 		);

@@ -491,6 +491,23 @@ export default class App extends Component {
     }, this.displayOptions);
   }
 
+  copySkedge(){
+    var skedges = this.state.schedule,
+        index = this.state.currentSkedgeIndex,
+        copy = skedges.slice(0)[index];
+        updatedState = update(skedges, {$push: [copy]});
+    // this.setState({
+    //   schedules: updatedState
+    // });
+  }
+
+  displaySmallDatePicker(){
+    this.displayOptions();
+    if(window.innerWidth < 1070) {
+      this.displayJustDatePicker();
+    }
+  }
+
 	render(){
 		return (
 			<div className="App" style={{height: this.state.height}}>
@@ -555,7 +572,10 @@ export default class App extends Component {
 
         <Options 
           classes={this.state.optionsClasses}
-          deleteSkedge={this.deleteSkedge.bind(this)} />
+          deleteSkedge={this.deleteSkedge.bind(this)}
+          displayOptions={this.displayOptions.bind(this)}
+          copySkedge={this.copySkedge.bind(this)}
+          displaySmallDatePicker={this.displaySmallDatePicker.bind(this)} />
 
 			</div>
 		);

@@ -216,7 +216,7 @@ export default class Dashboard extends Component {
 																width: 80 / day.length + "%",
 																left: ((80 / day.length) * j) + 10 + "%",
 																background: slot.color,
-																transition: "transform 0.5s 0." + j + "s, top 0.3s 0s"
+																transition: "transform 0.5s 0." + j + "s, top 0.3s 0s, height 0.3s 0s"
 															}}
 															data-day={i}
 															data-shift={j}>

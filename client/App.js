@@ -31,8 +31,7 @@ export default class App extends Component {
       employees: [{employee: "Alex", color: "#48CBC3"}, 
                   {employee: "Steve", color: "#EB7CDA"}, 
                   {employee: "Larry", color: "#7D78D4"}],
-      schedule: 
-      [
+      schedule: [
         [
           {
             created: new Date(),
@@ -315,7 +314,7 @@ export default class App extends Component {
       this.setState({
         editBarClasses: "edit-bar edit-bar-show",
         currentShift: c,
-        currentShiftDay: this.week[day]
+        currentShiftDay: this.week[day - 1]
       });
     } else {
       this.setState({
@@ -327,13 +326,27 @@ export default class App extends Component {
   editShift(timeOn, timeOff, day){
     var skedge = this.state.schedule,
         employee;
-    for(var i = 0; i<skedge[this.state.currentSkedgeIndex][day].length; i++) {
-      if(skedge[this.state.currentSkedgeIndex][day][i].employee === this.state.currentShift.employee) { employee = i; break;}
+    for(var i = 0; i<skedge[this.state.currentSkedgeIndex][day + 1].length; i++) {
+      if(skedge[this.state.currentSkedgeIndex][day + 1][i].employee === this.state.currentShift.employee) { employee = i; break;}
     }
-    var updateTimeOn = update(skedge, {[this.state.currentSkedgeIndex] : {[day]: {[employee]: {times: {on: {$set: timeOn}}}}}});
-    var updateTimeOnAndOff = update(updateTimeOn, {[this.state.currentSkedgeIndex]: {[day]: {[employee]: {times: {off: {$set: timeOff}}}}}});
+    var updateTimeOn = update(skedge, {[this.state.currentSkedgeIndex] : {[day + 1]: {[employee]: {times: {on: {$set: timeOn}}}}}});
+    var updateTimeOnAndOff = update(updateTimeOn, {[this.state.currentSkedgeIndex]: {[day + 1]: {[employee]: {times: {off: {$set: timeOff}}}}}});
     this.setState({
       schedule: updateTimeOnAndOff
+    }, this.displayEditShift());
+  }
+
+  removeShift(){
+    var skedge = this.state.schedule,
+        index = this.state.currentSkedgeIndex,
+        day = this.week.indexOf(this.state.currentShiftDay),
+        employee;
+    for(var i = 0; i<skedge[index][day + 1].length; i++) {
+      if(skedge[index][day + 1][i].employee === this.state.currentShift.employee) { employee = i; break;}
+    }
+    var newState = update(skedge, {[index] : {[day + 1] : {$splice: [[employee, 1]]}}});
+    this.setState({
+      schedule: newState
     }, this.displayEditShift());
   }
 
@@ -558,7 +571,8 @@ export default class App extends Component {
           currentShiftDay={this.state.currentShiftDay}
           shiftDay={this.state.currentShiftDay}
           displayEditShift={this.displayEditShift.bind(this)}
-          editShift={this.editShift.bind(this)} />
+          editShift={this.editShift.bind(this)}
+          removeShift={this.removeShift.bind(this)} />
 
         <Create 
           classes={this.state.createClasses}

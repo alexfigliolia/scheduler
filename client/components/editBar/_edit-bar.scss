@@ -1,8 +1,8 @@
 .edit-bar {
 	position: fixed;
-	top: 25%;
+	top: 22.5%;
 	left: 5%;
-	height: 50%;
+	height: 55%;
 	width: 90%;
 	background: rgba(#FFF, 1);
 	@include center;
@@ -66,7 +66,7 @@
 			width: 80%;
 			text-align: center;
 		}
-		&>div {
+		&>.bubble {
 			@include center;
 			flex-direction: row;
 			width: 90%;
@@ -111,16 +111,21 @@
 			  color: #fff;
 			}
 		}
-		&>button {
-			border: none;
-			outline: none;
-			width: 100px;
-			height: 40px;
-			border-radius: 2.5px;
-			color: #35D2E5;
-			margin-top: 30px;
-			background: #fff;
-			border: 2px solid #35D2E5;
+		&>.buttons {
+			@include center;
+			justify-content: space-between;
+			width: 220px;
+			&>button {
+				border: none;
+				outline: none;
+				width: 100px;
+				height: 40px;
+				border-radius: 2.5px;
+				color: #35D2E5;
+				margin-top: 30px;
+				background: #fff;
+				border: 2px solid #35D2E5;
+			}
 		}
 	}
 }

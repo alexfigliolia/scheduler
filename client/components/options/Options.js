@@ -13,7 +13,6 @@ export default class Options extends Component {
 		this.setState({
 			sad: "sad sad-show"
 		});
-		this.props.copySkedge();
 	}
 
 	areYouSure(){

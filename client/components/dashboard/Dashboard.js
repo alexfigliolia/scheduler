@@ -151,7 +151,7 @@ export default class Dashboard extends Component {
 						<div className="date-picker">
 							<button onClick={this.props.displayOptions}>Skedge Options</button>
 							<h3>To create a new schedule select a Monday</h3>
-							<div className="picker">
+							<div className="picker" id="pickerLarge">
 								<div className="month-picker">
 									<button
 										onClick={this.changeMonth.bind(this)}

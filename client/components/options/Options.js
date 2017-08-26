@@ -44,6 +44,13 @@ export default class Options extends Component {
 		this.props.displayOptions();
 	}
 
+	selectMondayPrompt(){
+		this.setState({
+			ays: "ays",
+			sad: "sad"
+		}, this.props.displaySmallDatePicker());
+	}
+
 	render(){
 		return(
 			<div className={this.props.classes}>
@@ -60,7 +67,7 @@ export default class Options extends Component {
 					</div>
 				</div>
 				<div className={this.state.sad}>
-					<h3 onClick={this.props.displaySmallDatePicker}>Select a monday</h3>
+					<h3 onClick={this.selectMondayPrompt.bind(this)}>Select a monday</h3>
 				</div>
 			</div>
 		);

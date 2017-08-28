@@ -9,6 +9,7 @@ import Create from './components/create/Create';
 import DatePicker from './components/datePicker/DatePicker';
 import ManageEmployees from './components/manageEmployees/ManageEmployees';
 import Options from './components/options/Options';
+import MySkedges from './components/mySkedges/MySkedges';
 import './App.scss';
 
 export default class App extends Component {
@@ -23,14 +24,15 @@ export default class App extends Component {
       createClasses: "create",
       fixedPickerClasses: "picker fixed-picker",
       manageEmployeesClasses: "manage-employees",
+      listSkedgesClasses: "my-skedges",
       optionsClasses: "options",
       height: window.innerHeight + "px",
       startDay: 8,
       endDay: 7,
       colors: ["#48CBC3", "#EB7CDA", "#7D78D4", 
-               "#FEABAD", "#FD9462", "#FD5A54", 
+               "#FEABAD", "#FC006E", "#FD5A54", 
                "#FFD66C", "#9DE39E", "#3F60E9", 
-               "#64CE87", "#EA366B", "#53A8FF", 
+               "#64CE87", "#1CC3AC", "#53A8FF", 
                "#E84033", "#FD6E76", "#FEB409",
                "#44CD76", "#FD8D3D", "#41CAF6",
                "#A538C9", "#FC5599"],
@@ -90,6 +92,194 @@ export default class App extends Component {
               employee: "Larry", 
               times: {
                 on: "3pm",
+                off: "7pm"
+              },
+              color: "#7D78D4"
+            }
+          ],
+          [
+            {
+              employee: "Alex", 
+              times: {
+                on: "10am",
+                off: "4pm"
+              },
+              color: "#48CBC3"
+            },
+            {
+              employee: "Steve", 
+              times: {
+                on: "8am",
+                off: "7pm"
+              },
+              color: "#EB7CDA"
+            },
+            {
+              employee: "Larry", 
+              times: {
+                on: "12pm",
+                off: "6pm"
+              },
+              color: "#7D78D4"
+            }
+          ],
+          [
+            {
+              employee: "Alex", 
+              times: {
+                on: "8am",
+                off: "4pm"
+              },
+              color: "#48CBC3"
+            },
+            {
+              employee: "Steve", 
+              times: {
+                on: "8am",
+                off: "3pm"
+              },
+              color: "#EB7CDA"
+            },
+            {
+              employee: "Larry", 
+              times: {
+                on: "12pm",
+                off: "7pm"
+              },
+              color: "#7D78D4"
+            }
+          ],
+          [
+            {
+              employee: "Alex", 
+              times: {
+                on: "12pm",
+                off: "4pm"
+              },
+              color: "#48CBC3"
+            },
+            {
+              employee: "Steve", 
+              times: {
+                on: "12pm",
+                off: "4pm"
+              },
+              color: "#EB7CDA"
+            },
+            {
+              employee: "Larry", 
+              times: {
+                on: "8am",
+                off: "7pm"
+              },
+              color: "#7D78D4"
+            }
+          ],
+          [
+            {
+              employee: "Alex", 
+              times: {
+                on: "8am",
+                off: "7pm"
+              },
+              color: "#48CBC3"
+            },
+            {
+              employee: "Steve", 
+              times: {
+                on: "12pm",
+                off: "7pm"
+              },
+              color: "#EB7CDA"
+            },
+            {
+              employee: "Larry", 
+              times: {
+                on: "3pm",
+                off: "7pm"
+              },
+              color: "#7D78D4"
+            }
+          ],
+          [
+            {
+              employee: "Steve", 
+              times: {
+                on: "12pm",
+                off: "7pm"
+              },
+              color: "#EB7CDA"
+            },
+            {
+              employee: "Alex", 
+              times: {
+                on: "10am",
+                off: "4pm"
+              },
+              color: "#48CBC3"
+            },
+            {
+              employee: "Larry", 
+              times: {
+                on: "8am",
+                off: "4pm"
+              },
+              color: "#7D78D4"
+            }
+          ]
+        ],
+        [
+          {
+            created: new Date(),
+            for: "Mon Aug 21 2017 00:00:00 GMT-0400 (EDT)"
+          },
+          [
+            {
+              employee: "Alex", 
+              times: {
+                on: "8am",
+                off: "2pm"
+              },
+              color: "#48CBC3"
+            },
+            {
+              employee: "Steve", 
+              times: {
+                on: "10am",
+                off: "4pm"
+              },
+              color: "#EB7CDA"
+            },
+            {
+              employee: "Larry", 
+              times: {
+                on: "11am",
+                off: "7pm"
+              },
+              color: "#7D78D4"
+            }
+          ],
+          [
+            {
+              employee: "Steve", 
+              times: {
+                on: "10am",
+                off: "7pm"
+              },
+              color: "#EB7CDA"
+            },
+            {
+              employee: "Alex", 
+              times: {
+                on: "8am",
+                off: "5pm"
+              },
+              color: "#48CBC3"
+            },
+            {
+              employee: "Larry", 
+              times: {
+                on: "12pm",
                 off: "7pm"
               },
               color: "#7D78D4"
@@ -577,6 +767,35 @@ export default class App extends Component {
     });
   }
 
+  pickSkedgeFromList(e){
+    var index = e.target.dataset.index;
+    this.setState({
+      currentSkedgeIndex: index,
+      listSkedgesClasses: "my-skedges"
+    });
+  }
+
+  displaySkedgeList(){
+    if(this.state.listSkedgesClasses === "my-skedges") {
+      if(window.innerWidth < 801) {
+        this.toggleBurger();
+        setTimeout(function(){
+          this.setState({
+            listSkedgesClasses: "my-skedges my-skedges-show"
+          });
+        }.bind(this), 500);
+      } else {
+        this.setState({
+          listSkedgesClasses: "my-skedges my-skedges-show"
+        });
+      }
+    } else {
+      this.setState({
+        listSkedgesClasses: "my-skedges"
+      });
+    }
+  }
+
 	render(){
 		return (
 			<div className="App" style={{height: this.state.height}}>
@@ -587,7 +806,8 @@ export default class App extends Component {
           createSkedge={this.createSkedge.bind(this)}
           showAddEmployee={this.showAddEmployee.bind(this)}
           dJDP={this.displayJustDatePicker.bind(this)}
-          displayOptions={this.displayOptions.bind(this)} />
+          displayOptions={this.displayOptions.bind(this)}
+          showList={this.displaySkedgeList.bind(this)} />
 
         <Dashboard
           classes={this.state.dashboardClasses}
@@ -609,7 +829,8 @@ export default class App extends Component {
           month={this.state.month}
           createSkedge={this.createSkedge.bind(this)}
           displayPicker={this.displayPicker.bind(this)} 
-          showAddEmployee={this.showAddEmployee.bind(this)}/>
+          showAddEmployee={this.showAddEmployee.bind(this)}
+          showList={this.displaySkedgeList.bind(this)} />
 
         <DatePicker
           classes={this.state.fixedPickerClasses}
@@ -647,6 +868,12 @@ export default class App extends Component {
           deleteSkedge={this.deleteSkedge.bind(this)}
           displayOptions={this.displayOptions.bind(this)}
           displaySmallDatePicker={this.displaySmallDatePicker.bind(this)} />
+
+        <MySkedges 
+          schedules={this.state.schedule}
+          classes={this.state.listSkedgesClasses}
+          pickSkedge={this.pickSkedgeFromList.bind(this)}
+          hideSkedgeList={this.displaySkedgeList.bind(this)} />
 
 			</div>
 		);

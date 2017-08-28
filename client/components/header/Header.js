@@ -11,6 +11,7 @@ export default class Header extends Component {
 					<Burger classes={this.props.burgerStuff} burger={this.props.burger}/>
 					<nav>
 						<button onClick={this.props.displayOptions}></button>
+						<a onClick={this.props.showList}>My Skedges</a>
 						<a onClick={this.props.showAddEmployee}>Employees</a>
 						<a onClick={this.props.dJDP}>Create a skedge</a>
 						<a>Log Out</a>

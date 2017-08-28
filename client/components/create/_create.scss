@@ -22,12 +22,14 @@
 		height: 50%;
 		width: 70%;
 	}
+	@media #{$mq-800} {
+		overflow: initial;
+	}
 	@media #{$mq-890} {
 		top: 25%;
 		left: 25%;
 		height: 50%;
 		width: 50%;
-		overflow: initial;
 	}
 	@media #{$mq-957} {
 		top: 25%;

@@ -27,7 +27,13 @@ export default class App extends Component {
       height: window.innerHeight + "px",
       startDay: 8,
       endDay: 7,
-      colors: ["#48CBC3", "#EB7CDA", "#7D78D4", "#FEABAD", "#FD9462", "#FD5A54", "#FFD66C", "#9DE39E", "#3F60E9", "#64CE87", "#EA366B", "#53A8FF"],
+      colors: ["#48CBC3", "#EB7CDA", "#7D78D4", 
+               "#FEABAD", "#FD9462", "#FD5A54", 
+               "#FFD66C", "#9DE39E", "#3F60E9", 
+               "#64CE87", "#EA366B", "#53A8FF", 
+               "#E84033", "#FD6E76", "#FEB409",
+               "#44CD76", "#FD8D3D", "#41CAF6",
+               "#A538C9", "#FC5599"],
       employees: [{employee: "Alex", color: "#48CBC3"}, 
                   {employee: "Steve", color: "#EB7CDA"}, 
                   {employee: "Larry", color: "#7D78D4"}],
@@ -483,9 +489,6 @@ export default class App extends Component {
     this.setState({
       employees: newState
     });
-    setTimeout(function(){
-      this.showAddEmployee();
-    }.bind(this), 1600)
   }
 
   displayJustDatePicker(){
@@ -523,6 +526,54 @@ export default class App extends Component {
     }
     this.setState({
       copied: true
+    });
+  }
+
+  updateEmployeeName(name, oldName, index){
+    var employees = this.state.employees,
+        schedule = this.state.schedule,
+        updateShift = schedule,
+        newState = update(employees, {[index] : {employee: {$set: name}}});
+    for(var i = 0; i < schedule.length; i++) {
+      for(var j = 0; j<schedule[i].length; j++){
+        if(j > 0) {
+          for(var k = 0; k<schedule[i][j].length; k++) {
+            if(schedule[i][j][k].employee === oldName) {
+              updateShift = update(updateShift, {[i] : {[j] : {[k]: {employee: {$set: name}}}}});
+              this.setState({
+                schedule: updateShift
+              });
+            }
+          }
+        }
+      }
+    }
+    this.setState({
+      employees: newState
+    });
+  }
+
+  updateEmployeeColor(name, color, index){
+    var employees = this.state.employees,
+        schedule = this.state.schedule,
+        updateShift = schedule,
+        newState = update(employees, {[index] : {color: {$set: color}}});
+    for(var i = 0; i < schedule.length; i++) {
+      for(var j = 0; j<schedule[i].length; j++){
+        if(j > 0) {
+          for(var k = 0; k<schedule[i][j].length; k++) {
+            if(schedule[i][j][k].employee === name) {
+              updateShift = update(updateShift, {[i] : {[j] : {[k]: {color: {$set: color}}}}});
+              this.setState({
+                schedule: updateShift
+              });
+            }
+          }
+        }
+      }
+    }
+    this.setState({
+      employees: newState
     });
   }
 
@@ -587,7 +638,9 @@ export default class App extends Component {
           employees={this.state.employees}
           colors={this.state.colors}
           addEmployee={this.addEmployee.bind(this)}
-          showAddEmployee={this.showAddEmployee.bind(this)} />
+          showAddEmployee={this.showAddEmployee.bind(this)}
+          updateName={this.updateEmployeeName.bind(this)}
+          updateColor={this.updateEmployeeColor.bind(this)} />
 
         <Options 
           classes={this.state.optionsClasses}

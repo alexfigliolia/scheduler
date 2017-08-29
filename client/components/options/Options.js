@@ -43,11 +43,11 @@ export default class Options extends Component {
 		this.props.displayOptions();
 	}
 
-	selectMondayPrompt(){
+	selectMondayPrompt(e){
 		this.setState({
 			ays: "ays",
 			sad: "sad"
-		}, this.props.displaySmallDatePicker());
+		}, this.props.displayJustDatePicker(e));
 	}
 
 	render(){

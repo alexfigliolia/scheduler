@@ -26,7 +26,7 @@ body{
 	overflow-y: hidden;
 	-webkit-overflow-scrolling: touch;
 	// transform-style: preserve-3d;
-	@media #{$mq-800} {
+	@media #{$mq-1150} {
 		perspective: 1000px;
 	}
 	&::after {
@@ -39,6 +39,12 @@ body{
 		transition-duration: 0.3s;
 		background: rgba(#000, 0.15);
 		@media #{$mq-800} {
+			width: 180%;
+		}
+		@media #{$mq-957}{
+			width: 120%;
+		}
+		@media #{$mq-1150} {
 			width: 100%;
 		}
 	}

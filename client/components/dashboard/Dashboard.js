@@ -101,7 +101,6 @@ export default class Dashboard extends Component {
 		var year = new Date().getUTCFullYear(),
 				month = this.state.currentMonth,
 				day = e.target.dataset.num;
-		// console.log(month + "/" + day + "/" + year);
 		this.props.createSkedge(year, month, day);
 	}
 
@@ -148,8 +147,8 @@ export default class Dashboard extends Component {
 						}
 					</div>
 					<div className="schedule" style={{height: this.state.scheduleHeight}}>
-						<div className="date-picker">
-							<button onClick={this.props.displayOptions}>Skedge Options</button>
+						<div className={this.props.datePickerClasses}>
+							<button onClick={this.props.hideDrawer}></button>
 							<h3>To create a new schedule select a Monday</h3>
 							<div className="picker" id="pickerLarge">
 								<div className="month-picker">
@@ -178,9 +177,6 @@ export default class Dashboard extends Component {
 										})
 									}
 								</div>
-							</div>
-							<div className="buttons">
-								<button onClick={this.props.showAddEmployee}>Manage employees</button>
 							</div>
 						</div>
 						<div className="times" style={{height: this.state.scheduleHeight}}>

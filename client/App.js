@@ -23,6 +23,7 @@ export default class App extends Component {
       editBarClasses: "edit-bar",
       createClasses: "create",
       fixedPickerClasses: "picker fixed-picker",
+      drawerPickerClasses: "date-picker",
       manageEmployeesClasses: "manage-employees",
       listSkedgesClasses: "my-skedges",
       optionsClasses: "options",
@@ -552,8 +553,10 @@ export default class App extends Component {
         dates = {created: new Date(), for: new Date(year, month, day)};
     if(this.state.copied) {
       var index = this.state.currentSkedgeIndex,
-          copy = update(state, {$push: [state[index]]});
-      newState = update(copy, {[index + 1]: {0: {$set: dates}}});
+          copy = state.slice(0)[index];
+      copy[0] = dates;
+      console.log(copy);
+      newState = update(state, {$push: [copy]});
     } else {
       var emptySkedge = [[],[],[],[],[],[],[],[]],
           newSkedge = emptySkedge.map((day, i) => {
@@ -565,23 +568,18 @@ export default class App extends Component {
     this.setState({
       schedule: newState,
       canCreate: false,
-      currentSkedgeIndex: (this.state.length === 0) ? 0 : this.state.currentSkedgeIndex + 1,
+      currentSkedgeIndex: newState.length - 1,
       burgerToggle: false,
       burgerClasses: "hamburglar is-open",
       dashboardClasses: "dashboard",
       menuClasses: "mobile-menu",
-      length: this.state.length + 1,
+      drawerPickerClasses: "date-picker",
+      length: newState.length,
       optionsClasses: "options",
       copied: false
     });
-    this.state.fixedPickerClasses === "picker fixed-picker date-picker-show" && this.toggleBurger();
-    this.state.fixedPickerClasses === "picker fixed-picker date-picker-show display-date-picker-large" &&
-      this.setState({
-        fixedPickerClasses: "picker fixed-picker"
-      });
-    if(window.innerWidth >= 1070) {
-      document.getElementById('pickerLarge').classList.remove('scaleAndMove');
-    }
+    this.state.fixedPickerClasses === "picker fixed-picker date-picker-show" 
+      && this.toggleBurger();
   }
 
   displayAddAShift(e){
@@ -681,10 +679,28 @@ export default class App extends Component {
     });
   }
 
-  displayJustDatePicker(){
+  displayJustDatePicker(e){
+    if(window.innerWidth < 800) {
+      this.toggleBurger();
+      this.displayPicker();
+    } else {
+      if(this.state.drawerPickerClasses === "date-picker") {
+        this.setState({
+          drawerPickerClasses: "date-picker date-picker-show"
+        });
+      } else {
+         this.setState({
+            drawerPickerClasses: "date-picker"
+         });
+      }
+    }
     this.setState({
-      fixedPickerClasses: "picker fixed-picker date-picker-show display-date-picker-large"
+      optionsClasses: "options"
     });
+    e.target.tagName === "H3" &&
+      this.setState({
+        copied: true
+      });
   }
 
   displayOptions(){
@@ -705,18 +721,6 @@ export default class App extends Component {
       currentSkedgeIndex: (newData.length - 1 < 0) ? 0 : newData.length - 1,
       length: newData.length
     }, this.displayOptions);
-  }
-
-  displaySmallDatePicker(){
-    this.displayOptions();
-    if(window.innerWidth < 1070) {
-      this.displayJustDatePicker();
-    } else {
-      document.getElementById('pickerLarge').classList.add('scaleAndMove');
-    }
-    this.setState({
-      copied: true
-    });
   }
 
   updateEmployeeName(name, oldName, index){
@@ -811,6 +815,7 @@ export default class App extends Component {
 
         <Dashboard
           classes={this.state.dashboardClasses}
+          datePickerClasses={this.state.drawerPickerClasses}
           schedule={this.state.schedule[this.state.currentSkedgeIndex]}
           startDay={this.state.startDay}
           endDay={this.state.endDay}
@@ -822,7 +827,8 @@ export default class App extends Component {
           displayAddAShift={this.displayAddAShift.bind(this)}
           renderSkedge={this.renderSkedge.bind(this)}
           showAddEmployee={this.showAddEmployee.bind(this)}
-          displayOptions={this.displayOptions.bind(this)} />
+          displayOptions={this.displayOptions.bind(this)}
+          hideDrawer={this.displayJustDatePicker.bind(this)} />
 
         <MobileMenu
           classes={this.state.menuClasses}
@@ -867,7 +873,7 @@ export default class App extends Component {
           classes={this.state.optionsClasses}
           deleteSkedge={this.deleteSkedge.bind(this)}
           displayOptions={this.displayOptions.bind(this)}
-          displaySmallDatePicker={this.displaySmallDatePicker.bind(this)} />
+          displayJustDatePicker={this.displayJustDatePicker.bind(this)} />
 
         <MySkedges 
           schedules={this.state.schedule}

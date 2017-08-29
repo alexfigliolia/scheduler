@@ -75,14 +75,6 @@
 				background: #727AFF;
 				font-size: 0.8em;
 			}
-			&>button,
-			&>a:first-of-type,
-			&>a:nth-of-type(2),
-			&>a:nth-of-type(3), {
-				@media #{$mq-1070} {
-					display: none;
-				}
-			}
 		}
 	}
 }

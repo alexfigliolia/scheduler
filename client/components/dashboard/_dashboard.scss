@@ -7,7 +7,9 @@
 	z-index: 1;
 	@media #{$mq-800} {
 		height: calc(100% - 80px);
-		transform-style: preserve-3d;
+	}
+	@media #{$mq-1150} {
+		transform-style: preserve-3d;		
 	}
 	&>div {
 		@include center;
@@ -35,12 +37,18 @@
 			}
 			@media #{$mq-800} {
 				height: 80px;
-				top: 60px;
-				position: static;
+				// top: 10px;
 			}
 			@media #{$mq-1070} {
-				width: calc(100% - 300px);
+				width: 80%;
+				align-self: center;
 			}
+			@media #{$mq-1150} {
+				position: static;
+			}
+			// @media #{$mq-1070} {
+			// 	width: calc(100% - 300px);
+			// }
 			&>button {
 				height: 25px;
 				width: 25px;
@@ -84,13 +92,19 @@
 			// transition-delay: 0.05s;
 			transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
 			@media #{$mq-800}{
+				width: 180%;
+			}
+			@media #{$mq-957}{
+				width: 120%;
+			}
+			@media #{$mq-1150} {
 				width: 100%;
 			}
-			@media #{$mq-1070}{
-				width: calc(100% - 300px);
-				justify-content: flex-end;
-				align-self: flex-end;
-			}
+			// @media #{$mq-1070}{
+			// 	width: calc(100% - 300px);
+			// 	justify-content: flex-end;
+			// 	align-self: flex-end;
+			// }
 			&>.time-header {
 				align-self: flex-start;
 				width: 35px;
@@ -102,7 +116,7 @@
 				left: 0px;
 				z-index: 2;
 				border-top-right-radius: 5px;
-				@media #{$mq-800} {
+				@media #{$mq-1150} {
 					position: static;
 					background: url('clock.svg') no-repeat center;
 					box-shadow: none;
@@ -150,76 +164,88 @@
 			// transition-delay: 0.05s;
 			transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
 			@media #{$mq-800}{
+				width: 180%;
+			}
+			@media #{$mq-957}{
+				width: 120%;
+			}
+			@media #{$mq-1150} {
 				width: 100%;
 			}
 			&>.date-picker {
 				display: none;
-				@media #{$mq-1070} {
+				@media #{$mq-800} {
+					position: absolute;
+					bottom: 0;
+					left: 0;
 					@include center;
 					width: 300px;
-					height: 100%;
+					height: calc(100% - 115px);
 					flex-direction: column;
 					color: #fff;
-					margin-top: -30px;
+					border-top-right-radius: 5px;
+					border-bottom-right-radius: 5px;
+					// justify-content: flex-start;
+					// align-self: flex-start;
+					background: #fff;
+					@include headerShadow;
+					z-index: 20;
+					transform: translateX(-300px);
+					transition-timing-function: linear;
+					transition-duration: 0.15s;
+					transition-delay: 0s;
 				}
 				&>button {
-					padding: 10px 20px;
-					background: #646FF7;
+					position: absolute;
+					top: 2.5px;
+					right: 2.5px;
+					height: 25px;
+					width: 25px;
+					border-radius: 50%;
+					background: url('cross2.svg') no-repeat center;
+					background-size: contain;
 					border: none;
 					outline: none;
-					border-radius: 2.5px;
-					font-weight: 200;
-					text-transform: uppercase;
-					font-size: 0.9em;
-					@include buttonShadow;
+					transform: scale(0) rotate(360deg);
+					transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
 					transition-duration: 0.3s;
-					&:hover {
-						@include headerShadow;
-						transform: translateY(-1px);
-					}
 				}
 				&>h3 {
+					color: #000;
 					text-align: center;
 					font-weight: 200;
 					width: 75%;
 					font-size: 1.1em;
+					margin-top: 0;
+					transform: translateX(-100%);
+					opacity: 0;
+					transition-duration: 0.3s;
+					transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
 				}
-				&>.buttons {
-					@include center;
-					flex-direction: row;
-					justify-content: space-between;
-					&>button {
-						padding: 10px 20px;
-						background: #646FF7;
-						border: none;
-						outline: none;
-						border-radius: 2.5px;
-						font-weight: 200;
-						text-transform: uppercase;
-						font-size: 0.9em;
-						@include buttonShadow;
-						transition-duration: 0.3s;
-						&:hover {
-							@include headerShadow;
-							transform: translateY(-1px);
-						}
-					}
-					&>button:first-of-type {
-						margin-right: 7.5px;
-					}
-					&>button:last-of-type {
-						margin-left: 7.5px;
-					}
+				&>.picker {
+					transform: translateX(-50%);
+					opacity: 0;
+					transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
 				}
-				&>.buttons:last-of-type{
-					margin-top: 30px;
-					&>button {
-						margin: 0;
-						&:hover {
-							@include headerShadow;
-							transform: translateY(-1px);
-						}
-					}
+			}
+			&>.date-picker-show {
+				transform: translateX(0px);
+				&>h3 {
+					transition-delay: 0.1s;
+					transform: translateX(0);
+					opacity: 1;
+					transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+				}
+				&>.picker {
+					transition-delay: 0.1s;
+					transform: translateX(0);
+					opacity: 1;
+					transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+				}
+				&>button {
+					transform: scale(1) rotate(0deg);
+					transition-delay: 0.4s;
+					transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 				}
 			}
 			&>.times {
@@ -234,7 +260,7 @@
 				z-index: 2;
 				left: 0px;
 				box-shadow: 10px 0px 20px rgba(0,0,0,0.19), 6px 0px 6px rgba(0,0,0,0.23);
-				@media #{$mq-800}{
+				@media #{$mq-1150}{
 					background: none;
 					position: static;
 					box-shadow: none;
@@ -257,7 +283,7 @@
 						width: 100%;
 						background: rgba(#fff, 0.15);
 						height: 1px;
-						@media #{$mq-800}{
+						@media #{$mq-1150}{
 							display: none;
 						}
 					}
@@ -270,9 +296,9 @@
 				position: relative;
 				background: transparent;
 				@include center;
-				@media #{$mq-1070} {
-					width: calc(((100% - 300px) / 7) - 5px);
-				}
+				// @media #{$mq-1070} {
+				// 	width: calc(((100% - 300px) / 7) - 5px);
+				// }
 				&>.slot{
 					position: absolute;
 					width: 40%;
@@ -280,7 +306,7 @@
 					top: 50%;
 					left: 30%;
 					@include center;
-					border-radius: 50px;
+					border-radius: 100px;
 					transform: scaleY(0);
 					transform-origin: 50% 0%;
 					transition: transform 0.5s;
@@ -324,7 +350,7 @@
 
 .picker{
 	width: 90%;
-	height: 50%;
+	height: 250px;
 	@include center;
 	justify-content: flex-start;
 	flex-direction: column;

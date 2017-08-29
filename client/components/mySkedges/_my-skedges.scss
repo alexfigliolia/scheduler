@@ -7,12 +7,13 @@
 	top: 50px;
 	left: 5%;
 	z-index: 300;
-	@include center;
+	// @include center;
 	border-radius: 5px;
 	overflow: scroll;
 	@include headerShadow;
 	transition-duration: 0.35s;
 	transform: translateY(-60vh) scaleY(0.9);
+	visibility: hidden;
 	transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);	
 	@media #{$mq-670} {
 		width: 450px;
@@ -23,14 +24,16 @@
 		max-height: calc(100% - 160px);
 	}
 	&>div {
+		margin: auto;
 		@include center;
-		width: 95%;
+		width: 100%;
 		height: 100%;
 		justify-content: flex-start;
 		flex-direction: column;
 		position: relative;
+		overflow: scroll;
 		&>button {
-			position: absolute;
+			position: fixed;
 			top: 2.5px;
 			right: -2.5px;
 			height: 25px;
@@ -49,26 +52,27 @@
 		&>div {
 			@include center;
 			flex-direction: column;
-			margin-bottom: 30px;
 			width: 100%;
 			&>div {
 				cursor: pointer;
-				background: #7AA3EA;
-				width: 95%;
-				max-width: 350px;
-				color: #fff;
+				width: 100%;
+				color: #385DC1;
 				padding: 10px;
-				border-radius: 100px;
 				font-size: 0.9em;
-				text-align: center;
-				margin-bottom: 10px;
-				@include buttonShadow;
+				text-align: left;
+				padding: 15px;
+				border-bottom: 1px solid #EBEBEB;
+				// @include buttonShadow;
+			}
+			&>div:first-of-type {
+				border-top: 1px solid #EBEBEB;
 			}
 		}
 	}
 }
 
 .my-skedges-show{
+	visibility: visible;
 	transform: translateY(0vh) scaleY(1);
 	transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
 }

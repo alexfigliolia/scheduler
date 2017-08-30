@@ -41,7 +41,7 @@ export default class Create extends Component {
 		}
 	}
 
-	resetState(){
+	resetState(e){
 		this.refs.timeOn.value = "";
 		this.refs.timeOff.value = "";
 		this.setState({
@@ -49,7 +49,8 @@ export default class Create extends Component {
 			selectText: "Select an employee",
 			employee: "",
 			color: "#666DD2"
-		}, this.props.displayAddAShift);
+		}, this.props.flip);
+		e.target.tagName !== "BUTTON" && this.props.displayAddAShift();
 	}
 
 	render(){

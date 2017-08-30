@@ -23,7 +23,7 @@ export default class MySkedges extends Component {
 										key={i} 
 										data-index={i}
 										className='skedge'>
-										{(i + 1) + ") Monday " + months[month1] + " " + date1 + " - " + months[month2] + " " + date2}
+										{"Monday " + months[month1] + " " + date1 + " - " + months[month2] + " " + date2}
 									</div>
 								);
 							})

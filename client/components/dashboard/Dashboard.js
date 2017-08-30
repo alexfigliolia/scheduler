@@ -149,7 +149,7 @@ export default class Dashboard extends Component {
 					<div className="schedule" style={{height: this.state.scheduleHeight}}>
 						<div className={this.props.datePickerClasses}>
 							<button onClick={this.props.hideDrawer}></button>
-							<h3>To create a new schedule select a Monday</h3>
+							<h3>Select a Monday</h3>
 							<div className="picker" id="pickerLarge">
 								<div className="month-picker">
 									<button

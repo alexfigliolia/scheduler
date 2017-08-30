@@ -451,6 +451,7 @@ export default class App extends Component {
     });
   }
 
+  //GET DAYS IN MONTH
   getDays(num){
     var m = [];
     for(var i = 0; i<num; i++) {
@@ -491,6 +492,7 @@ export default class App extends Component {
     });
   }
 
+  //DISPLAY DATE PICKER FOR CREATING A SKEDGE
   displayPicker(){
     this.setState((prevState, prevProps) => {
       return {
@@ -504,6 +506,7 @@ export default class App extends Component {
     });
   }
 
+  //DISPLAY EDIT SHIFT UI
   displayEditShift(day, shift){
     if(this.state.editBarClasses === "edit-bar") {
       var skedge = this.state.schedule[this.state.currentSkedgeIndex];
@@ -520,6 +523,7 @@ export default class App extends Component {
     }
   }
 
+  //EDIT A SHIFT
   editShift(timeOn, timeOff, day){
     var skedge = this.state.schedule,
         employee;
@@ -533,6 +537,7 @@ export default class App extends Component {
     }, this.displayEditShift());
   }
 
+  //DELETE A SHIFT
   removeShift(){
     var skedge = this.state.schedule,
         index = this.state.currentSkedgeIndex,
@@ -547,6 +552,7 @@ export default class App extends Component {
     }, this.displayEditShift());
   }
 
+  //CREATE A NEW SKEDGE
   createSkedge(year = "", month = "", day = ""){
     var state = this.state.schedule, 
         newState, 
@@ -554,9 +560,9 @@ export default class App extends Component {
     if(this.state.copied) {
       var index = this.state.currentSkedgeIndex,
           copy = state.slice(0)[index];
-      copy[0] = dates;
-      console.log(copy);
       newState = update(state, {$push: [copy]});
+      newState = update(newState, {[newState.length - 1]: {[0]: {created: {$set: dates.created}}}});
+      newState = update(newState, {[newState.length - 1]: {[0]: {for: {$set: dates.for}}}});
     } else {
       var emptySkedge = [[],[],[],[],[],[],[],[]],
           newSkedge = emptySkedge.map((day, i) => {
@@ -582,6 +588,7 @@ export default class App extends Component {
       && this.toggleBurger();
   }
 
+  //DISPLAY ADD A SHIFT UI
   displayAddAShift(e){
     if(this.state.createClasses === "create") {
       var day = e.target.dataset.lg;
@@ -596,6 +603,7 @@ export default class App extends Component {
     }
   }
 
+  //HANDLE ANIMATION OF "CREATE SHIFT" UI
   flip(){
     if(this.state.createClasses === "create create-show") {
       this.setState({
@@ -610,6 +618,7 @@ export default class App extends Component {
     
   }
 
+  //ADD A SHIFT TO THE SCHEDULE
   saveShift(employee, color, start, end){
     var state = this.state.schedule,
         day = this.week.indexOf(this.state.currentShiftDay) + 1,
@@ -628,6 +637,7 @@ export default class App extends Component {
     });
   }
 
+  //NAVIGATE THROUGH SKEDGES WITH RIGHT/LEFT ARROWS
   renderSkedge(e){
     var cur = this.state.currentSkedgeIndex,
         dir = e.target.dataset.dir;
@@ -650,6 +660,7 @@ export default class App extends Component {
     });
   }
 
+  //DISPLAY MANAGE EMPLOYEE UI
   showAddEmployee(){ 
     if(this.state.manageEmployeesClasses === "manage-employees") {
       if(window.innerWidth < 801) {
@@ -671,6 +682,7 @@ export default class App extends Component {
     }
   }
 
+  //ADD A NEW EMPLOYEE
   addEmployee(employee, color){
     let state = this.state.employees,
         newState = update(state, {$push: [{employee: employee, color: color}]});
@@ -679,6 +691,7 @@ export default class App extends Component {
     });
   }
 
+  //DISPLAY DATE PICKER WHEN COPYING A NEW SKEDGE
   displayJustDatePicker(e){
     if(window.innerWidth < 800) {
       this.toggleBurger();
@@ -703,6 +716,7 @@ export default class App extends Component {
       });
   }
 
+  //DISPLAY SKEDGE OPTIONS
   displayOptions(){
     this.setState((prevState, prevProps) => {
       return {
@@ -711,11 +725,11 @@ export default class App extends Component {
     })
   }
 
+  //DELETE THE CURRENT SKEDGE
   deleteSkedge(){
     var data = this.state.schedule,
         index = this.state.currentSkedgeIndex,
         newData = update(data, {$splice: [[index, 1]]});
-        console.log(newData.length);
     this.setState({
       schedule: newData,
       currentSkedgeIndex: (newData.length - 1 < 0) ? 0 : newData.length - 1,
@@ -723,6 +737,7 @@ export default class App extends Component {
     }, this.displayOptions);
   }
 
+  //UPDATE THE NAME OF AN EMPLOYEE
   updateEmployeeName(name, oldName, index){
     var employees = this.state.employees,
         schedule = this.state.schedule,
@@ -747,6 +762,7 @@ export default class App extends Component {
     });
   }
 
+  //UPDATE THE COLOR FOR THE EMPLOYEE
   updateEmployeeColor(name, color, index){
     var employees = this.state.employees,
         schedule = this.state.schedule,
@@ -771,6 +787,7 @@ export default class App extends Component {
     });
   }
 
+  //PICK A SKEDGE FROM THE MY SKEDGES LIST
   pickSkedgeFromList(e){
     var index = e.target.dataset.index;
     this.setState({
@@ -779,6 +796,7 @@ export default class App extends Component {
     });
   }
 
+  //DISPLAY A FULL LIST OF SKEDGES
   displaySkedgeList(){
     if(this.state.listSkedgesClasses === "my-skedges") {
       if(window.innerWidth < 801) {

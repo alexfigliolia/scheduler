@@ -35,6 +35,9 @@ export default class Login extends Component{
 				email = this.refs.email.value;
 				password = this.refs.password.value;
 				this.props.login(email, password);
+				this.setState({
+					loginErrors: "Error:"
+				});
 			} else {
 				this.setState({
 					loginErrors: "Error: Please check your inputs and try again"
@@ -50,6 +53,9 @@ export default class Login extends Component{
 				email = this.refs.email.value;
 				password = this.refs.password.value;
 				this.props.signUp(name, email, password);
+				this.setState({
+					loginErrors: "Error:"
+				});
 			} else {
 				this.setState({
 					loginErrors: "Error: Please check your inputs and try again"

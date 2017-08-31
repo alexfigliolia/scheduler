@@ -8,7 +8,7 @@ export default class MobileMenu extends Component {
 					<a onClick={this.props.displayPicker}>Create a skedge</a>
 					<a onClick={this.props.showAddEmployee}>Manage Employees</a>
 					<a onClick={this.props.showList}>My Skedges</a>
-					<a>Log Out</a>
+					<a onClick={this.props.logout}>Log Out</a>
 				</div>
 			</div>
 		);

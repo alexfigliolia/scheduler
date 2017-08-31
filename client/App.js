@@ -43,7 +43,9 @@ export default class App extends Component {
                "#A538C9", "#FC5599"],
       employees: [{employee: "Alex", color: "#48CBC3"}, 
                   {employee: "Steve", color: "#EB7CDA"}, 
-                  {employee: "Larry", color: "#7D78D4"}],
+                  {employee: "Larry", color: "#7D78D4"},
+                  {employee: "Carl", color: "#53A8FF"},
+                  {employee: "Louis", color: "#64CE87"}],
       schedule: [
         [
           {
@@ -442,7 +444,8 @@ export default class App extends Component {
 
   componentDidMount(){
     var self = this,
-        d = new Date().getMonth();
+        d = new Date().getMonth(),
+        user = this.props.user;
     window.addEventListener('resize', function(){
       self.setState({
         height: window.innerHeight + "px"
@@ -453,6 +456,11 @@ export default class App extends Component {
       mondays: getMondays(d),
       length: this.state.schedule.length
     });
+    if(user !== undefined && user !== null) {
+      this.setState({
+        loggedIn: true
+      });
+    }
   }
 
   login(e, p) {
@@ -468,10 +476,17 @@ export default class App extends Component {
           loginClasses: "login"
         });
       } else {
-        this.setState({
-          loginErrors: "",
-          loginClasses: "login login-loading login-remove"
-        });
+        setTimeout(function(){
+          this.setState({
+            loginErrors: "",
+            loginClasses: "login login-loading login-remove"
+          });
+        }.bind(this), 500);
+        setTimeout(function(){
+          this.setState({
+            loggedIn: true
+          });
+        }.bind(this), 1800);
       }
     });
   }
@@ -494,14 +509,40 @@ export default class App extends Component {
             });
           } else {
             // console.log('logging in new user');
-            this.setState({
-              loginErrors: "",
-              loginClasses: "login login-loading login-remove"
-            });
+            setTimeout(function(){
+              this.setState({
+                loginErrors: "",
+                loginClasses: "login login-loading login-remove"
+              });
+            }.bind(this), 500);
+            setTimeout(function(){
+              this.setState({
+                loggedIn: true
+              });
+            }.bind(this), 1800);
           }
         });
       }
     });
+  }
+
+  logout(e){
+    if(e.target.parentNode.parentNode.classList.contains('mobile-menu')){
+      this.toggleBurger();
+      setTimeout(function(){
+        this.setState({
+          loginErrors: "",
+          loginClasses: "login",
+          loggedIn: false
+        }, Meteor.logout());
+      }.bind(this), 500);
+    } else {
+      this.setState({
+        loginErrors: "",
+        loginClasses: "login",
+        loggedIn: false
+      }, Meteor.logout());
+    }
   }
 
   //GET DAYS IN MONTH
@@ -875,88 +916,120 @@ export default class App extends Component {
 		return (
 			<div className="App" style={{height: this.state.height}}>
 
-        <Login 
-          classes={this.state.loginClasses}
-          errors={this.state.loginErrors}
-          login={this.login.bind(this)}
-          signUp={this.signUp.bind(this)} />
+        {
+          !this.state.loggedIn &&
+          <Login 
+            classes={this.state.loginClasses}
+            errors={this.state.loginErrors}
+            login={this.login.bind(this)}
+            signUp={this.signUp.bind(this)} />
+        }
 
-				<Header
-					burgerStuff={this.state.burgerClasses}
-					burger={this.toggleBurger.bind(this)}
-          createSkedge={this.createSkedge.bind(this)}
-          showAddEmployee={this.showAddEmployee.bind(this)}
-          dJDP={this.displayJustDatePicker.bind(this)}
-          displayOptions={this.displayOptions.bind(this)}
-          showList={this.displaySkedgeList.bind(this)} />
+				{
+          this.state.loggedIn && 
+          <Header
+            burgerStuff={this.state.burgerClasses}
+            burger={this.toggleBurger.bind(this)}
+            createSkedge={this.createSkedge.bind(this)}
+            showAddEmployee={this.showAddEmployee.bind(this)}
+            dJDP={this.displayJustDatePicker.bind(this)}
+            displayOptions={this.displayOptions.bind(this)}
+            showList={this.displaySkedgeList.bind(this)}
+            logout={this.logout.bind(this)} />
+          }
 
-        <Dashboard
-          classes={this.state.dashboardClasses}
-          datePickerClasses={this.state.drawerPickerClasses}
-          schedule={this.state.schedule[this.state.currentSkedgeIndex]}
-          startDay={this.state.startDay}
-          endDay={this.state.endDay}
-          month={this.state.month}
-          idx={this.state.currentSkedgeIndex}
-          skedgeNumber={this.state.length}
-          createSkedge={this.createSkedge.bind(this)}
-          editShift={this.displayEditShift.bind(this)}
-          displayAddAShift={this.displayAddAShift.bind(this)}
-          renderSkedge={this.renderSkedge.bind(this)}
-          showAddEmployee={this.showAddEmployee.bind(this)}
-          displayOptions={this.displayOptions.bind(this)}
-          hideDrawer={this.displayJustDatePicker.bind(this)} />
+        {
+          this.state.loggedIn &&
+          <Dashboard
+            classes={this.state.dashboardClasses}
+            datePickerClasses={this.state.drawerPickerClasses}
+            schedule={this.state.schedule[this.state.currentSkedgeIndex]}
+            startDay={this.state.startDay}
+            endDay={this.state.endDay}
+            month={this.state.month}
+            idx={this.state.currentSkedgeIndex}
+            skedgeNumber={this.state.length}
+            createSkedge={this.createSkedge.bind(this)}
+            editShift={this.displayEditShift.bind(this)}
+            displayAddAShift={this.displayAddAShift.bind(this)}
+            renderSkedge={this.renderSkedge.bind(this)}
+            showAddEmployee={this.showAddEmployee.bind(this)}
+            displayOptions={this.displayOptions.bind(this)}
+            hideDrawer={this.displayJustDatePicker.bind(this)} />
+        }
 
-        <MobileMenu
-          classes={this.state.menuClasses}
-          month={this.state.month}
-          createSkedge={this.createSkedge.bind(this)}
-          displayPicker={this.displayPicker.bind(this)} 
-          showAddEmployee={this.showAddEmployee.bind(this)}
-          showList={this.displaySkedgeList.bind(this)} />
+        {
+          this.state.loggedIn &&
+          <MobileMenu
+            classes={this.state.menuClasses}
+            month={this.state.month}
+            createSkedge={this.createSkedge.bind(this)}
+            displayPicker={this.displayPicker.bind(this)} 
+            showAddEmployee={this.showAddEmployee.bind(this)}
+            showList={this.displaySkedgeList.bind(this)}
+            logout={this.logout.bind(this)} />
+        }
 
-        <DatePicker
-          classes={this.state.fixedPickerClasses}
-          displayPicker={this.displayPicker.bind(this)}
-          createSkedge={this.createSkedge.bind(this)} />
+        {
+          this.state.loggedIn &&
+          <DatePicker
+            classes={this.state.fixedPickerClasses}
+            displayPicker={this.displayPicker.bind(this)}
+            createSkedge={this.createSkedge.bind(this)} />
+          }
 
-        <EditBar 
-          classes={this.state.editBarClasses}
-          currentShift={this.state.currentShift}
-          currentShiftDay={this.state.currentShiftDay}
-          shiftDay={this.state.currentShiftDay}
-          displayEditShift={this.displayEditShift.bind(this)}
-          editShift={this.editShift.bind(this)}
-          removeShift={this.removeShift.bind(this)} />
+        {
+          this.state.loggedIn &&
+          <EditBar 
+            classes={this.state.editBarClasses}
+            currentShift={this.state.currentShift}
+            currentShiftDay={this.state.currentShiftDay}
+            shiftDay={this.state.currentShiftDay}
+            displayEditShift={this.displayEditShift.bind(this)}
+            editShift={this.editShift.bind(this)}
+            removeShift={this.removeShift.bind(this)} />
+        }
 
-        <Create 
-          classes={this.state.createClasses}
-          day={this.state.currentShiftDay}
-          employees={this.state.employees}
-          displayAddAShift={this.displayAddAShift.bind(this)}
-          flip={this.flip.bind(this)}
-          saveShift={this.saveShift.bind(this)} />
+        {
+          this.state.loggedIn &&
+          <Create 
+            classes={this.state.createClasses}
+            day={this.state.currentShiftDay}
+            employees={this.state.employees}
+            displayAddAShift={this.displayAddAShift.bind(this)}
+            flip={this.flip.bind(this)}
+            saveShift={this.saveShift.bind(this)} />
+        }
 
-        <ManageEmployees 
-          classes={this.state.manageEmployeesClasses}
-          employees={this.state.employees}
-          colors={this.state.colors}
-          addEmployee={this.addEmployee.bind(this)}
-          showAddEmployee={this.showAddEmployee.bind(this)}
-          updateName={this.updateEmployeeName.bind(this)}
-          updateColor={this.updateEmployeeColor.bind(this)} />
+        {
+          this.state.loggedIn &&
+          <ManageEmployees 
+            classes={this.state.manageEmployeesClasses}
+            employees={this.state.employees}
+            colors={this.state.colors}
+            addEmployee={this.addEmployee.bind(this)}
+            showAddEmployee={this.showAddEmployee.bind(this)}
+            updateName={this.updateEmployeeName.bind(this)}
+            updateColor={this.updateEmployeeColor.bind(this)} />
+        }
 
-        <Options 
-          classes={this.state.optionsClasses}
-          deleteSkedge={this.deleteSkedge.bind(this)}
-          displayOptions={this.displayOptions.bind(this)}
-          displayJustDatePicker={this.displayJustDatePicker.bind(this)} />
+        {
+          this.state.loggedIn &&
+          <Options 
+            classes={this.state.optionsClasses}
+            deleteSkedge={this.deleteSkedge.bind(this)}
+            displayOptions={this.displayOptions.bind(this)}
+            displayJustDatePicker={this.displayJustDatePicker.bind(this)} />
+        }
 
-        <MySkedges 
-          schedules={this.state.schedule}
-          classes={this.state.listSkedgesClasses}
-          pickSkedge={this.pickSkedgeFromList.bind(this)}
-          hideSkedgeList={this.displaySkedgeList.bind(this)} />
+        {
+          this.state.loggedIn &&
+          <MySkedges 
+            schedules={this.state.schedule}
+            classes={this.state.listSkedgesClasses}
+            pickSkedge={this.pickSkedgeFromList.bind(this)}
+            hideSkedgeList={this.displaySkedgeList.bind(this)} />
+        }
 
 			</div>
 		);

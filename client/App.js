@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import update from 'immutability-helper';
+import Login from './components/login/Login';
 import Header from './components/header/Header';
 import Dashboard from './components/dashboard/Dashboard';
 import MobileMenu from './components/mobileMenu/MobileMenu';
@@ -16,6 +17,9 @@ export default class App extends Component {
 	constructor(props) {
 		super(props);
 		this.state = {
+      loggedIn: false,
+      loginErrors: "",
+      loginClasses: "login",
 			burgerClasses: "hamburglar is-open",
 			burgerToggle: true,
       dashboardClasses: "dashboard",
@@ -451,6 +455,55 @@ export default class App extends Component {
     });
   }
 
+  login(e, p) {
+    e = e.toLowerCase();
+    Meteor.loginWithPassword(e, p, (err) => {
+      this.setState({
+        loginClasses: "login login-loading"
+      });
+      if(err){
+        // console.log(err.reason);
+        this.setState({
+          loginErrors: err.reason,
+          loginClasses: "login"
+        });
+      } else {
+        this.setState({
+          loginErrors: "",
+          loginClasses: "login login-loading login-remove"
+        });
+      }
+    });
+  }
+
+  signUp(n, e, p) {
+    Accounts.createUser({name: n, email: e.toLowerCase(), password: p}, (err) => {
+      this.setState({
+        loginClasses: "login login-loading"
+      });
+      if(err){
+        // console.log(err.reason);
+      } else {
+        // console.log('creating new user');
+        Meteor.loginWithPassword(e, p, (err) => {
+          if(err) {
+            // console.log(err.reason);
+            this.setState({
+              loginErrors: err.reason,
+              loginClasses: "login"
+            });
+          } else {
+            // console.log('logging in new user');
+            this.setState({
+              loginErrors: "",
+              loginClasses: "login login-loading login-remove"
+            });
+          }
+        });
+      }
+    });
+  }
+
   //GET DAYS IN MONTH
   getDays(num){
     var m = [];
@@ -821,6 +874,12 @@ export default class App extends Component {
 	render(){
 		return (
 			<div className="App" style={{height: this.state.height}}>
+
+        <Login 
+          classes={this.state.loginClasses}
+          errors={this.state.loginErrors}
+          login={this.login.bind(this)}
+          signUp={this.signUp.bind(this)} />
 
 				<Header
 					burgerStuff={this.state.burgerClasses}

@@ -10,8 +10,9 @@ export default class MySkedges extends Component {
 					<h2>My Skeges</h2>
 					<div>
 						{
+							(this.props.schedules.length > 0) ?
 							this.props.schedules.map((skedge, i) => {
-								var d1 = new Date(skedge[0].for),
+								var d1 = new Date(skedge.schedule[0].for),
 										d2 = new Date(d1.getTime() + 6 * 24 * 60 * 60 * 1000),
 										month1 = d1.getMonth(),
 										month2 = d2.getMonth(),
@@ -27,6 +28,7 @@ export default class MySkedges extends Component {
 									</div>
 								);
 							})
+							: <div>Create your first skedge!</div>
 						}
 					</div>
 				</div>

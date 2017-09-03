@@ -176,11 +176,11 @@
 				display: none;
 				@media #{$mq-800} {
 					position: absolute;
-					bottom: 0;
+					bottom: calc(50% - 250px);
 					left: 0;
 					@include center;
 					width: 300px;
-					height: calc(100% - 115px);
+					height: 500px;
 					flex-direction: column;
 					color: #fff;
 					border-top-right-radius: 5px;

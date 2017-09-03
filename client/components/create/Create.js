@@ -50,7 +50,9 @@ export default class Create extends Component {
 			employee: "",
 			color: "#666DD2"
 		}, this.props.flip);
-		e.target.tagName !== "BUTTON" && this.props.displayAddAShift();
+		if(e !== undefined) {
+			e.target.tagName !== "BUTTON" && this.props.displayAddAShift();
+		}
 	}
 
 	render(){

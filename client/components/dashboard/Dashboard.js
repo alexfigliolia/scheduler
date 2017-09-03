@@ -106,7 +106,7 @@ export default class Dashboard extends Component {
 
 	render(){
 		const week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-		const forDate = (this.props.schedule !== undefined) ? new Date(this.props.schedule[0].for) : false;
+		const forDate = (this.props.schedule !== undefined) ? new Date(this.props.schedule.schedule[0].for) : false;
 		const mondays = this.state.mondays;
 		let dates = [];
 		for(var i = 0; i < mondays.length; i++) {
@@ -130,22 +130,25 @@ export default class Dashboard extends Component {
 							onClick={this.props.renderSkedge}
 							className="next-skedge"></button>
 					</div>
-					<div className="days">
-						<div className="time-header"></div>
-						{
-							week.map((day, i) => {
-								return (
-									<div 
-										className="day"
-										data-sm={day.substring(0,3)}
-										data-lg={day}
-										key={i}
-										onClick={this.props.displayAddAShift}>
-									</div>
-								);
-							})
-						}
-					</div>
+					{
+						this.props.schedule !== undefined &&
+						<div className="days">
+							<div className="time-header"></div>
+							{
+								week.map((day, i) => {
+									return (
+										<div 
+											className="day"
+											data-sm={day.substring(0,3)}
+											data-lg={day}
+											key={i}
+											onClick={this.props.displayAddAShift}>
+										</div>
+									);
+								})
+							}
+						</div>
+					}
 					<div className="schedule" style={{height: this.state.scheduleHeight}}>
 						<div className={this.props.datePickerClasses}>
 							<button onClick={this.props.hideDrawer}></button>
@@ -194,7 +197,7 @@ export default class Dashboard extends Component {
 						</div>
 						{
 							this.props.schedule !== undefined ? 
-							this.props.schedule.map((day, i) => {
+							this.props.schedule.schedule.map((day, i) => {
 								if(i > 0) {
 									return(
 										<div key={i} className="fullday">

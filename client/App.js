@@ -47,382 +47,382 @@ export default class App extends Component {
                   {employee: "Carl", color: "#53A8FF"},
                   {employee: "Louis", color: "#64CE87"}],
       schedule: [
-        [
-          {
-            created: new Date(),
-            for: "Mon Aug 14 2017 00:00:00 GMT-0400 (EDT)"
-          },
-          [
-            {
-              employee: "Alex", 
-              times: {
-                on: "10am",
-                off: "4pm"
-              },
-              color: "#48CBC3"
-            },
-            {
-              employee: "Steve", 
-              times: {
-                on: "8am",
-                off: "7pm"
-              },
-              color: "#EB7CDA"
-            },
-            {
-              employee: "Larry", 
-              times: {
-                on: "10am",
-                off: "7pm"
-              },
-              color: "#7D78D4"
-            }
-          ],
-          [
-            {
-              employee: "Steve", 
-              times: {
-                on: "8am",
-                off: "5pm"
-              },
-              color: "#EB7CDA"
-            },
-            {
-              employee: "Alex", 
-              times: {
-                on: "9am",
-                off: "4pm"
-              },
-              color: "#48CBC3"
-            },
-            {
-              employee: "Larry", 
-              times: {
-                on: "3pm",
-                off: "7pm"
-              },
-              color: "#7D78D4"
-            }
-          ],
-          [
-            {
-              employee: "Alex", 
-              times: {
-                on: "10am",
-                off: "4pm"
-              },
-              color: "#48CBC3"
-            },
-            {
-              employee: "Steve", 
-              times: {
-                on: "8am",
-                off: "7pm"
-              },
-              color: "#EB7CDA"
-            },
-            {
-              employee: "Larry", 
-              times: {
-                on: "12pm",
-                off: "6pm"
-              },
-              color: "#7D78D4"
-            }
-          ],
-          [
-            {
-              employee: "Alex", 
-              times: {
-                on: "8am",
-                off: "4pm"
-              },
-              color: "#48CBC3"
-            },
-            {
-              employee: "Steve", 
-              times: {
-                on: "8am",
-                off: "3pm"
-              },
-              color: "#EB7CDA"
-            },
-            {
-              employee: "Larry", 
-              times: {
-                on: "12pm",
-                off: "7pm"
-              },
-              color: "#7D78D4"
-            }
-          ],
-          [
-            {
-              employee: "Alex", 
-              times: {
-                on: "12pm",
-                off: "4pm"
-              },
-              color: "#48CBC3"
-            },
-            {
-              employee: "Steve", 
-              times: {
-                on: "12pm",
-                off: "4pm"
-              },
-              color: "#EB7CDA"
-            },
-            {
-              employee: "Larry", 
-              times: {
-                on: "8am",
-                off: "7pm"
-              },
-              color: "#7D78D4"
-            }
-          ],
-          [
-            {
-              employee: "Alex", 
-              times: {
-                on: "8am",
-                off: "7pm"
-              },
-              color: "#48CBC3"
-            },
-            {
-              employee: "Steve", 
-              times: {
-                on: "12pm",
-                off: "7pm"
-              },
-              color: "#EB7CDA"
-            },
-            {
-              employee: "Larry", 
-              times: {
-                on: "3pm",
-                off: "7pm"
-              },
-              color: "#7D78D4"
-            }
-          ],
-          [
-            {
-              employee: "Steve", 
-              times: {
-                on: "12pm",
-                off: "7pm"
-              },
-              color: "#EB7CDA"
-            },
-            {
-              employee: "Alex", 
-              times: {
-                on: "10am",
-                off: "4pm"
-              },
-              color: "#48CBC3"
-            },
-            {
-              employee: "Larry", 
-              times: {
-                on: "8am",
-                off: "4pm"
-              },
-              color: "#7D78D4"
-            }
-          ]
-        ],
-        [
-          {
-            created: new Date(),
-            for: "Mon Aug 21 2017 00:00:00 GMT-0400 (EDT)"
-          },
-          [
-            {
-              employee: "Alex", 
-              times: {
-                on: "8am",
-                off: "2pm"
-              },
-              color: "#48CBC3"
-            },
-            {
-              employee: "Steve", 
-              times: {
-                on: "10am",
-                off: "4pm"
-              },
-              color: "#EB7CDA"
-            },
-            {
-              employee: "Larry", 
-              times: {
-                on: "11am",
-                off: "7pm"
-              },
-              color: "#7D78D4"
-            }
-          ],
-          [
-            {
-              employee: "Steve", 
-              times: {
-                on: "10am",
-                off: "7pm"
-              },
-              color: "#EB7CDA"
-            },
-            {
-              employee: "Alex", 
-              times: {
-                on: "8am",
-                off: "5pm"
-              },
-              color: "#48CBC3"
-            },
-            {
-              employee: "Larry", 
-              times: {
-                on: "12pm",
-                off: "7pm"
-              },
-              color: "#7D78D4"
-            }
-          ],
-          [
-            {
-              employee: "Alex", 
-              times: {
-                on: "10am",
-                off: "4pm"
-              },
-              color: "#48CBC3"
-            },
-            {
-              employee: "Steve", 
-              times: {
-                on: "8am",
-                off: "7pm"
-              },
-              color: "#EB7CDA"
-            },
-            {
-              employee: "Larry", 
-              times: {
-                on: "12pm",
-                off: "6pm"
-              },
-              color: "#7D78D4"
-            }
-          ],
-          [
-            {
-              employee: "Alex", 
-              times: {
-                on: "8am",
-                off: "4pm"
-              },
-              color: "#48CBC3"
-            },
-            {
-              employee: "Steve", 
-              times: {
-                on: "8am",
-                off: "3pm"
-              },
-              color: "#EB7CDA"
-            },
-            {
-              employee: "Larry", 
-              times: {
-                on: "12pm",
-                off: "7pm"
-              },
-              color: "#7D78D4"
-            }
-          ],
-          [
-            {
-              employee: "Alex", 
-              times: {
-                on: "12pm",
-                off: "4pm"
-              },
-              color: "#48CBC3"
-            },
-            {
-              employee: "Steve", 
-              times: {
-                on: "12pm",
-                off: "4pm"
-              },
-              color: "#EB7CDA"
-            },
-            {
-              employee: "Larry", 
-              times: {
-                on: "8am",
-                off: "7pm"
-              },
-              color: "#7D78D4"
-            }
-          ],
-          [
-            {
-              employee: "Alex", 
-              times: {
-                on: "8am",
-                off: "7pm"
-              },
-              color: "#48CBC3"
-            },
-            {
-              employee: "Steve", 
-              times: {
-                on: "12pm",
-                off: "7pm"
-              },
-              color: "#EB7CDA"
-            },
-            {
-              employee: "Larry", 
-              times: {
-                on: "3pm",
-                off: "7pm"
-              },
-              color: "#7D78D4"
-            }
-          ],
-          [
-            {
-              employee: "Steve", 
-              times: {
-                on: "12pm",
-                off: "7pm"
-              },
-              color: "#EB7CDA"
-            },
-            {
-              employee: "Alex", 
-              times: {
-                on: "10am",
-                off: "4pm"
-              },
-              color: "#48CBC3"
-            },
-            {
-              employee: "Larry", 
-              times: {
-                on: "8am",
-                off: "4pm"
-              },
-              color: "#7D78D4"
-            }
-          ]
-        ]
+        // [
+        //   {
+        //     created: new Date(),
+        //     for: "Mon Aug 14 2017 00:00:00 GMT-0400 (EDT)"
+        //   },
+        //   [
+        //     {
+        //       employee: "Alex", 
+        //       times: {
+        //         on: "10am",
+        //         off: "4pm"
+        //       },
+        //       color: "#48CBC3"
+        //     },
+        //     {
+        //       employee: "Steve", 
+        //       times: {
+        //         on: "8am",
+        //         off: "7pm"
+        //       },
+        //       color: "#EB7CDA"
+        //     },
+        //     {
+        //       employee: "Larry", 
+        //       times: {
+        //         on: "10am",
+        //         off: "7pm"
+        //       },
+        //       color: "#7D78D4"
+        //     }
+        //   ],
+        //   [
+        //     {
+        //       employee: "Steve", 
+        //       times: {
+        //         on: "8am",
+        //         off: "5pm"
+        //       },
+        //       color: "#EB7CDA"
+        //     },
+        //     {
+        //       employee: "Alex", 
+        //       times: {
+        //         on: "9am",
+        //         off: "4pm"
+        //       },
+        //       color: "#48CBC3"
+        //     },
+        //     {
+        //       employee: "Larry", 
+        //       times: {
+        //         on: "3pm",
+        //         off: "7pm"
+        //       },
+        //       color: "#7D78D4"
+        //     }
+        //   ],
+        //   [
+        //     {
+        //       employee: "Alex", 
+        //       times: {
+        //         on: "10am",
+        //         off: "4pm"
+        //       },
+        //       color: "#48CBC3"
+        //     },
+        //     {
+        //       employee: "Steve", 
+        //       times: {
+        //         on: "8am",
+        //         off: "7pm"
+        //       },
+        //       color: "#EB7CDA"
+        //     },
+        //     {
+        //       employee: "Larry", 
+        //       times: {
+        //         on: "12pm",
+        //         off: "6pm"
+        //       },
+        //       color: "#7D78D4"
+        //     }
+        //   ],
+        //   [
+        //     {
+        //       employee: "Alex", 
+        //       times: {
+        //         on: "8am",
+        //         off: "4pm"
+        //       },
+        //       color: "#48CBC3"
+        //     },
+        //     {
+        //       employee: "Steve", 
+        //       times: {
+        //         on: "8am",
+        //         off: "3pm"
+        //       },
+        //       color: "#EB7CDA"
+        //     },
+        //     {
+        //       employee: "Larry", 
+        //       times: {
+        //         on: "12pm",
+        //         off: "7pm"
+        //       },
+        //       color: "#7D78D4"
+        //     }
+        //   ],
+        //   [
+        //     {
+        //       employee: "Alex", 
+        //       times: {
+        //         on: "12pm",
+        //         off: "4pm"
+        //       },
+        //       color: "#48CBC3"
+        //     },
+        //     {
+        //       employee: "Steve", 
+        //       times: {
+        //         on: "12pm",
+        //         off: "4pm"
+        //       },
+        //       color: "#EB7CDA"
+        //     },
+        //     {
+        //       employee: "Larry", 
+        //       times: {
+        //         on: "8am",
+        //         off: "7pm"
+        //       },
+        //       color: "#7D78D4"
+        //     }
+        //   ],
+        //   [
+        //     {
+        //       employee: "Alex", 
+        //       times: {
+        //         on: "8am",
+        //         off: "7pm"
+        //       },
+        //       color: "#48CBC3"
+        //     },
+        //     {
+        //       employee: "Steve", 
+        //       times: {
+        //         on: "12pm",
+        //         off: "7pm"
+        //       },
+        //       color: "#EB7CDA"
+        //     },
+        //     {
+        //       employee: "Larry", 
+        //       times: {
+        //         on: "3pm",
+        //         off: "7pm"
+        //       },
+        //       color: "#7D78D4"
+        //     }
+        //   ],
+        //   [
+        //     {
+        //       employee: "Steve", 
+        //       times: {
+        //         on: "12pm",
+        //         off: "7pm"
+        //       },
+        //       color: "#EB7CDA"
+        //     },
+        //     {
+        //       employee: "Alex", 
+        //       times: {
+        //         on: "10am",
+        //         off: "4pm"
+        //       },
+        //       color: "#48CBC3"
+        //     },
+        //     {
+        //       employee: "Larry", 
+        //       times: {
+        //         on: "8am",
+        //         off: "4pm"
+        //       },
+        //       color: "#7D78D4"
+        //     }
+        //   ]
+        // ],
+        // [
+        //   {
+        //     created: new Date(),
+        //     for: "Mon Aug 21 2017 00:00:00 GMT-0400 (EDT)"
+        //   },
+        //   [
+        //     {
+        //       employee: "Alex", 
+        //       times: {
+        //         on: "8am",
+        //         off: "2pm"
+        //       },
+        //       color: "#48CBC3"
+        //     },
+        //     {
+        //       employee: "Steve", 
+        //       times: {
+        //         on: "10am",
+        //         off: "4pm"
+        //       },
+        //       color: "#EB7CDA"
+        //     },
+        //     {
+        //       employee: "Larry", 
+        //       times: {
+        //         on: "11am",
+        //         off: "7pm"
+        //       },
+        //       color: "#7D78D4"
+        //     }
+        //   ],
+        //   [
+        //     {
+        //       employee: "Steve", 
+        //       times: {
+        //         on: "10am",
+        //         off: "7pm"
+        //       },
+        //       color: "#EB7CDA"
+        //     },
+        //     {
+        //       employee: "Alex", 
+        //       times: {
+        //         on: "8am",
+        //         off: "5pm"
+        //       },
+        //       color: "#48CBC3"
+        //     },
+        //     {
+        //       employee: "Larry", 
+        //       times: {
+        //         on: "12pm",
+        //         off: "7pm"
+        //       },
+        //       color: "#7D78D4"
+        //     }
+        //   ],
+        //   [
+        //     {
+        //       employee: "Alex", 
+        //       times: {
+        //         on: "10am",
+        //         off: "4pm"
+        //       },
+        //       color: "#48CBC3"
+        //     },
+        //     {
+        //       employee: "Steve", 
+        //       times: {
+        //         on: "8am",
+        //         off: "7pm"
+        //       },
+        //       color: "#EB7CDA"
+        //     },
+        //     {
+        //       employee: "Larry", 
+        //       times: {
+        //         on: "12pm",
+        //         off: "6pm"
+        //       },
+        //       color: "#7D78D4"
+        //     }
+        //   ],
+        //   [
+        //     {
+        //       employee: "Alex", 
+        //       times: {
+        //         on: "8am",
+        //         off: "4pm"
+        //       },
+        //       color: "#48CBC3"
+        //     },
+        //     {
+        //       employee: "Steve", 
+        //       times: {
+        //         on: "8am",
+        //         off: "3pm"
+        //       },
+        //       color: "#EB7CDA"
+        //     },
+        //     {
+        //       employee: "Larry", 
+        //       times: {
+        //         on: "12pm",
+        //         off: "7pm"
+        //       },
+        //       color: "#7D78D4"
+        //     }
+        //   ],
+        //   [
+        //     {
+        //       employee: "Alex", 
+        //       times: {
+        //         on: "12pm",
+        //         off: "4pm"
+        //       },
+        //       color: "#48CBC3"
+        //     },
+        //     {
+        //       employee: "Steve", 
+        //       times: {
+        //         on: "12pm",
+        //         off: "4pm"
+        //       },
+        //       color: "#EB7CDA"
+        //     },
+        //     {
+        //       employee: "Larry", 
+        //       times: {
+        //         on: "8am",
+        //         off: "7pm"
+        //       },
+        //       color: "#7D78D4"
+        //     }
+        //   ],
+        //   [
+        //     {
+        //       employee: "Alex", 
+        //       times: {
+        //         on: "8am",
+        //         off: "7pm"
+        //       },
+        //       color: "#48CBC3"
+        //     },
+        //     {
+        //       employee: "Steve", 
+        //       times: {
+        //         on: "12pm",
+        //         off: "7pm"
+        //       },
+        //       color: "#EB7CDA"
+        //     },
+        //     {
+        //       employee: "Larry", 
+        //       times: {
+        //         on: "3pm",
+        //         off: "7pm"
+        //       },
+        //       color: "#7D78D4"
+        //     }
+        //   ],
+        //   [
+        //     {
+        //       employee: "Steve", 
+        //       times: {
+        //         on: "12pm",
+        //         off: "7pm"
+        //       },
+        //       color: "#EB7CDA"
+        //     },
+        //     {
+        //       employee: "Alex", 
+        //       times: {
+        //         on: "10am",
+        //         off: "4pm"
+        //       },
+        //       color: "#48CBC3"
+        //     },
+        //     {
+        //       employee: "Larry", 
+        //       times: {
+        //         on: "8am",
+        //         off: "4pm"
+        //       },
+        //       color: "#7D78D4"
+        //     }
+        //   ]
+        // ]
       ],
       currentShift: {
         employee: "Alex", 
@@ -456,11 +456,21 @@ export default class App extends Component {
       mondays: getMondays(d),
       length: this.state.schedule.length
     });
-    if(user !== undefined && user !== null) {
+    if(this.props.id !== null && this.props.id !== undefined) {
       this.setState({
         loggedIn: true
       });
     }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    console.log(nextProps);
+    this.setState({
+      schedule: nextProps.schedules || [],
+      employees: nextProps.employees || [],
+      currentSkedgeIndex: nextProps.schedules.length - 1,
+      length: nextProps.schedules.length
+    });
   }
 
   login(e, p) {
@@ -604,7 +614,7 @@ export default class App extends Component {
   displayEditShift(day, shift){
     if(this.state.editBarClasses === "edit-bar") {
       var skedge = this.state.schedule[this.state.currentSkedgeIndex];
-      var c = skedge[day][shift];
+      var c = skedge.schedule[day][shift];
       this.setState({
         editBarClasses: "edit-bar edit-bar-show",
         currentShift: c,
@@ -619,16 +629,14 @@ export default class App extends Component {
 
   //EDIT A SHIFT
   editShift(timeOn, timeOff, day){
-    var skedge = this.state.schedule,
-        employee;
-    for(var i = 0; i<skedge[this.state.currentSkedgeIndex][day + 1].length; i++) {
-      if(skedge[this.state.currentSkedgeIndex][day + 1][i].employee === this.state.currentShift.employee) { employee = i; break;}
+    var state = this.state.schedule,
+        dIndex = day + 1,
+        skedge = state[this.state.currentSkedgeIndex];
+    for(var i = 0; i<skedge.schedule[day + 1].length; i++) {
+      if(skedge.schedule[day + 1][i].employee === this.state.currentShift.employee) { employee = i; break;}
     }
-    var updateTimeOn = update(skedge, {[this.state.currentSkedgeIndex] : {[day + 1]: {[employee]: {times: {on: {$set: timeOn}}}}}});
-    var updateTimeOnAndOff = update(updateTimeOn, {[this.state.currentSkedgeIndex]: {[day + 1]: {[employee]: {times: {off: {$set: timeOff}}}}}});
-    this.setState({
-      schedule: updateTimeOnAndOff
-    }, this.displayEditShift());
+    this.displayEditShift();
+    Meteor.call('shift.edit', timeOn, timeOff, dIndex, employee, skedge.schedule[0].for);
   }
 
   //DELETE A SHIFT
@@ -636,14 +644,13 @@ export default class App extends Component {
     var skedge = this.state.schedule,
         index = this.state.currentSkedgeIndex,
         day = this.week.indexOf(this.state.currentShiftDay),
+        dIndex = day + 1,
         employee;
-    for(var i = 0; i<skedge[index][day + 1].length; i++) {
-      if(skedge[index][day + 1][i].employee === this.state.currentShift.employee) { employee = i; break;}
+    for(var i = 0; i<skedge[index].schedule[dIndex].length; i++) {
+      if(skedge[index].schedule[dIndex][i].employee === this.state.currentShift.employee) { employee = i; break;}
     }
-    var newState = update(skedge, {[index] : {[day + 1] : {$splice: [[employee, 1]]}}});
-    this.setState({
-      schedule: newState
-    }, this.displayEditShift());
+    this.displayEditShift();
+    Meteor.call('shift.remove', dIndex, employee, this.state.currentShift.employee, skedge[index].schedule[0].for);
   }
 
   //CREATE A NEW SKEDGE
@@ -654,27 +661,25 @@ export default class App extends Component {
     if(this.state.copied) {
       var index = this.state.currentSkedgeIndex,
           copy = state.slice(0)[index];
-      newState = update(state, {$push: [copy]});
-      newState = update(newState, {[newState.length - 1]: {[0]: {created: {$set: dates.created}}}});
-      newState = update(newState, {[newState.length - 1]: {[0]: {for: {$set: dates.for}}}});
+      newState = copy.schedule;
+      newState[0].created = dates.created;
+      newState[0].for = dates.for;
     } else {
       var emptySkedge = [[],[],[],[],[],[],[],[]],
           newSkedge = emptySkedge.map((day, i) => {
             return day[0] = [];
           });
       newSkedge[0] = dates;
-      newState = update(state, {$push: [newSkedge]});
+      newState = newSkedge;
     }
+    Meteor.call('schedules.add', newState);
     this.setState({
-      schedule: newState,
       canCreate: false,
-      currentSkedgeIndex: newState.length - 1,
       burgerToggle: false,
       burgerClasses: "hamburglar is-open",
       dashboardClasses: "dashboard",
       menuClasses: "mobile-menu",
       drawerPickerClasses: "date-picker",
-      length: newState.length,
       optionsClasses: "options",
       copied: false
     });
@@ -724,9 +729,11 @@ export default class App extends Component {
           },
           color: color
         },
-        newState = update(state, {[this.state.currentSkedgeIndex]: {[day]: {$push: [shift]}}});
+        skedge = state[this.state.currentSkedgeIndex];
+        Meteor.call('shift.add', shift, day, skedge.schedule[0].for);
+        // newState = update(state, {[this.state.currentSkedgeIndex]: {[day]: {$push: [shift]}}});
     this.setState({
-      schedule: newState,
+      // schedule: newState,
       canCreate: true
     });
   }
@@ -778,11 +785,7 @@ export default class App extends Component {
 
   //ADD A NEW EMPLOYEE
   addEmployee(employee, color){
-    let state = this.state.employees,
-        newState = update(state, {$push: [{employee: employee, color: color}]});
-    this.setState({
-      employees: newState
-    });
+    Meteor.call('employee.add', employee, color);
   }
 
   //DISPLAY DATE PICKER WHEN COPYING A NEW SKEDGE
@@ -821,64 +824,25 @@ export default class App extends Component {
 
   //DELETE THE CURRENT SKEDGE
   deleteSkedge(){
-    var data = this.state.schedule,
-        index = this.state.currentSkedgeIndex,
-        newData = update(data, {$splice: [[index, 1]]});
+    var date = this.state.schedule[this.state.currentSkedgeIndex].schedule[0].for;
+    console.log(date);
+    Meteor.call('schedules.remove', date);
     this.setState({
-      schedule: newData,
-      currentSkedgeIndex: (newData.length - 1 < 0) ? 0 : newData.length - 1,
-      length: newData.length
+      currentSkedgeIndex: (this.state.currentSkedgeIndex - 1 < 0) ? 0 : this.state.currentSkedgeIndex - 1,
+      length: this.state.schedule.length - 1
     }, this.displayOptions);
   }
 
   //UPDATE THE NAME OF AN EMPLOYEE
   updateEmployeeName(name, oldName, index){
-    var employees = this.state.employees,
-        schedule = this.state.schedule,
-        updateShift = schedule,
-        newState = update(employees, {[index] : {employee: {$set: name}}});
-    for(var i = 0; i < schedule.length; i++) {
-      for(var j = 0; j<schedule[i].length; j++){
-        if(j > 0) {
-          for(var k = 0; k<schedule[i][j].length; k++) {
-            if(schedule[i][j][k].employee === oldName) {
-              updateShift = update(updateShift, {[i] : {[j] : {[k]: {employee: {$set: name}}}}});
-              this.setState({
-                schedule: updateShift
-              });
-            }
-          }
-        }
-      }
-    }
-    this.setState({
-      employees: newState
-    });
+    var id = this.state.employees[index]._id;
+    Meteor.call('employee.updateName', id, name, oldName);
   }
 
   //UPDATE THE COLOR FOR THE EMPLOYEE
   updateEmployeeColor(name, color, index){
-    var employees = this.state.employees,
-        schedule = this.state.schedule,
-        updateShift = schedule,
-        newState = update(employees, {[index] : {color: {$set: color}}});
-    for(var i = 0; i < schedule.length; i++) {
-      for(var j = 0; j<schedule[i].length; j++){
-        if(j > 0) {
-          for(var k = 0; k<schedule[i][j].length; k++) {
-            if(schedule[i][j][k].employee === name) {
-              updateShift = update(updateShift, {[i] : {[j] : {[k]: {color: {$set: color}}}}});
-              this.setState({
-                schedule: updateShift
-              });
-            }
-          }
-        }
-      }
-    }
-    this.setState({
-      employees: newState
-    });
+    var id = this.state.employees[index]._id;
+    Meteor.call('employee.updateColor', id, color, name);
   }
 
   //PICK A SKEDGE FROM THE MY SKEDGES LIST

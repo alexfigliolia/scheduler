@@ -13,7 +13,9 @@ body,
 
 body{
 	// transform-style: preserve-3d; 
-	perspective: 1000px;
+	@media #{$mq-1150}{
+		perspective: 1000px;
+	}
 }
 
 .App {
@@ -26,7 +28,7 @@ body{
 	overflow-y: hidden;
 	-webkit-overflow-scrolling: touch;
 	// transform-style: preserve-3d;
-	perspective: 1000px;
+	// perspective: 1000px;
 	@media #{$mq-1350} {
 		perspective: 1000px;
 	}
@@ -38,7 +40,7 @@ body{
 		top: 0;
 		left: 0;
 		transition-duration: 0.3s;
-		background: rgba(#000, 0.15);
+		background: rgba(#000, 0.25);
 		@media #{$mq-800} {
 			width: 240%;
 		}

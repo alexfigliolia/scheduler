@@ -26,6 +26,7 @@ body{
 	overflow-y: hidden;
 	-webkit-overflow-scrolling: touch;
 	// transform-style: preserve-3d;
+	perspective: 1000px;
 	@media #{$mq-1350} {
 		perspective: 1000px;
 	}

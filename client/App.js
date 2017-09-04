@@ -468,7 +468,7 @@ export default class App extends Component {
     this.setState({
       schedule: nextProps.schedules || [],
       employees: nextProps.employees || [],
-      currentSkedgeIndex: nextProps.schedules.length - 1,
+      currentSkedgeIndex: (nextProps.schedules.length === this.props.schedules.length) ? this.state.currentSkedgeIndex : nextProps.schedules.length - 1,
       length: nextProps.schedules.length
     });
   }
@@ -618,7 +618,8 @@ export default class App extends Component {
       this.setState({
         editBarClasses: "edit-bar edit-bar-show",
         currentShift: c,
-        currentShiftDay: this.week[day - 1]
+        currentShiftDay: this.week[day - 1],
+        currentSkedgeIndex: this.state.currentSkedgeIndex
       });
     } else {
       this.setState({
@@ -651,6 +652,9 @@ export default class App extends Component {
     }
     this.displayEditShift();
     Meteor.call('shift.remove', dIndex, employee, this.state.currentShift.employee, skedge[index].schedule[0].for);
+    this.setState({
+      currentSkedgeIndex: index
+    });
   }
 
   //CREATE A NEW SKEDGE

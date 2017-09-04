@@ -26,25 +26,28 @@ body{
 	overflow-y: hidden;
 	-webkit-overflow-scrolling: touch;
 	// transform-style: preserve-3d;
-	@media #{$mq-1150} {
+	@media #{$mq-1350} {
 		perspective: 1000px;
 	}
 	&::after {
 		content: "";
 		height: 100%;
-		width: 220%;
+		width: 380%;
 		position: absolute;
 		top: 0;
 		left: 0;
 		transition-duration: 0.3s;
 		background: rgba(#000, 0.15);
 		@media #{$mq-800} {
-			width: 180%;
+			width: 240%;
 		}
 		@media #{$mq-957}{
-			width: 120%;
+			width: 180%;
 		}
 		@media #{$mq-1150} {
+			width: 150%;
+		}
+		@media #{$mq-1350} {
 			width: 100%;
 		}
 	}

@@ -8,7 +8,7 @@
 	@media #{$mq-800} {
 		height: calc(100% - 80px);
 	}
-	@media #{$mq-1150} {
+	@media #{$mq-1350} {
 		transform-style: preserve-3d;		
 	}
 	&>div {
@@ -43,7 +43,7 @@
 				width: 80%;
 				align-self: center;
 			}
-			@media #{$mq-1150} {
+			@media #{$mq-1350} {
 				position: static;
 			}
 			// @media #{$mq-1070} {
@@ -82,7 +82,7 @@
 			}
 		}
 		&>.days {
-			width: 220%;
+			width: 380%;
 			@include center;
 			align-self: flex-start;
 			justify-content: flex-end;
@@ -92,12 +92,15 @@
 			// transition-delay: 0.05s;
 			transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
 			@media #{$mq-800}{
-				width: 180%;
+				width: 240%;
 			}
 			@media #{$mq-957}{
-				width: 120%;
+				width: 180%;
 			}
 			@media #{$mq-1150} {
+				width: 150%;
+			}
+			@media #{$mq-1350} {
 				width: 100%;
 			}
 			// @media #{$mq-1070}{
@@ -116,7 +119,7 @@
 				left: 0px;
 				z-index: 2;
 				border-top-right-radius: 5px;
-				@media #{$mq-1150} {
+				@media #{$mq-1350} {
 					position: static;
 					background: url('clock.svg') no-repeat center;
 					box-shadow: none;
@@ -149,7 +152,7 @@
 			}
 		}
 		&>.schedule {
-			width: 220%;
+			width: 380%;
 			height: 100%;
 			@include center;
 			flex-direction: row;
@@ -161,15 +164,17 @@
 			transition-duration: 0.4s;
 			transform-origin: 50% 100%;
 			background: transparent;
-			// transition-delay: 0.05s;
 			transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
 			@media #{$mq-800}{
-				width: 180%;
+				width: 240%;
 			}
 			@media #{$mq-957}{
-				width: 120%;
+				width: 180%;
 			}
 			@media #{$mq-1150} {
+				width: 150%;
+			}
+			@media #{$mq-1350} {
 				width: 100%;
 			}
 			&>.date-picker {
@@ -260,7 +265,7 @@
 				z-index: 2;
 				left: 0px;
 				box-shadow: 10px 0px 20px rgba(0,0,0,0.19), 6px 0px 6px rgba(0,0,0,0.23);
-				@media #{$mq-1150}{
+				@media #{$mq-1350}{
 					background: none;
 					position: static;
 					box-shadow: none;
@@ -302,6 +307,7 @@
 				&>.slot{
 					position: absolute;
 					width: 40%;
+					max-width: 100px;
 					height: 50%;
 					top: 50%;
 					left: 30%;

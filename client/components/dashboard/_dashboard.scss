@@ -82,7 +82,7 @@
 			}
 		}
 		&>.days {
-			width: 380%;
+			width: 560%;
 			@include center;
 			align-self: flex-start;
 			justify-content: flex-end;
@@ -152,7 +152,7 @@
 			}
 		}
 		&>.schedule {
-			width: 380%;
+			width: 560%;
 			height: 100%;
 			@include center;
 			flex-direction: row;
@@ -320,6 +320,7 @@
 					flex-direction: column;
 					overflow: hidden;
 					cursor: pointer;
+					@include headerShadow;
 					&>p {
 						color: #fff;
 						transform: rotate(90deg);

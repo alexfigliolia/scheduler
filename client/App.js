@@ -519,6 +519,7 @@ export default class App extends Component {
             });
           } else {
             // console.log('logging in new user');
+            Meteor.call('group.create', n);
             setTimeout(function(){
               this.setState({
                 loginErrors: "",

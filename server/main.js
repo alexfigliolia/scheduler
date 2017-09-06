@@ -3,6 +3,7 @@ import { Mongo } from 'meteor/mongo';
 import { Accounts } from 'meteor/accounts-base';
 import { check } from 'meteor/check';
 import { Schedules } from '../api/schedules.js';
+import { Group } from '../api/group.js';
 import { Employees } from '../api/employees.js';
 
 Accounts.onCreateUser((options, user) => {
@@ -49,6 +50,25 @@ Meteor.publish('schedules', function(){
 	}
 });
 
+Meteor.publish('group', function(){
+  var currentUser;
+  currentUser = this.userId;
+  var group = Group.find({owner: currentUser}, {
+    fields: {
+      employees: 1,
+      password: 1,
+      emails: 1,
+      owner: 1,
+      name: 1
+    }
+  });
+  if(currentUser){
+    return group;
+  } else {
+    return this.ready();
+  }
+});
+
 Meteor.publish('employees', function(){
 	var currentUser;
 	currentUser = this.userId;
@@ -68,9 +88,15 @@ Meteor.publish('employees', function(){
 
 Meteor.methods({
 
+  'group.create'(name){
+    return Group.insert({owner: Meteor.userId(), employees: [], emails: [], password: name, name: name});
+  },
+
   'schedules.add'(schedule){
   	check(schedule, Array);
-  	return Schedules.insert({owner: Meteor.userId(), schedule: schedule});
+    var group = Group.find({owner: Meteor.userId()}).fetch();
+        groupId = group[0]._id;
+  	return Schedules.insert({owner: Meteor.userId(), schedule: schedule, group: groupId});
   },
 
   'schedules.remove'(date){
@@ -118,6 +144,10 @@ Meteor.methods({
   'employee.add'(employee, color){
     check(employee, String);
     check(color, String);
+    Group.update(
+      {owner: Meteor.userId()}, 
+      {$push: {employees: employee}
+    });
     return Employees.insert({employee: employee, color: color, owner: Meteor.userId()});
   },
 
@@ -125,6 +155,10 @@ Meteor.methods({
     check(id, String);
     check(name, String);
     check(oldName, String);
+    Group.update(
+      {owner: Meteor.userId(), employees: oldName}, 
+      {$set: {"employees.$": name}
+    });
     Employees.update(
       {_id: id},
       {$set: {employee: name}

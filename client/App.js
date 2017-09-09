@@ -440,12 +440,12 @@ export default class App extends Component {
       copied: false
 		}
     this.week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
+    this.loader = document.getElementById('appLoader');
 	}
 
   componentDidMount(){
     var self = this,
-        d = new Date().getMonth(),
-        user = this.props.user;
+        d = new Date().getMonth();
     window.addEventListener('resize', function(){
       self.setState({
         height: window.innerHeight + "px"
@@ -456,21 +456,59 @@ export default class App extends Component {
       mondays: getMondays(d),
       length: this.state.schedule.length
     });
-    if(this.props.id !== null && this.props.id !== undefined) {
-      this.setState({
-        loggedIn: true
-      });
-    }
   }
 
   componentWillReceiveProps(nextProps) {
-    console.log(nextProps);
+    if(this.props !== nextProps){
+      console.log(nextProps);
+      if(nextProps.user === null) {
+        if(this.loader !== null) {
+          this.loader.remove();
+        }
+        this.setState({
+          loggedIn: false
+        });
+      } else {
+        if(Meteor.user().roll === "employee") {
+          this.setState({
+            loginErrors: "This app is for your employers! Please sign into the employees' app.",
+            loginClasses: "login",
+            loggedIn: false
+          });
+          if(this.loader !== null) {
+            this.loader.remove();
+          }
+        } else {
+          this.consumeDB(nextProps);
+        }
+      }
+    }
+  }
+
+  consumeDB(path){
     this.setState({
-      schedule: nextProps.schedules || [],
-      employees: nextProps.employees || [],
-      currentSkedgeIndex: (nextProps.schedules.length === this.props.schedules.length) ? this.state.currentSkedgeIndex : nextProps.schedules.length - 1,
-      length: nextProps.schedules.length
+      schedule: path.schedules,
+      employees: path.employees,
+      currentSkedgeIndex: (path.schedules.length !== this.state.schedule) ? (path.schedules.length - 1 < 0) ? 0 : path.schedules.length - 1 : this.state.schedule.length - 1,
+      length: path.schedules.length,
+      user: path.user
     });
+    setTimeout(function(){
+      this.setState({
+        loggedIn: true,
+      }, this.hideLoader());
+    }.bind(this), 1800);
+  }
+
+  hideLoader(){
+    if(this.loader !== null) {
+      setTimeout(function(){
+        this.loader.classList.add('app-loader-hidden');
+      }.bind(this), 2000);
+      setTimeout(function(){
+        this.loader.remove();
+      }.bind(this), 2600);
+    }
   }
 
   login(e, p) {
@@ -747,23 +785,15 @@ export default class App extends Component {
   renderSkedge(e){
     var cur = this.state.currentSkedgeIndex,
         dir = e.target.dataset.dir;
-    if(e.target.dataset.dir === "prev"){
-      var newState = update(cur, {$apply: function(x) {return x - 1;}});
-      if(newState < 0) {
-        newState = update(newState, {$set: 0});
-      }
+    if(dir === "prev"){
+      this.setState({
+        currentSkedgeIndex: (this.state.currentSkedgeIndex - 1 < 0) ? 0 : this.state.currentSkedgeIndex - 1
+      });
     } else {
-      var newState = update(cur, {$apply: function(x) {return x + 1;}});
-      if(newState > this.state.schedule.length - 1) {
-        newState = update(newState, {$set: this.state.schedule.length - 1});
-      }
-      if(newState < 0) {
-        newState = update(newState, {$set: 0});
-      }
+      this.setState({
+        currentSkedgeIndex: (this.state.currentSkedgeIndex + 1 >= this.state.length) ? this.state.length - 1 : this.state.currentSkedgeIndex + 1
+      });
     }
-    this.setState({
-      currentSkedgeIndex: newState
-    });
   }
 
   //DISPLAY MANAGE EMPLOYEE UI
@@ -912,7 +942,7 @@ export default class App extends Component {
           <Dashboard
             classes={this.state.dashboardClasses}
             datePickerClasses={this.state.drawerPickerClasses}
-            schedule={this.state.schedule[this.state.currentSkedgeIndex]}
+            schedule={this.props.schedules[this.state.currentSkedgeIndex]}
             startDay={this.state.startDay}
             endDay={this.state.endDay}
             month={this.state.month}
@@ -964,7 +994,7 @@ export default class App extends Component {
           <Create 
             classes={this.state.createClasses}
             day={this.state.currentShiftDay}
-            employees={this.state.employees}
+            employees={this.props.employees}
             displayAddAShift={this.displayAddAShift.bind(this)}
             flip={this.flip.bind(this)}
             saveShift={this.saveShift.bind(this)} />
@@ -974,7 +1004,7 @@ export default class App extends Component {
           this.state.loggedIn &&
           <ManageEmployees 
             classes={this.state.manageEmployeesClasses}
-            employees={this.state.employees}
+            employees={this.props.employees}
             colors={this.state.colors}
             addEmployee={this.addEmployee.bind(this)}
             showAddEmployee={this.showAddEmployee.bind(this)}
@@ -994,7 +1024,7 @@ export default class App extends Component {
         {
           this.state.loggedIn &&
           <MySkedges 
-            schedules={this.state.schedule}
+            schedules={this.props.schedules}
             classes={this.state.listSkedgesClasses}
             pickSkedge={this.pickSkedgeFromList.bind(this)}
             hideSkedgeList={this.displaySkedgeList.bind(this)} />

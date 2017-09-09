@@ -110,7 +110,11 @@ export default class Login extends Component{
 								ref="password" />
 							<label htmlFor="password">Password</label>
 						</div>
-						<button onClick={this.signIn.bind(this)}>Login</button>
+						<button 
+							onClick={this.signIn.bind(this)}>
+							Login
+							<img src="check.svg" alt="logging in" />
+						</button>
 						{
 							!this.state.newUser &&
 							<h2>Are you a new user? <a onClick={this.isNewUser.bind(this)}>Sign up</a></h2>

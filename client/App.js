@@ -489,7 +489,7 @@ export default class App extends Component {
     this.setState({
       schedule: path.schedules,
       employees: path.employees,
-      currentSkedgeIndex: (path.schedules.length !== this.state.schedule) ? (path.schedules.length - 1 < 0) ? 0 : path.schedules.length - 1 : this.state.schedule.length - 1,
+      currentSkedgeIndex: this.state.schedule !== undefined && path.schedules.length === this.state.schedule.length ? this.state.currentSkedgeIndex : path.schedules.length - 1,
       length: path.schedules.length,
       user: path.user
     });
@@ -691,9 +691,6 @@ export default class App extends Component {
     }
     this.displayEditShift();
     Meteor.call('shift.remove', dIndex, employee, this.state.currentShift.employee, skedge[index].schedule[0].for);
-    this.setState({
-      currentSkedgeIndex: index
-    });
   }
 
   //CREATE A NEW SKEDGE
@@ -774,11 +771,6 @@ export default class App extends Component {
         },
         skedge = state[this.state.currentSkedgeIndex];
         Meteor.call('shift.add', shift, day, skedge.schedule[0].for);
-        // newState = update(state, {[this.state.currentSkedgeIndex]: {[day]: {$push: [shift]}}});
-    this.setState({
-      // schedule: newState,
-      canCreate: true
-    });
   }
 
   //NAVIGATE THROUGH SKEDGES WITH RIGHT/LEFT ARROWS

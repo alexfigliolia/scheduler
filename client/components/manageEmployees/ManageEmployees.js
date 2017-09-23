@@ -132,6 +132,12 @@ export default class ManageEmployees extends Component {
 		}.bind(this), 300)
 	}
 
+	removeEmployee(){
+		this.setState({
+			editScreenClasses: "edit-screen"
+		}, this.props.removeEmployee(this.state.editingEmployee));
+	}
+
 	render(){
 		return(
 			<div className={this.props.classes}>
@@ -257,6 +263,15 @@ export default class ManageEmployees extends Component {
 										color: this.state.editingColor,
 										border: "2px solid " + this.state.editingColor
 									}}>Change Color</button>
+							}
+							{
+								!this.state.showForm &&
+								<button
+									onClick={this.removeEmployee.bind(this)}
+									style={{
+										color: this.state.editingColor,
+										border: "2px solid " + this.state.editingColor
+									}}>Remove</button>
 							}
 						</div>
 					</div>

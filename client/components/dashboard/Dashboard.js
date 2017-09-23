@@ -1,5 +1,4 @@
 import React, { Component } from 'react';
-import DatePicker from '../datePicker/DatePicker';
 
 export default class Dashboard extends Component {
 	constructor(props) {

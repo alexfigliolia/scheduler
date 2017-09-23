@@ -815,6 +815,10 @@ export default class App extends Component {
     Meteor.call('employee.add', employee, color);
   }
 
+  removeEmployee(employee) {
+    Meteor.call('employee.remove', employee);
+  }
+
   //DISPLAY DATE PICKER WHEN COPYING A NEW SKEDGE
   displayJustDatePicker(e){
     if(window.innerWidth < 800) {
@@ -1001,7 +1005,8 @@ export default class App extends Component {
             addEmployee={this.addEmployee.bind(this)}
             showAddEmployee={this.showAddEmployee.bind(this)}
             updateName={this.updateEmployeeName.bind(this)}
-            updateColor={this.updateEmployeeColor.bind(this)} />
+            updateColor={this.updateEmployeeColor.bind(this)}
+            removeEmployee={this.removeEmployee.bind(this)} />
         }
 
         {

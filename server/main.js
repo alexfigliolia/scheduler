@@ -151,6 +151,15 @@ Meteor.methods({
     return Employees.insert({employee: employee, color: color, owner: Meteor.userId()});
   },
 
+  'employee.remove'(employee){
+    check(employee, String);
+    Group.update(
+      {owner: Meteor.userId()},
+      { $pull: { employees: employee }
+    });
+    return Employees.remove({employee: employee, owner: Meteor.userId()});
+  },
+
   'employee.updateName'(id, name, oldName){
     check(id, String);
     check(name, String);

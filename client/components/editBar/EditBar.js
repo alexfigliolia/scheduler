@@ -17,20 +17,20 @@ export default class EditBar extends Component {
 		});
 	}
 
-	editShift(){
-		var on = this.refs.timeOn.value,
-				off = this.refs.timeOff.value,
-				day = this.week.indexOf(this.props.shiftDay);
+	editShift = () => {
+		const on = this.refs.timeOn.value,
+				  off = this.refs.timeOff.value,
+				  day = this.week.indexOf(this.props.shiftDay);
 		this.props.editShift(on, off, day);
 	}
 
-	timeOnChange(e){
+	timeOnChange = (e) => {
 		this.setState({
 			timeOn: e.target.value
 		});
 	}
 
-	timeOffChange(e){
+	timeOffChange = (e) => {
 		this.setState({
 			timeOff: e.target.value
 		});
@@ -43,13 +43,13 @@ export default class EditBar extends Component {
 					<h3 style={{color: this.props.currentShift.color}}>Edit or remove {this.props.currentShift.employee}'s Hours for {this.props.shiftDay}</h3>
 					<div className="bubble" style={{background: this.props.currentShift.color}}>
 						<input 
-							onChange={this.timeOnChange.bind(this)}
+							onChange={this.timeOnChange}
 							ref="timeOn" 
 							type="text" 
 							value={this.state.timeOn} />
 						<h4>to</h4>
 						<input 
-							onChange={this.timeOffChange.bind(this)}
+							onChange={this.timeOffChange}
 							ref="timeOff" 
 							type="text" 
 							value={this.state.timeOff} />

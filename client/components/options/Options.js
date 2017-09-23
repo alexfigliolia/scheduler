@@ -9,41 +9,39 @@ export default class Options extends Component {
 		}
 	}
 
-	selectADate(){
+	selectADate = () => {
 		this.setState({
 			sad: "sad sad-show"
 		});
 	}
 
-	areYouSure(){
+	areYouSure = () => {
 		this.setState({
 			ays: "ays ays-show"
 		});
 	}
 
-	deleteSkedge(){
+	deleteSkedge = () => {
 		this.setState({
 			ays: "ays",
 			sad: "sad"
-		});
-		this.props.deleteSkedge();
+		}, this.props.deleteSkedge());
 	}
 
-	cancelDelete(){
+	cancelDelete = () => {
 		this.setState({
 			ays: "ays"
 		});
 	}
 
-	reset(){
+	reset = () => {
 		this.setState({
 			ays: "ays",
 			sad: "sad"
-		});
-		this.props.displayOptions();
+		}, this.props.displayOptions());
 	}
 
-	selectMondayPrompt(e){
+	selectMondayPrompt = (e) => {
 		this.setState({
 			ays: "ays",
 			sad: "sad"
@@ -53,20 +51,20 @@ export default class Options extends Component {
 	render(){
 		return(
 			<div className={this.props.classes}>
-				<button onClick={this.reset.bind(this)}></button>
+				<button onClick={this.reset}></button>
 				<div>
-					<h3 onClick={this.selectADate.bind(this)}>Copy this skedge</h3>
-					<h3 onClick={this.areYouSure.bind(this)}>Delete this skedge</h3>
+					<h3 onClick={this.selectADate}>Copy this skedge</h3>
+					<h3 onClick={this.areYouSure}>Delete this skedge</h3>
 				</div>
 				<div className={this.state.ays}>
 					<h3>Are you sure?</h3>
 					<div>
-						<button onClick={this.cancelDelete.bind(this)}>NO</button>
-						<button onClick={this.deleteSkedge.bind(this)}>YES</button>
+						<button onClick={this.cancelDelete}>NO</button>
+						<button onClick={this.deleteSkedge}>YES</button>
 					</div>
 				</div>
 				<div className={this.state.sad}>
-					<h3 onClick={this.selectMondayPrompt.bind(this)}>Select a monday</h3>
+					<h3 onClick={this.selectMondayPrompt}>Select a monday</h3>
 				</div>
 			</div>
 		);

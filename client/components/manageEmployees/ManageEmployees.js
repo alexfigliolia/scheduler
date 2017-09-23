@@ -16,7 +16,7 @@ export default class ManageEmployees extends Component {
 		}
 	}
 
-	addEmployee(){
+	addEmployee = () => {
 		if(this.state.employee !== "") {
 			this.setState({
 				firstScreenClasses: "manage-screen1 manage-screen1-move",
@@ -25,8 +25,8 @@ export default class ManageEmployees extends Component {
 		}
 	}
 
-	selectAColor(e){
-		var color = e.target.dataset.color;
+	selectAColor = (e) => {
+		const color = e.target.dataset.color;
 		if(this.state.employee !== "") {
 			this.setState({
 				firstScreenClasses: "manage-screen1",
@@ -34,7 +34,7 @@ export default class ManageEmployees extends Component {
 				color: color
 			}, this.clearAndSend(color));
 		} else {
-			var name = this.state.editingEmployee,
+			let name = this.state.editingEmployee,
 					index = this.state.editingIndex;
 			this.props.updateColor(name, color, index);
 			this.setState({
@@ -46,7 +46,7 @@ export default class ManageEmployees extends Component {
 		}
 	}
 
-	clearAndSend(color){
+	clearAndSend = (color) => {
 		this.props.addEmployee(this.state.employee, color)
 		this.setState({
 			color: "",
@@ -54,14 +54,14 @@ export default class ManageEmployees extends Component {
 		});
 	}
 
-	handleChange(e){
+	handleChange = (e) => {
 		this.setState({
 			employee: e.target.value
 		});
 	}
 
-	employeeClicked(e){
-		var name = (e.target.tagName === "DIV") ? e.target.dataset.name : e.target.parentNode.dataset.name,
+	employeeClicked = (e) => {
+		let name = (e.target.tagName === "DIV") ? e.target.dataset.name : e.target.parentNode.dataset.name,
 				color = (e.target.tagName === "DIV") ? e.target.dataset.color : e.target.parentNode.dataset.color,
 				index = (e.target.tagName === "DIV") ? e.target.dataset.index : e.target.parentNode.dataset.index;
 		this.setState({
@@ -72,20 +72,20 @@ export default class ManageEmployees extends Component {
 		});
 	}
 
-	editClose(){
+	editClose = () => {
 		this.setState({
 			editScreenClasses: "edit-screen",
 			showForm: false
 		});
 	}
 
-	nameChangeFocus(){
+	nameChangeFocus = () => {
 		this.setState({
 			editScreenClasses: "edit-screen edit-screen-show edit-focused"
 		});
 	}
 
-	nameChangeBlur(e){
+	nameChangeBlur = (e) => {
 		if(e.target.value === ""){
 			this.setState({
 				editScreenClasses: "edit-screen edit-screen-show"
@@ -93,24 +93,24 @@ export default class ManageEmployees extends Component {
 		}
 	}
 
-	showForm(){
+	showForm = () => {
 		this.setState({
 			showForm: true
 		});
 	}
 
-	cancelUpdateName(){
+	cancelUpdateName = () => {
 		this.refs.updateName.value = "";
 		this.setState({
 			showForm: false
 		});
 	}
 
-	updateName(){
+	updateName = () => {
 		if(this.refs.updateName.value !== "") {
-			var newName = this.refs.updateName.value,
-					oldName = this.state.editingEmployee,
-					index = this.state.editingIndex;
+			const newName = this.refs.updateName.value,
+						oldName = this.state.editingEmployee,
+						index = this.state.editingIndex;
 			this.props.updateName(newName, oldName, index);
 			this.setState({
 				editScreenClasses: "edit-screen editing-screen-show",
@@ -120,19 +120,19 @@ export default class ManageEmployees extends Component {
 		}
 	}
 
-	viewColors(){
+	viewColors = () => {
 		this.setState({
 			editScreenClasses: "edit-screen"
 		});
-		setTimeout(function(){
+		setTimeout(() => {
 			this.setState({
 				firstScreenClasses: "manage-screen1 manage-screen1-move",
 				pickColorClasses: "pick-color pick-color-show"
 			});
-		}.bind(this), 300)
+		}, 300)
 	}
 
-	removeEmployee(){
+	removeEmployee = () => {
 		this.setState({
 			editScreenClasses: "edit-screen"
 		}, this.props.removeEmployee(this.state.editingEmployee));
@@ -150,7 +150,7 @@ export default class ManageEmployees extends Component {
 							this.props.employees.map((employee, i) => {
 								return(
 									<div 
-										onClick={this.employeeClicked.bind(this)}
+										onClick={this.employeeClicked}
 										style={{background: employee.color,
 												transitionDelay: (this.state.firstScreenClasses === "manage-screen1") ? 
 												(0.9 + (i/10)) + "s" : (0.1 + (i/10)) + "s"}}
@@ -167,11 +167,11 @@ export default class ManageEmployees extends Component {
 					</div>
 					<div>
 						<input 
-							onChange={this.handleChange.bind(this)}
+							onChange={this.handleChange}
 							type="text" 
 							placeholder="Employee"
 							value={this.state.employee} />
-						<button onClick={this.addEmployee.bind(this)}>
+						<button onClick={this.addEmployee}>
 							<img src="add.svg" />
 						</button>
 					</div>
@@ -186,7 +186,7 @@ export default class ManageEmployees extends Component {
 										<div 
 											key={i}
 											data-color={color}
-											onClick={this.selectAColor.bind(this)}
+											onClick={this.selectAColor}
 											style={{background: color,
 															transitionDelay: (this.state.pickColorClasses === "pick-color") ? 
 																							 (i/50) + "s" : (0.9 + (i/20)) + "s"}}
@@ -199,7 +199,7 @@ export default class ManageEmployees extends Component {
 				</div>
 				<div className={this.state.editScreenClasses}>
 					<div>
-						<button onClick={this.editClose.bind(this)}>
+						<button onClick={this.editClose}>
 							<svg fill={this.state.editingColor} height="24" viewBox="0 0 24 24" width="24" xmlns="http://www.w3.org/2000/svg">
 							    <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12z"/>
 							    <path d="M0 0h24v24H0z" fill="none"/>
@@ -221,8 +221,8 @@ export default class ManageEmployees extends Component {
 									<input 
 										ref="updateName"
 										style={{borderBottom: "2px solid" + this.state.editingColor, color: this.state.editingColor}}	
-										onFocus={this.nameChangeFocus.bind(this)}
-										onBlur={this.nameChangeBlur.bind(this)}
+										onFocus={this.nameChangeFocus}
+										onBlur={this.nameChangeBlur}
 										type="text"
 										id="nameChange" />
 							}
@@ -230,7 +230,7 @@ export default class ManageEmployees extends Component {
 								{
 									this.state.showForm &&
 										<button
-											onClick={this.cancelUpdateName.bind(this)}
+											onClick={this.cancelUpdateName}
 											style={{
 												color: this.state.editingColor,
 												border: "2px solid " + this.state.editingColor
@@ -239,7 +239,7 @@ export default class ManageEmployees extends Component {
 								{
 									this.state.showForm &&
 										<button
-											onClick={this.updateName.bind(this)}
+											onClick={this.updateName}
 											style={{
 												color: this.state.editingColor,
 												border: "2px solid " + this.state.editingColor
@@ -249,7 +249,7 @@ export default class ManageEmployees extends Component {
 							{
 								!this.state.showForm && 
 									<button
-										onClick={this.showForm.bind(this)}
+										onClick={this.showForm}
 										style={{
 											color: this.state.editingColor,
 											border: "2px solid " + this.state.editingColor
@@ -258,7 +258,7 @@ export default class ManageEmployees extends Component {
 							{
 								!this.state.showForm &&
 								<button
-									onClick={this.viewColors.bind(this)}
+									onClick={this.viewColors}
 									style={{
 										color: this.state.editingColor,
 										border: "2px solid " + this.state.editingColor
@@ -267,7 +267,7 @@ export default class ManageEmployees extends Component {
 							{
 								!this.state.showForm &&
 								<button
-									onClick={this.removeEmployee.bind(this)}
+									onClick={this.removeEmployee}
 									style={{
 										color: this.state.editingColor,
 										border: "2px solid " + this.state.editingColor

@@ -16,26 +16,27 @@ export default class Dashboard extends Component {
 	}
 
 	componentDidMount(){
-		var self = this;
-		window.addEventListener('resize', function(){
-			self.setState({
-				height: (window.innerWidth > 799) ? (window.innerHeight - 50) + "px" : (window.innerHeight - 50) + "px" ,
-				scheduleHeight: (window.innerWidth > 799) ? (window.innerHeight - 167.5) + "px" : (window.innerHeight - 127.5) + "px"
-			})
+		window.addEventListener('resize', () => {
+			const w = window.innerWidth,
+						h = window.innerHeight;
+			this.setState({
+				height: (w > 799) ? (h - 50) + "px" : (h - 50) + "px" ,
+				scheduleHeight: (w > 799) ? (h - 167.5) + "px" : (h - 127.5) + "px"
+			});
 		});
-		self.createHours(this.props.startDay, this.props.endDay);
+		this.createHours(this.props.startDay, this.props.endDay);
 		this.updateNumberShit();
-		setTimeout(function(){
+		setTimeout(() => {
 			this.setState({
 				barClasses: "slot slotted"
 			});
-		}.bind(self), 1000);
+		}, 1000);
 	}
 
-	createHours(start, end){
-		var hours = []
-		var stop = end + 12;
-		for(var i = start; i<stop; i++) {
+	createHours = (start, end) => {
+		let hours = [],
+				stop = end + 12;
+		for(let i = start; i<stop; i++) {
 			hours.push(i);
 		}
 		this.setState({
@@ -43,26 +44,26 @@ export default class Dashboard extends Component {
 		});
 	}
 
-	calcDif(start, end){
-		var hours = []
-		var stop = end + 13;
-		for(var i = start; i<stop; i++) {
+	calcDif = (start, end) => {
+		let hours = [],
+				stop = end + 13;
+		for(let i = start; i<stop; i++) {
 			hours.push(i);
 		}
 		return (hours[hours.length - 1] - hours[0] >= 12) ? (hours[hours.length - 1] - hours[0]) - 12 : hours[hours.length - 1] - hours[0] ;
 	}
 
-	updateNumberShit(){
+	updateNumberShit = () => {
 		this.getDays(getDaysInMonth(this.state.currentMonth + 1));
 		this.setState({
       mondays: getMondays(this.state.currentMonth + 1)
 		});
 	}
 
-	getDays(num){
-	    var m = [];
-	    for(var i = 0; i<num; i++) {
-	      var d = i + 1
+	getDays = (num) => {
+	    let m = [];
+	    for(let i = 0; i<num; i++) {
+	      let d = i + 1
 	      m.push(d);
 	    }
 	    this.setState({
@@ -70,9 +71,9 @@ export default class Dashboard extends Component {
 	    });
 	 }
 
-	changeMonth(e){
-		var dir = e.target.dataset.dir;
-		var cm = this.state.currentMonth;
+	changeMonth = (e) => {
+		const dir = e.target.dataset.dir;
+		let cm = this.state.currentMonth;
 		if(dir === "next") {
 			cm += 1;
 			if(cm === 12) {
@@ -89,17 +90,17 @@ export default class Dashboard extends Component {
 		}, this.updateNumberShit);
 	}
 
-	handleClick(e){
-		var target = (e.target.tagName === "P") ? e.target.parentNode : e.target,
-			day = target.dataset.day,
-			shift = target.dataset.shift;
+	handleClick = (e) => {
+		let target = (e.target.tagName === "P") ? e.target.parentNode : e.target,
+				day = target.dataset.day,
+				shift = target.dataset.shift;
 		this.props.editShift(day, shift);
 	}
 
-	createSkedge(e){
-		var year = new Date().getUTCFullYear(),
-				month = this.state.currentMonth,
-				day = e.target.dataset.num;
+	createSkedge = (e) => {
+		const year = new Date().getUTCFullYear(),
+					month = this.state.currentMonth,
+					day = e.target.dataset.num;
 		this.props.createSkedge(year, month, day);
 	}
 
@@ -108,7 +109,7 @@ export default class Dashboard extends Component {
 		const forDate = (this.props.schedule !== undefined) ? new Date(this.props.schedule.schedule[0].for) : false;
 		const mondays = this.state.mondays;
 		let dates = [];
-		for(var i = 0; i < mondays.length; i++) {
+		for(let i = 0; i < mondays.length; i++) {
 			dates.push(new Date(mondays[i]).getDate() - 1);
 		}
 		return(
@@ -155,13 +156,13 @@ export default class Dashboard extends Component {
 							<div className="picker" id="pickerLarge">
 								<div className="month-picker">
 									<button
-										onClick={this.changeMonth.bind(this)}
+										onClick={this.changeMonth}
 										data-dir="prev"></button>
 
 										{this.months[this.state.currentMonth]}
 
 									<button
-										onClick={this.changeMonth.bind(this)}
+										onClick={this.changeMonth}
 										data-dir="next"></button>
 								</div>
 								<div className="day-picker">
@@ -170,7 +171,7 @@ export default class Dashboard extends Component {
 											return(
 												<div 
 													className={(i === dates[0] || i === dates[1] || i === dates[2] || i === dates[3]) ? "date-on" : ""}
-													onClick={(i === dates[0] || i === dates[1] || i === dates[2] || i === dates[3]) ? this.createSkedge.bind(this) : null}
+													onClick={(i === dates[0] || i === dates[1] || i === dates[2] || i === dates[3]) ? this.createSkedge : null}
 													data-num={i + 1} 
 													key={i}>
 														{i+1}
@@ -205,7 +206,7 @@ export default class Dashboard extends Component {
 												day.map((slot, j) => {
 													return (
 														<div 
-															onClick={this.handleClick.bind(this)}
+															onClick={this.handleClick}
 															key={j} 
 															className={this.state.barClasses} 
 															style={{

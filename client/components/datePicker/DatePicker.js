@@ -15,17 +15,17 @@ export default class DatePicker extends Component {
 		this.updateNumberShit();
 	}
 
-	updateNumberShit(){
+	updateNumberShit = () => {
 		this.getDays(getDaysInMonth(this.state.currentMonth + 1));
 		this.setState({
 	  		mondays: getMondays(this.state.currentMonth + 1)
 		});
 	}
 
-	getDays(num){
-	    var m = [];
-	    for(var i = 0; i<num; i++) {
-	      var d = i + 1
+	getDays = (num) =>{
+	    let m = [];
+	    for(let i = 0; i<num; i++) {
+	      let d = i + 1
 	      m.push(d);
 	    }
 	    this.setState({
@@ -33,9 +33,9 @@ export default class DatePicker extends Component {
 	    });
 	 }
 
-	changeMonth(e){
-		var dir = e.target.dataset.dir;
-		var cm = this.state.currentMonth;
+	changeMonth = (e) => {
+		const dir = e.target.dataset.dir;
+		let cm = this.state.currentMonth;
 		if(dir === "next") {
 			cm += 1;
 			if(cm > 11) {
@@ -52,17 +52,17 @@ export default class DatePicker extends Component {
 		}, this.updateNumberShit);
 	}
 
-	createSkedge(e){
-		var year = new Date().getUTCFullYear(),
-			month = this.state.currentMonth,
-			day = e.target.dataset.num;
+	createSkedge = (e) => {
+		let year = new Date().getUTCFullYear(),
+				month = this.state.currentMonth,
+				day = e.target.dataset.num;
 		// console.log(month + "/" + day + "/" + year);
 		this.props.createSkedge(year, month, day);
 	}
 
 	render(){
-		var mondays = this.state.mondays, dates = [];
-		for(var i = 0; i < mondays.length; i++) {
+		let mondays = this.state.mondays, dates = [];
+		for(let i = 0; i < mondays.length; i++) {
 			dates.push(new Date(mondays[i]).getDate() - 1);
 		}
 		return(
@@ -70,12 +70,12 @@ export default class DatePicker extends Component {
 				<h3>Choose a date</h3>
 				<div className="month-picker">
 					<button 
-						onClick={this.changeMonth.bind(this)}
+						onClick={this.changeMonth}
 						data-dir="prev"
 						className="prevMonth"></button>
 					{this.months[this.state.currentMonth]}
 					<button 
-						onClick={this.changeMonth.bind(this)}
+						onClick={this.changeMonth}
 						data-dir="next"
 						className="nextMonth"></button>
 				</div>
@@ -85,7 +85,7 @@ export default class DatePicker extends Component {
 							return(
 								<div 
 									className={(i === dates[0] || i === dates[1] || i === dates[2] || i === dates[3]) ? "date-on" : ""}
-									onClick={(i === dates[0] || i === dates[1] || i === dates[2] || i === dates[3]) ? this.createSkedge.bind(this) : null}
+									onClick={(i === dates[0] || i === dates[1] || i === dates[2] || i === dates[3]) ? this.createSkedge : null}
 									data-num={i + 1} 
 									key={i}>
 										{i+1}

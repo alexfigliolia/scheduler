@@ -1,6 +1,5 @@
 import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
-import update from 'immutability-helper';
 import Login from './components/login/Login';
 import Header from './components/header/Header';
 import Dashboard from './components/dashboard/Dashboard';
@@ -443,11 +442,10 @@ export default class App extends Component {
     this.loader = document.getElementById('appLoader');
 	}
 
-  componentDidMount(){
-    var self = this,
-        d = new Date().getMonth();
-    window.addEventListener('resize', function(){
-      self.setState({
+  componentDidMount = () => {
+    const d = new Date().getMonth();
+    window.addEventListener('resize', () => {
+      this.setState({
         height: window.innerHeight + "px"
       })
     });
@@ -458,7 +456,7 @@ export default class App extends Component {
     });
   }
 
-  componentWillReceiveProps(nextProps) {
+  componentWillReceiveProps = (nextProps) => {
     if(this.props !== nextProps){
       console.log(nextProps);
       if(nextProps.user === null) {
@@ -485,7 +483,7 @@ export default class App extends Component {
     }
   }
 
-  consumeDB(path){
+  consumeDB = (path) => {
     this.setState({
       schedule: path.schedules,
       employees: path.employees,
@@ -493,27 +491,27 @@ export default class App extends Component {
       length: path.schedules.length,
       user: path.user
     });
-    setTimeout(function(){
+    setTimeout(() => {
       this.setState({
         loggedIn: true,
       }, this.hideLoader());
-    }.bind(this), 1800);
+    }, 1800);
   }
 
-  hideLoader(){
+  hideLoader = () => {
     if(this.loader !== null) {
-      setTimeout(function(){
+      setTimeout(() => {
         this.loader.classList.add('app-loader-hidden');
-      }.bind(this), 2000);
-      setTimeout(function(){
+      }, 2000);
+      setTimeout(() => {
         this.loader.remove();
-      }.bind(this), 2600);
+      }, 2600);
     }
   }
 
-  login(e, p) {
-    e = e.toLowerCase();
-    Meteor.loginWithPassword(e, p, (err) => {
+  login = (e, p) => {
+    const email = e.toLowerCase();
+    Meteor.loginWithPassword(email, p, (err) => {
       this.setState({
         loginClasses: "login login-loading"
       });
@@ -524,22 +522,22 @@ export default class App extends Component {
           loginClasses: "login"
         });
       } else {
-        setTimeout(function(){
+        setTimeout(() => {
           this.setState({
             loginErrors: "",
             loginClasses: "login login-loading login-remove"
           });
-        }.bind(this), 500);
-        setTimeout(function(){
+        }, 500);
+        setTimeout(() => {
           this.setState({
             loggedIn: true
           });
-        }.bind(this), 1800);
+        }, 1800);
       }
     });
   }
 
-  signUp(n, e, p) {
+  signUp = (n, e, p) => {
     Accounts.createUser({name: n, email: e.toLowerCase(), password: p}, (err) => {
       this.setState({
         loginClasses: "login login-loading"
@@ -557,34 +555,39 @@ export default class App extends Component {
             });
           } else {
             // console.log('logging in new user');
-            Meteor.call('group.create', n);
-            setTimeout(function(){
-              this.setState({
-                loginErrors: "",
-                loginClasses: "login login-loading login-remove"
-              });
-            }.bind(this), 500);
-            setTimeout(function(){
-              this.setState({
-                loggedIn: true
-              });
-            }.bind(this), 1800);
+            Meteor.call('group.create', n, (error, result) => {
+              if(error) { 
+                // console.log(error);
+              } else {
+                setTimeout(() => {
+                  this.setState({
+                    loginErrors: "",
+                    loginClasses: "login login-loading login-remove"
+                  });
+                }, 500);
+                setTimeout(() => {
+                  this.setState({
+                    loggedIn: true
+                  });
+                }, 1800);
+              }
+            });
           }
         });
       }
     });
   }
 
-  logout(e){
+  logout = (e) => {
     if(e.target.parentNode.parentNode.classList.contains('mobile-menu')){
       this.toggleBurger();
-      setTimeout(function(){
+      setTimeout(() => {
         this.setState({
           loginErrors: "",
           loginClasses: "login",
           loggedIn: false
         }, Meteor.logout());
-      }.bind(this), 500);
+      }, 500);
     } else {
       this.setState({
         loginErrors: "",
@@ -596,9 +599,9 @@ export default class App extends Component {
 
   //GET DAYS IN MONTH
   getDays(num){
-    var m = [];
-    for(var i = 0; i<num; i++) {
-      var d = i + 1
+    let m = [];
+    for(let i = 0; i<num; i++) {
+      let d = i + 1;
       m.push(d);
     }
     this.setState({
@@ -607,7 +610,7 @@ export default class App extends Component {
   }
 
 	//MOBILE MENU OPEN AND CLOSE
-  toggleBurger(){
+  toggleBurger = () => {
     this.setState((prevState, prevProps) => {
       if(prevState.fixedPickerClasses === "picker fixed-picker date-picker-show") {
         return {
@@ -636,7 +639,7 @@ export default class App extends Component {
   }
 
   //DISPLAY DATE PICKER FOR CREATING A SKEDGE
-  displayPicker(){
+  displayPicker = () => {
     this.setState((prevState, prevProps) => {
       return {
         menuClasses : (prevState.menuClasses === "mobile-menu") ? 
@@ -650,10 +653,10 @@ export default class App extends Component {
   }
 
   //DISPLAY EDIT SHIFT UI
-  displayEditShift(day, shift){
+  displayEditShift = (day, shift) => {
     if(this.state.editBarClasses === "edit-bar") {
-      var skedge = this.state.schedule[this.state.currentSkedgeIndex];
-      var c = skedge.schedule[day][shift];
+      const skedge = this.state.schedule[this.state.currentSkedgeIndex];
+      const c = skedge.schedule[day][shift];
       this.setState({
         editBarClasses: "edit-bar edit-bar-show",
         currentShift: c,
@@ -668,11 +671,11 @@ export default class App extends Component {
   }
 
   //EDIT A SHIFT
-  editShift(timeOn, timeOff, day){
-    var state = this.state.schedule,
+  editShift = (timeOn, timeOff, day) => {
+    const state = this.state.schedule,
         dIndex = day + 1,
         skedge = state[this.state.currentSkedgeIndex];
-    for(var i = 0; i<skedge.schedule[day + 1].length; i++) {
+    for(let i = 0; i<skedge.schedule[day + 1].length; i++) {
       if(skedge.schedule[day + 1][i].employee === this.state.currentShift.employee) { employee = i; break;}
     }
     this.displayEditShift();
@@ -680,13 +683,13 @@ export default class App extends Component {
   }
 
   //DELETE A SHIFT
-  removeShift(){
-    var skedge = this.state.schedule,
+  removeShift = () => {
+    const skedge = this.state.schedule,
         index = this.state.currentSkedgeIndex,
         day = this.week.indexOf(this.state.currentShiftDay),
-        dIndex = day + 1,
-        employee;
-    for(var i = 0; i<skedge[index].schedule[dIndex].length; i++) {
+        dIndex = day + 1;
+    let employee;
+    for(let i = 0; i<skedge[index].schedule[dIndex].length; i++) {
       if(skedge[index].schedule[dIndex][i].employee === this.state.currentShift.employee) { employee = i; break;}
     }
     this.displayEditShift();
@@ -694,43 +697,44 @@ export default class App extends Component {
   }
 
   //CREATE A NEW SKEDGE
-  createSkedge(year = "", month = "", day = ""){
-    var state = this.state.schedule, 
-        newState, 
-        dates = {created: new Date(), for: new Date(year, month, day)};
+  createSkedge = (year = "", month = "", day = "") => {
+    const state = this.state.schedule,  
+          dates = {created: new Date(), for: new Date(year, month, day)};
+    let newState;
     if(this.state.copied) {
-      var index = this.state.currentSkedgeIndex,
-          copy = state.slice(0)[index];
+      const index = this.state.currentSkedgeIndex,
+            copy = state.slice(0)[index];
       newState = copy.schedule;
       newState[0].created = dates.created;
       newState[0].for = dates.for;
     } else {
-      var emptySkedge = [[],[],[],[],[],[],[],[]],
-          newSkedge = emptySkedge.map((day, i) => {
-            return day[0] = [];
-          });
+      const emptySkedge = [[],[],[],[],[],[],[],[]];
+      let newSkedge = emptySkedge.map((day, i) => {
+        return day[0] = [];
+      });
       newSkedge[0] = dates;
       newState = newSkedge;
     }
-    Meteor.call('schedules.add', newState);
-    this.setState({
-      canCreate: false,
-      burgerToggle: false,
-      burgerClasses: "hamburglar is-open",
-      dashboardClasses: "dashboard",
-      menuClasses: "mobile-menu",
-      drawerPickerClasses: "date-picker",
-      optionsClasses: "options",
-      copied: false
+    Meteor.call('schedules.add', newState, (error, result) => {
+      this.setState({
+        canCreate: false,
+        burgerToggle: false,
+        burgerClasses: "hamburglar is-open",
+        dashboardClasses: "dashboard",
+        menuClasses: "mobile-menu",
+        drawerPickerClasses: "date-picker",
+        optionsClasses: "options",
+        copied: false
+      });
+      this.state.fixedPickerClasses === "picker fixed-picker date-picker-show" 
+        && this.toggleBurger();
     });
-    this.state.fixedPickerClasses === "picker fixed-picker date-picker-show" 
-      && this.toggleBurger();
   }
 
   //DISPLAY ADD A SHIFT UI
-  displayAddAShift(e){
+  displayAddAShift = (e) => {
     if(this.state.createClasses === "create") {
-      var day = e.target.dataset.lg;
+      const day = e.target.dataset.lg;
       this.setState({
         createClasses: "create create-show",
         currentShiftDay: day
@@ -743,7 +747,7 @@ export default class App extends Component {
   }
 
   //HANDLE ANIMATION OF "CREATE SHIFT" UI
-  flip(){
+  flip = () => {
     if(this.state.createClasses === "create create-show") {
       this.setState({
         createClasses: "create create-show create-flip"
@@ -758,46 +762,46 @@ export default class App extends Component {
   }
 
   //ADD A SHIFT TO THE SCHEDULE
-  saveShift(employee, color, start, end){
-    var state = this.state.schedule,
-        day = this.week.indexOf(this.state.currentShiftDay) + 1,
-        shift = {
-          employee: employee, 
-          times: {
-            on: start,
-            off: end
+  saveShift = (employee, color, start, end) => {
+    const state = this.state.schedule,
+          day = this.week.indexOf(this.state.currentShiftDay) + 1,
+          shift = {
+            employee: employee, 
+            times: {
+              on: start,
+              off: end
+            },
+            color: color
           },
-          color: color
-        },
-        skedge = state[this.state.currentSkedgeIndex];
-        Meteor.call('shift.add', shift, day, skedge.schedule[0].for);
+          skedge = state[this.state.currentSkedgeIndex];
+    Meteor.call('shift.add', shift, day, skedge.schedule[0].for);
   }
 
   //NAVIGATE THROUGH SKEDGES WITH RIGHT/LEFT ARROWS
-  renderSkedge(e){
-    var cur = this.state.currentSkedgeIndex,
-        dir = e.target.dataset.dir;
+  renderSkedge = (e) => {
+    let cur = this.state.currentSkedgeIndex;
+    const dir = e.target.dataset.dir;
     if(dir === "prev"){
       this.setState({
-        currentSkedgeIndex: (this.state.currentSkedgeIndex - 1 < 0) ? 0 : this.state.currentSkedgeIndex - 1
+        currentSkedgeIndex: (cur - 1 < 0) ? 0 : cur - 1
       });
     } else {
       this.setState({
-        currentSkedgeIndex: (this.state.currentSkedgeIndex + 1 >= this.state.length) ? this.state.length - 1 : this.state.currentSkedgeIndex + 1
+        currentSkedgeIndex: (cur + 1 >= this.state.length) ? this.state.length - 1 : cur + 1
       });
     }
   }
 
   //DISPLAY MANAGE EMPLOYEE UI
-  showAddEmployee(){ 
+  showAddEmployee = () => { 
     if(this.state.manageEmployeesClasses === "manage-employees") {
       if(window.innerWidth < 801) {
         this.toggleBurger();
-        setTimeout(function(){
+        setTimeout(() => {
           this.setState({
             manageEmployeesClasses: "manage-employees manage-employees-show"
           });
-        }.bind(this), 500);
+        }, 500);
       } else {
         this.setState({
           manageEmployeesClasses: "manage-employees manage-employees-show"
@@ -811,16 +815,16 @@ export default class App extends Component {
   }
 
   //ADD A NEW EMPLOYEE
-  addEmployee(employee, color){
+  addEmployee = (employee, color) => {
     Meteor.call('employee.add', employee, color);
   }
 
-  removeEmployee(employee) {
+  removeEmployee = (employee) => {
     Meteor.call('employee.remove', employee);
   }
 
   //DISPLAY DATE PICKER WHEN COPYING A NEW SKEDGE
-  displayJustDatePicker(e){
+  displayJustDatePicker = (e) => {
     if(window.innerWidth < 800) {
       this.toggleBurger();
       this.displayPicker();
@@ -845,7 +849,7 @@ export default class App extends Component {
   }
 
   //DISPLAY SKEDGE OPTIONS
-  displayOptions(){
+  displayOptions = () => {
     this.setState((prevState, prevProps) => {
       return {
         optionsClasses: (prevState.optionsClasses === "options") ? "options options-show" : "options"
@@ -854,31 +858,35 @@ export default class App extends Component {
   }
 
   //DELETE THE CURRENT SKEDGE
-  deleteSkedge(){
-    var date = this.state.schedule[this.state.currentSkedgeIndex].schedule[0].for;
-    console.log(date);
-    Meteor.call('schedules.remove', date);
-    this.setState({
-      currentSkedgeIndex: (this.state.currentSkedgeIndex - 1 < 0) ? 0 : this.state.currentSkedgeIndex - 1,
-      length: this.state.schedule.length - 1
-    }, this.displayOptions);
+  deleteSkedge = () => {
+    const date = this.state.schedule[this.state.currentSkedgeIndex].schedule[0].for;
+    Meteor.call('schedules.remove', date, (error, result) => {
+      if(error) {
+        // console.log(error);
+      } else {
+        this.setState({
+          currentSkedgeIndex: (this.state.currentSkedgeIndex - 1 < 0) ? 0 : this.state.currentSkedgeIndex - 1,
+          length: this.state.schedule.length - 1
+        }, this.displayOptions);
+      }
+    });
   }
 
   //UPDATE THE NAME OF AN EMPLOYEE
-  updateEmployeeName(name, oldName, index){
-    var id = this.state.employees[index]._id;
+  updateEmployeeName = (name, oldName, index) => {
+    const id = this.state.employees[index]._id;
     Meteor.call('employee.updateName', id, name, oldName);
   }
 
   //UPDATE THE COLOR FOR THE EMPLOYEE
-  updateEmployeeColor(name, color, index){
-    var id = this.state.employees[index]._id;
+  updateEmployeeColor = (name, color, index) => {
+    const id = this.state.employees[index]._id;
     Meteor.call('employee.updateColor', id, color, name);
   }
 
   //PICK A SKEDGE FROM THE MY SKEDGES LIST
-  pickSkedgeFromList(e){
-    var index = e.target.dataset.index;
+  pickSkedgeFromList = (e) => {
+    const index = e.target.dataset.index;
     this.setState({
       currentSkedgeIndex: index,
       listSkedgesClasses: "my-skedges"
@@ -886,15 +894,15 @@ export default class App extends Component {
   }
 
   //DISPLAY A FULL LIST OF SKEDGES
-  displaySkedgeList(){
+  displaySkedgeList = () => {
     if(this.state.listSkedgesClasses === "my-skedges") {
       if(window.innerWidth < 801) {
         this.toggleBurger();
-        setTimeout(function(){
+        setTimeout(() => {
           this.setState({
             listSkedgesClasses: "my-skedges my-skedges-show"
           });
-        }.bind(this), 500);
+        }, 500);
       } else {
         this.setState({
           listSkedgesClasses: "my-skedges my-skedges-show"
@@ -907,7 +915,7 @@ export default class App extends Component {
     }
   }
 
-	render(){
+	render = () => {
 		return (
 			<div className="App" style={{height: this.state.height}}>
 
@@ -916,21 +924,21 @@ export default class App extends Component {
           <Login 
             classes={this.state.loginClasses}
             errors={this.state.loginErrors}
-            login={this.login.bind(this)}
-            signUp={this.signUp.bind(this)} />
+            login={this.login}
+            signUp={this.signUp} />
         }
 
 				{
           this.state.loggedIn && 
           <Header
             burgerStuff={this.state.burgerClasses}
-            burger={this.toggleBurger.bind(this)}
-            createSkedge={this.createSkedge.bind(this)}
-            showAddEmployee={this.showAddEmployee.bind(this)}
-            dJDP={this.displayJustDatePicker.bind(this)}
-            displayOptions={this.displayOptions.bind(this)}
-            showList={this.displaySkedgeList.bind(this)}
-            logout={this.logout.bind(this)} />
+            burger={this.toggleBurger}
+            createSkedge={this.createSkedge}
+            showAddEmployee={this.showAddEmployee}
+            dJDP={this.displayJustDatePicker}
+            displayOptions={this.displayOptions}
+            showList={this.displaySkedgeList}
+            logout={this.logout} />
           }
 
         {
@@ -944,13 +952,13 @@ export default class App extends Component {
             month={this.state.month}
             idx={this.state.currentSkedgeIndex}
             skedgeNumber={this.state.length}
-            createSkedge={this.createSkedge.bind(this)}
-            editShift={this.displayEditShift.bind(this)}
-            displayAddAShift={this.displayAddAShift.bind(this)}
-            renderSkedge={this.renderSkedge.bind(this)}
-            showAddEmployee={this.showAddEmployee.bind(this)}
-            displayOptions={this.displayOptions.bind(this)}
-            hideDrawer={this.displayJustDatePicker.bind(this)} />
+            createSkedge={this.createSkedge}
+            editShift={this.displayEditShift}
+            displayAddAShift={this.displayAddAShift}
+            renderSkedge={this.renderSkedge}
+            showAddEmployee={this.showAddEmployee}
+            displayOptions={this.displayOptions}
+            hideDrawer={this.displayJustDatePicker} />
         }
 
         {
@@ -958,19 +966,19 @@ export default class App extends Component {
           <MobileMenu
             classes={this.state.menuClasses}
             month={this.state.month}
-            createSkedge={this.createSkedge.bind(this)}
-            displayPicker={this.displayPicker.bind(this)} 
-            showAddEmployee={this.showAddEmployee.bind(this)}
-            showList={this.displaySkedgeList.bind(this)}
-            logout={this.logout.bind(this)} />
+            createSkedge={this.createSkedge}
+            displayPicker={this.displayPicker} 
+            showAddEmployee={this.showAddEmployee}
+            showList={this.displaySkedgeList}
+            logout={this.logout} />
         }
 
         {
           this.state.loggedIn &&
           <DatePicker
             classes={this.state.fixedPickerClasses}
-            displayPicker={this.displayPicker.bind(this)}
-            createSkedge={this.createSkedge.bind(this)} />
+            displayPicker={this.displayPicker}
+            createSkedge={this.createSkedge} />
           }
 
         {
@@ -980,9 +988,9 @@ export default class App extends Component {
             currentShift={this.state.currentShift}
             currentShiftDay={this.state.currentShiftDay}
             shiftDay={this.state.currentShiftDay}
-            displayEditShift={this.displayEditShift.bind(this)}
-            editShift={this.editShift.bind(this)}
-            removeShift={this.removeShift.bind(this)} />
+            displayEditShift={this.displayEditShift}
+            editShift={this.editShift}
+            removeShift={this.removeShift} />
         }
 
         {
@@ -991,9 +999,9 @@ export default class App extends Component {
             classes={this.state.createClasses}
             day={this.state.currentShiftDay}
             employees={this.props.employees}
-            displayAddAShift={this.displayAddAShift.bind(this)}
-            flip={this.flip.bind(this)}
-            saveShift={this.saveShift.bind(this)} />
+            displayAddAShift={this.displayAddAShift}
+            flip={this.flip}
+            saveShift={this.saveShift} />
         }
 
         {
@@ -1002,20 +1010,20 @@ export default class App extends Component {
             classes={this.state.manageEmployeesClasses}
             employees={this.props.employees}
             colors={this.state.colors}
-            addEmployee={this.addEmployee.bind(this)}
-            showAddEmployee={this.showAddEmployee.bind(this)}
-            updateName={this.updateEmployeeName.bind(this)}
-            updateColor={this.updateEmployeeColor.bind(this)}
-            removeEmployee={this.removeEmployee.bind(this)} />
+            addEmployee={this.addEmployee}
+            showAddEmployee={this.showAddEmployee}
+            updateName={this.updateEmployeeName}
+            updateColor={this.updateEmployeeColor}
+            removeEmployee={this.removeEmployee} />
         }
 
         {
           this.state.loggedIn &&
           <Options 
             classes={this.state.optionsClasses}
-            deleteSkedge={this.deleteSkedge.bind(this)}
-            displayOptions={this.displayOptions.bind(this)}
-            displayJustDatePicker={this.displayJustDatePicker.bind(this)} />
+            deleteSkedge={this.deleteSkedge}
+            displayOptions={this.displayOptions}
+            displayJustDatePicker={this.displayJustDatePicker} />
         }
 
         {
@@ -1023,8 +1031,8 @@ export default class App extends Component {
           <MySkedges 
             schedules={this.props.schedules}
             classes={this.state.listSkedgesClasses}
-            pickSkedge={this.pickSkedgeFromList.bind(this)}
-            hideSkedgeList={this.displaySkedgeList.bind(this)} />
+            pickSkedge={this.pickSkedgeFromList}
+            hideSkedgeList={this.displaySkedgeList} />
         }
 
 			</div>
@@ -1037,21 +1045,21 @@ var getDaysInMonth = function(month, year = 2017) {
 }
 
 function getMondays(month, year = 2017) {
-    var d = new Date(year, month, 0),
-        month = d.getMonth(),
-        mondays = [];
+  var d = new Date(year, month, 0),
+      month = d.getMonth(),
+      mondays = [];
 
-    d.setDate(1);
+  d.setDate(1);
 
-    // Get the first Monday in the month
-    while (d.getDay() !== 1) {
-        d.setDate(d.getDate() + 1);
-    }
+  // Get the first Monday in the month
+  while (d.getDay() !== 1) {
+      d.setDate(d.getDate() + 1);
+  }
 
-    // Get all the other Mondays in the month
-    while (d.getMonth() === month) {
-        mondays.push(new Date(d.getTime()));
-        d.setDate(d.getDate() + 7);
-    }
-    return mondays;
+  // Get all the other Mondays in the month
+  while (d.getMonth() === month) {
+      mondays.push(new Date(d.getTime()));
+      d.setDate(d.getDate() + 7);
+  }
+  return mondays;
 }

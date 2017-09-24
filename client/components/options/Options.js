@@ -48,7 +48,7 @@ export default class Options extends Component {
 		}, this.props.displayJustDatePicker(e));
 	}
 
-	render(){
+	render = () => {
 		return(
 			<div className={this.props.classes}>
 				<button onClick={this.reset}></button>

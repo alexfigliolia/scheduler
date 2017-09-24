@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 
 class Burger extends Component {
-  render() {
+  render = () => {
     return (
       <div id='burg' onClick={this.props.burger}>
         <div id="hamburger" className={this.props.classes}>

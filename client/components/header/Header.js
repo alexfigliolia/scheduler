@@ -2,7 +2,7 @@ import React, { Component } from 'react';
 import Burger from './burger/Burger.js';
 
 export default class Header extends Component {
-	render(){
+	render = () => {
 		return(
 			<header className="header">
 				<div>

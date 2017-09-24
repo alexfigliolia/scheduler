@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import { getDaysInMonth, getMondays } from '../../../helpers/helpers';
 
 export default class DatePicker extends Component {
 	constructor(props){
@@ -60,7 +61,7 @@ export default class DatePicker extends Component {
 		this.props.createSkedge(year, month, day);
 	}
 
-	render(){
+	render = () => {
 		let mondays = this.state.mondays, dates = [];
 		for(let i = 0; i < mondays.length; i++) {
 			dates.push(new Date(mondays[i]).getDate() - 1);
@@ -97,28 +98,4 @@ export default class DatePicker extends Component {
 			</div>
 		);
 	}
-}
-
-var getDaysInMonth = function(month, year = 2017) {
- return new Date(year, month, 0).getDate();
-}
-
-function getMondays(month, year = 2017) {
-    var d = new Date(year, month, 0),
-        month = d.getMonth(),
-        mondays = [];
-
-    d.setDate(1);
-
-    // Get the first Monday in the month
-    while (d.getDay() !== 1) {
-        d.setDate(d.getDate() + 1);
-    }
-
-    // Get all the other Mondays in the month
-    while (d.getMonth() === month) {
-        mondays.push(new Date(d.getTime()));
-        d.setDate(d.getDate() + 7);
-    }
-    return mondays;
 }

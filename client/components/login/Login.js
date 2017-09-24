@@ -65,7 +65,7 @@ export default class Login extends Component{
 		}
 	}
 
-	render(){
+	render = () => {
 		return(
 			<section className={this.props.classes}>
 				<div>

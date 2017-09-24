@@ -138,7 +138,7 @@ export default class ManageEmployees extends Component {
 		}, this.props.removeEmployee(this.state.editingEmployee));
 	}
 
-	render(){
+	render = () => {
 		return(
 			<div className={this.props.classes}>
 				<div className={this.state.firstScreenClasses}>

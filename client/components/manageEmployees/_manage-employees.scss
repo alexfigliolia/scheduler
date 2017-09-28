@@ -15,15 +15,17 @@
 		height: 80%;
 		top: 10%;
 	}
-	@media #{$mq-670} {
+	@media #{$mq-550} {
 		width: 400px;
 		left: calc(50% - 200px);
+		height: 450px;
+		top: calc(50% - 225px);
+	}
+	@media #{$mq-670} {
+		width: 500px;
+		left: calc(50% - 250px);
 		height: 500px;
 		top: calc(50% - 250px);
-	}
-	@media #{$mq-957} {
-		width: 400px;
-		left: calc(50% - 200px);
 	}
 }
 
@@ -238,6 +240,7 @@
 		padding-top: 35px;
 		position: relative;
 		border-radius: 5px;
+		@include headerShadow;
 		&>button{
 			position: absolute;
 			top: 0;
@@ -267,9 +270,12 @@
 		&>div {
 			@include center;
 			flex-direction: column;
-			width: 100%;
+			width: 300px;
 			margin-top: 10px;	
 			margin-bottom: 40px;
+			@media #{$mq-375} {
+				width: 320px;
+			}
 			&>label {
 				font-weight: 200;
 				text-align: left;
@@ -277,7 +283,6 @@
 				transform: translateY(30px) translateX(10px);
 				transition-duration: 0.2s;
 				margin: 0;
-				cursor: pointer;
 			}
 			&>input {
 				height: 40px;

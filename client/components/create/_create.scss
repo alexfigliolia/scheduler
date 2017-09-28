@@ -16,27 +16,12 @@
 	transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
 	transform-style: preserve-3d;
 	overflow: hidden;
-	@media #{$mq-670} {
-		top: 25%;
-		left: 15%;
-		height: 50%;
-		width: 70%;
-	}
-	@media #{$mq-800} {
-		overflow: initial;
-	}
-	@media #{$mq-890} {
-		top: 25%;
-		left: 25%;
-		height: 50%;
-		width: 50%;
-	}
-	@media #{$mq-957} {
+	@media #{$mq-550} {
+		top: calc(50% - 150px);
+		left: calc(50% - 225px);
 		height: 300px;
 		width: 450px;
-		left: calc(50% - 225px);
-		top: calc(50% - 150px);
-	}	
+	}
 	@media #{$mq-h-1024} {
 		top: calc(50% - 150px);
 		left: calc(50% - 225px);

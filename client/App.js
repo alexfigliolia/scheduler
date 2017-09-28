@@ -1027,7 +1027,7 @@ export default class App extends Component {
   }
 
   //DISPLAY DELETE ACCOUNT UI FOR LARGE SCREENS
-  displayDeleteAccount = () => {
+  displayDeleteAccountLarge = () => {
     this.setState((prevState, prevProps) => {
       return {
         removeAccountClasses: (prevState.removeAccountClasses === "remove-account") ?
@@ -1086,14 +1086,8 @@ export default class App extends Component {
       dashboardClasses: "dashboard",
       menuClasses: "mobile-menu",
       paymentClasses: "payment-info",
-      editBarClasses: "edit-bar",
-      createClasses: "create",
       fixedPickerClasses: "picker fixed-picker",
       drawerPickerClasses: "date-picker",
-      manageEmployeesClasses: "manage-employees",
-      listSkedgesClasses: "my-skedges",
-      removeAccountClasses: "remove-account",
-      optionsClasses: "options",
       accountClasses: "my-account"
     });
   }

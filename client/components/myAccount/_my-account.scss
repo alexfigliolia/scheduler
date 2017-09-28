@@ -1,0 +1,51 @@
+.my-account {
+	display: none;
+	@media #{$mq-800} {
+		position: fixed;
+		top: 55px;
+		right: 10px;
+		height: 160px;
+		width: 185px;
+		@include center;
+		background: #fff;
+		border-radius: 5px;
+		@include headerShadow;
+		z-index: 2344;
+		transform: translateX(240px);
+		transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+		transition-duration: 0.3s;
+	}
+	&>div {
+		@include center;
+		flex-direction: column;
+		&>a {
+			text-direction: none;
+			margin: 10px 0;
+			font-size: 0.9em;
+			font-weight: 900;
+			cursor: pointer;
+			color: #666DD2;
+			text-transform: uppercase;
+		}
+		&>a:last-of-type {
+			background: #666DD2;
+			// max-width: 300px;
+			// @include center;
+			padding: 11px 25px;
+			color: #fff;
+			border-radius: 2.5px;
+			font-size: 0.8em;
+			// @include buttonShadow;
+		}
+	}
+}
+
+.my-account-show {
+	transform: translateX(0px);
+	transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.my-account-move {
+	transform: translateX(0px);
+	transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}

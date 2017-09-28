@@ -59,6 +59,7 @@ body{
 }
 
 @import 'components/login/login';
+@import 'components/paymentInfo/payment-info';
 @import 'components/header/header';
 @import 'components/header/burger/burger';
 @import 'components/dashboard/dashboard';
@@ -68,3 +69,5 @@ body{
 @import 'components/manageEmployees/manage-employees';
 @import 'components/options/options';
 @import 'components/mySkedges/my-skedges';
+@import 'components/removeAccount/remove-account';
+@import 'components/myAccount/my-account';

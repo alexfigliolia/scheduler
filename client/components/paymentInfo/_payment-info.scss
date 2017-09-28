@@ -1,0 +1,165 @@
+.payment-info {
+	position: fixed;
+	top: 20%;
+	left: 5%;
+	border-radius: 5px;
+	@include headerShadow;
+	@include center;
+	width: 90%;
+	height: 200px;
+	background: #fff;
+	z-index: 2345;
+	transform: translateX(100vw);
+	transition-duration: 0.4s;
+	transition-delay: -0.25s;
+	transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+	@media #{$mq-410} {
+		width: 380px;
+		height: 220px;
+		left: calc(50% - 190px);
+		top: 15%;
+	}
+	@media #{$mq-670} {
+		top: 10%;
+	}
+	@media #{$mq-800} {
+		top: 15%;
+	}
+	&>button {
+		outline: none;
+		border: none;
+		color: #747DF5;
+		position: absolute;
+		top: 5px;
+		left: 7.5px;
+		font-size: 0.9em;
+		margin: 0;
+		padding: 0;
+		background: transparent;
+	}
+	&>button:last-of-type {
+		left: initial;
+		right: 7.5px;
+	}
+	&>div {
+		width: 85%;
+		height: 85%;
+		@include center;
+		justify-content: space-between;
+		flex-direction: column;
+		transition: all 0.3s 0.3s;
+		&>h2 {
+			margin: 0;
+			margin-top: 10px;
+			font-weight: 700;
+			color: $redish;
+			margin-top: 20px;
+		}
+		& input {
+			width: 80px;
+			border: none;
+			outline: none;
+			border-radius: 0;
+			text-align: center;
+			font-weight: 200;
+		}
+		&>.card-no {
+			@include center;
+			width: auto;
+			font-size: 1.1em;
+			flex-direction: row;
+			justify-content: space-between;
+			&>input {
+				width: 65px;
+				margin: 0;
+				padding: 0;
+			}
+		}
+		&>.card-ex {
+			@include center;
+			flex-direction: row;
+			align-self: flex-start;
+			justify-content: space-between;
+			width: 100%;
+			height: 40px;
+			&>.expire {
+				@include center;
+				position: relative;
+				width: 35%;
+				justify-content: space-between;
+				&>input {
+					padding: 2.5px;
+				}
+				&>input:first-of-type{
+				width: 37.5px;
+				}
+				&>input:last-of-type{
+					width: 55px;
+				}
+				&::before {
+					content: "Expires";
+					color: $redish;
+					position: absolute;
+					top: -15px;
+					left: 0;
+					text-align: center;
+					width: 90%;
+					font-size: 0.9em;
+				}
+			}
+			&>.cvv {
+				@include center;
+				position: relative;
+				&::before {
+					content: "Security";
+					color: $redish;
+					position: absolute;
+					top: -15px;
+					left: 0;
+					text-align: center;
+					width: 90%;
+					font-size: 0.9em;
+				}
+			}
+		}
+	}
+}
+
+.payment-info-show {
+	transform: translateX(0%);
+	transition-delay: 0.3s;
+	transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}
+
+.payment-info-shrink {
+	height: 80px;
+	width: 80px;
+	top: calc(50% - 40px);
+	left: calc(50% - 40px);
+	border-radius: 50%;
+	transition-timing-function: ease;
+	background-size: 0px 0px;
+	transform: translateY(-40px);
+	@media #{$mq-670} {
+		transform: translateY(-100px);
+	}
+	@media #{$mq-h-1024} {
+		transform: translateY(-250px);
+	}
+	&>div,
+	&>button {
+		opacity: 0;
+		visibility: collapse;
+		transition: all 0.3s;
+	}
+}
+
+.payment-info-loading {
+	background: #fff url('load.gif') no-repeat 50% 50%;
+	background-size: 60px 60px;
+}
+
+.payment-info-done {
+	background: #fff url('check2.svg') no-repeat center;
+	background-size: 50px 50px;
+}

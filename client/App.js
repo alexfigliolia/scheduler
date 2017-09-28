@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Meteor } from 'meteor/meteor';
 import { getDaysInMonth, getMondays } from '../helpers/helpers';
 import Login from './components/login/Login';
+import PaymentInfo from './components/paymentInfo/PaymentInfo';
 import Header from './components/header/Header';
 import Dashboard from './components/dashboard/Dashboard';
 import MobileMenu from './components/mobileMenu/MobileMenu';
@@ -11,6 +12,8 @@ import DatePicker from './components/datePicker/DatePicker';
 import ManageEmployees from './components/manageEmployees/ManageEmployees';
 import Options from './components/options/Options';
 import MySkedges from './components/mySkedges/MySkedges';
+import RemoveAccount from './components/removeAccount/RemoveAccount';
+import MyAccount from './components/myAccount/MyAccount';
 import './App.scss';
 
 export default class App extends Component {
@@ -24,13 +27,16 @@ export default class App extends Component {
 			burgerToggle: true,
       dashboardClasses: "dashboard",
       menuClasses: "mobile-menu",
+      paymentClasses: "payment-info",
       editBarClasses: "edit-bar",
       createClasses: "create",
       fixedPickerClasses: "picker fixed-picker",
       drawerPickerClasses: "date-picker",
       manageEmployeesClasses: "manage-employees",
       listSkedgesClasses: "my-skedges",
+      removeAccountClasses: "remove-account",
       optionsClasses: "options",
+      accountClasses: "my-account",
       height: window.innerHeight + "px",
       startDay: 8,
       endDay: 7,
@@ -444,16 +450,22 @@ export default class App extends Component {
 	}
 
   componentDidMount = () => {
-    const d = new Date().getMonth();
-    window.addEventListener('resize', () => {
-      this.setState({
-        height: window.innerHeight + "px"
-      })
-    });
-    this.getDays(getDaysInMonth(d));
+    const d = new Date(),
+          m = d.getMonth();
+    let resizeTimer;
+    this.getDays(getDaysInMonth(m));
     this.setState({
-      mondays: getMondays(d),
-      length: this.state.schedule.length
+      mondays: getMondays(m),
+      length: this.state.schedule.length,
+      height: window.innerHeight + "px"
+    });
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(() => {
+        this.setState({
+          height: window.innerHeight + "px"
+        }, this.resetStateLoggedIn());              
+      }, 250);
     });
   }
 
@@ -510,6 +522,19 @@ export default class App extends Component {
     }
   }
 
+  //GET DAYS IN MONTH
+  getDays(num){
+    let m = [];
+    for(let i = 0; i<num; i++) {
+      let d = i + 1;
+      m.push(d);
+    }
+    this.setState({
+      month: m
+    });
+  }
+
+  //LOGIN EXISTING USERS
   login = (e, p) => {
     const email = e.toLowerCase();
     Meteor.loginWithPassword(email, p, (err) => {
@@ -538,6 +563,7 @@ export default class App extends Component {
     });
   }
 
+  //SIGN UP NEW USERS
   signUp = (n, e, p) => {
     Accounts.createUser({name: n, email: e.toLowerCase(), password: p}, (err) => {
       this.setState({
@@ -583,58 +609,60 @@ export default class App extends Component {
     if(e.target.parentNode.parentNode.classList.contains('mobile-menu')){
       this.toggleBurger();
       setTimeout(() => {
-        this.setState({
-          loginErrors: "",
-          loginClasses: "login",
-          loggedIn: false
-        }, Meteor.logout());
+        this.resetState();
+        Meteor.logout();
       }, 500);
     } else {
-      this.setState({
-        loginErrors: "",
-        loginClasses: "login",
-        loggedIn: false
-      }, Meteor.logout());
+      this.resetState();
+      Meteor.logout();
     }
-  }
-
-  //GET DAYS IN MONTH
-  getDays(num){
-    let m = [];
-    for(let i = 0; i<num; i++) {
-      let d = i + 1;
-      m.push(d);
-    }
-    this.setState({
-      month: m
-    });
   }
 
 	//MOBILE MENU OPEN AND CLOSE
   toggleBurger = () => {
+    if(this.state.paymentClasses === "payment-info payment-info-show") {
+      this.displayEditPayment();
+      setTimeout(() => {
+        this.handleMenu();
+      }, 500);
+    } else if(this.state.removeAccountClasses === "remove-account remove-account-show"){
+      this.displayDeleteAccount();
+      setTimeout(() => {
+        this.handleMenu();
+      }, 500);
+    } else if(this.state.fixedPickerClasses === "picker fixed-picker date-picker-show") {
+      this.setState({
+        burgerClasses: "hamburglar is-open",
+        burgerToggle: true,
+        menuClasses: "mobile-menu",
+        fixedPickerClasses: "picker fixed-picker",
+        paymentClasses: "payment-info"
+      });
+      setTimeout(() => {
+        this.setState({
+          dashboardClasses: "dashboard"
+        });
+      }, 150);
+    } else {
+      this.handleMenu();
+    }
+  }
+
+  handleMenu = () => {
     this.setState((prevState, prevProps) => {
-      if(prevState.fixedPickerClasses === "picker fixed-picker date-picker-show") {
-        return {
-          burgerClasses: "hamburglar is-open",
-          burgerToggle: true,
-          dashboardClasses: "dashboard",
-          menuClasses: "mobile-menu",
-          fixedPickerClasses: "picker fixed-picker"
-        }
-      } else {
-        return {
-          burgerToggle : !prevState.burgerToggle,
-          burgerClasses : (prevState.burgerClasses === "hamburglar is-closed") ? 
-                            "hamburglar is-open" : 
-                            "hamburglar is-closed",
-          dashboardClasses : (prevState.dashboardClasses === "dashboard") ? 
-                            "dashboard dashboard-move" : 
-                            "dashboard",
-          menuClasses : (prevState.menuClasses === "mobile-menu") ? 
-                            "mobile-menu mobile-menu-show" : 
-                            "mobile-menu",
-          manageEmployeesClasses: "manage-employees"
-        }
+      return {
+        burgerToggle : !prevState.burgerToggle,
+        burgerClasses : (prevState.burgerClasses === "hamburglar is-closed") ? 
+                          "hamburglar is-open" : 
+                          "hamburglar is-closed",
+        dashboardClasses : (prevState.dashboardClasses === "dashboard") ? 
+                          "dashboard dashboard-move" : 
+                          "dashboard",
+        menuClasses : (prevState.menuClasses === "mobile-menu") ? 
+                          "mobile-menu mobile-menu-show" : 
+                          "mobile-menu",
+        manageEmployeesClasses: "manage-employees",
+        paymentClasses: "payment-info"
       }
     });
   }
@@ -648,8 +676,76 @@ export default class App extends Component {
                           "mobile-menu",
         fixedPickerClasses: (prevState.fixedPickerClasses === "picker fixed-picker") ?
                           "picker fixed-picker date-picker-show" :
-                          "picker fixed-picker"
+                          "picker fixed-picker",
+        paymentClasses: "payment-info"
       }
+    });
+  }
+
+  //DISPLAY ACCOUNT RELATED LINKS
+  displayAccountStuff = () => {
+    this.setState((prevState, prevProps) => {
+      return {
+        menuClasses: (prevState.menuClasses === "mobile-menu mobile-menu-show") ?
+                      "mobile-menu mobile-menu-show mobile-menu-account-show" :
+                      "mobile-menu mobile-menu-show",
+        paymentClasses: "payment-info"
+      }
+    });
+  }
+
+  //DISPLAY EDIT PAYMENT INFO
+  displayEditPayment = () => {
+    this.setState((prevState, prevProps) => {
+      return {
+        menuClasses: (prevState.menuClasses === "mobile-menu mobile-menu-show mobile-menu-account-show") ?
+                        "mobile-menu mobile-menu-show mobile-menu-account-show mobile-menu-hide-for-payment" :
+                        "mobile-menu mobile-menu-show mobile-menu-account-show",
+        paymentClasses: (prevState.paymentClasses === "payment-info") ?
+                        "payment-info payment-info-show" :
+                        "payment-info"
+      };
+    });
+  }
+
+  //DISPLAY EDIT PAYMENT ON LARGE SCREENS
+  displayEditPaymentLarge = () => {
+    this.setState((prevState, prevProps) => {
+      return {
+        paymentClasses: (prevState.paymentClasses === "payment-info") ?
+                        "payment-info payment-info-show" :
+                        "payment-info"
+      };
+    });
+  }
+
+  //SAVE PAYMENT INFO
+  savePaymentInfo = (num, exp, sec) => {
+    const stuff = {card: num, expiration: exp, cvv: sec};
+    this.setState({
+      paymentClasses: "payment-info payment-info-show payment-info-shrink"
+    }); 
+    setTimeout(() => {
+      this.setState({
+        paymentClasses: "payment-info payment-info-show payment-info-shrink payment-info-loading"
+      }, this.addPayment(stuff));
+    }, 700);
+  }
+
+  addPayment = (stuff) => {
+    Meteor.call('user.addPayment', stuff, (error, result) => {
+       if(error) {
+         // console.log(error);
+       } else {
+          setTimeout(() => {
+            this.setState({
+              paymentClasses: "payment-info payment-info-show payment-info-shrink payment-info-loading payment-info-done"
+            }); 
+          }, 1000);
+          setTimeout(() => {
+            this.displayEditPayment();
+          }, 2300);
+       }
     });
   }
 
@@ -916,6 +1012,92 @@ export default class App extends Component {
     }
   }
 
+  //DISPLAY DELETE ACCOUNT UI
+  displayDeleteAccount = () => {
+    this.setState((prevState, prevProps) => {
+      return {
+        removeAccountClasses: (prevState.removeAccountClasses === "remove-account") ?
+                              "remove-account remove-account-show" :
+                              "remove-account",
+        menuClasses: (prevState.menuClasses === "mobile-menu mobile-menu-show mobile-menu-account-show") ?
+                        "mobile-menu mobile-menu-show mobile-menu-account-show mobile-menu-hide-for-payment" :
+                        "mobile-menu mobile-menu-show mobile-menu-account-show"
+      }
+    });
+  }
+
+  //DISPLAY DELETE ACCOUNT UI FOR LARGE SCREENS
+  displayDeleteAccount = () => {
+    this.setState((prevState, prevProps) => {
+      return {
+        removeAccountClasses: (prevState.removeAccountClasses === "remove-account") ?
+                              "remove-account remove-account-show" :
+                              "remove-account"
+      }
+    });
+  }
+
+  permenantlyDeleteAccount = () => {
+    Meteor.call('user.removeAccount', (error, result) => {
+      this.logout();
+    });
+  }
+
+  //DISPLAY ACCOUNT RELATED LINKS FOR LARGE SCREENS
+  displayAccountLinks = () => {
+    this.setState((prevState, prevProps) => {
+      return {
+        accountClasses: (prevState.accountClasses === "my-account") ?
+                        "my-account my-account-show" :
+                        "my-account",
+        paymentClasses: "payment-info",
+        removeAccountClasses: "remove-account"
+      }
+    });
+  }
+
+  resetState = () => {
+    this.setState({
+      loginErrors: "",
+      loginClasses: "login",
+      loggedIn: false,
+      loginClasses: "login",
+      burgerClasses: "hamburglar is-open",
+      burgerToggle: true,
+      dashboardClasses: "dashboard",
+      menuClasses: "mobile-menu",
+      paymentClasses: "payment-info",
+      editBarClasses: "edit-bar",
+      createClasses: "create",
+      fixedPickerClasses: "picker fixed-picker",
+      drawerPickerClasses: "date-picker",
+      manageEmployeesClasses: "manage-employees",
+      listSkedgesClasses: "my-skedges",
+      removeAccountClasses: "remove-account",
+      optionsClasses: "options",
+      accountClasses: "my-account"
+    });
+  }
+
+  resetStateLoggedIn = () => {
+    this.setState({
+      burgerClasses: "hamburglar is-open",
+      burgerToggle: true,
+      dashboardClasses: "dashboard",
+      menuClasses: "mobile-menu",
+      paymentClasses: "payment-info",
+      editBarClasses: "edit-bar",
+      createClasses: "create",
+      fixedPickerClasses: "picker fixed-picker",
+      drawerPickerClasses: "date-picker",
+      manageEmployeesClasses: "manage-employees",
+      listSkedgesClasses: "my-skedges",
+      removeAccountClasses: "remove-account",
+      optionsClasses: "options",
+      accountClasses: "my-account"
+    });
+  }
+
 	render = () => {
 		return (
 			<div className="App" style={{height: this.state.height}}>
@@ -929,6 +1111,14 @@ export default class App extends Component {
             signUp={this.signUp} />
         }
 
+        {
+          this.state.loggedIn &&
+          <PaymentInfo 
+            classes={this.state.paymentClasses}
+            displayPaymentInfo={this.displayEditPayment}
+            savePinfo={this.savePaymentInfo} />
+        }
+
 				{
           this.state.loggedIn && 
           <Header
@@ -939,7 +1129,7 @@ export default class App extends Component {
             dJDP={this.displayJustDatePicker}
             displayOptions={this.displayOptions}
             showList={this.displaySkedgeList}
-            logout={this.logout} />
+            myAccount={this.displayAccountLinks} />
           }
 
         {
@@ -971,7 +1161,11 @@ export default class App extends Component {
             displayPicker={this.displayPicker} 
             showAddEmployee={this.showAddEmployee}
             showList={this.displaySkedgeList}
-            logout={this.logout} />
+            logout={this.logout}
+            user={this.props.user}
+            accountStuff={this.displayAccountStuff}
+            displayEditPayment={this.displayEditPayment}
+            deleteAccount={this.displayDeleteAccount} />
         }
 
         {
@@ -1034,6 +1228,23 @@ export default class App extends Component {
             classes={this.state.listSkedgesClasses}
             pickSkedge={this.pickSkedgeFromList}
             hideSkedgeList={this.displaySkedgeList} />
+        }
+
+        {
+          this.state.loggedIn &&
+          <RemoveAccount
+            classes={this.state.removeAccountClasses}
+            cancel={this.displayDeleteAccount}
+            deleteAccount={this.permenantlyDeleteAccount} />
+        }
+
+        {
+          this.state.loggedIn &&
+          <MyAccount 
+            classes={this.state.accountClasses}
+            logout={this.logout}
+            displayEditPayment={this.displayEditPaymentLarge}
+            deleteAccount={this.displayDeleteAccount} />
         }
 
 			</div>

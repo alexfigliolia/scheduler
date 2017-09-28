@@ -14,7 +14,7 @@ export default class Header extends Component {
 						<a onClick={this.props.showList}>My Skedges</a>
 						<a onClick={this.props.showAddEmployee}>Employees</a>
 						<a onClick={this.props.dJDP}>Create a skedge</a>
-						<a onClick={this.props.logout}>Log Out</a>
+						<a onClick={this.props.myAccount}>My Account</a>
 					</nav>
 				</div>
 			</header>

@@ -11,6 +11,12 @@ Accounts.onCreateUser((options, user) => {
   user.roll = "employer";
   user.managerPassword = options.name;
   user.employees = [];
+  user.startDate = new Date();
+  user.paymentInfo = {
+    card: "",
+    cvv: "",
+    expiration: "",
+  }
 
   return user;
 });
@@ -26,6 +32,7 @@ Meteor.publish('userData', function() {
        fields: {
           "name" : 1,
           "roll" : 1,
+          "startDate": 1,
           "_id": 1
        }
      });
@@ -89,7 +96,25 @@ Meteor.publish('employees', function(){
 Meteor.methods({
 
   'group.create'(name){
+    check(name, String);
     return Group.insert({owner: Meteor.userId(), employees: [], emails: [], password: name, name: name});
+  },
+
+  'user.addPayment'(stuff){
+    check(stuff, Object);
+    check(stuff.card, String);
+    check(stuff.cvv, String);
+    check(stuff.expiration, String);
+    return Meteor.users.update({ _id: Meteor.userId() }, {
+      $set: { paymentInfo: stuff }
+    });
+  },
+
+  'user.removeAccount'(){
+    Schedules.remove({owner: Meteor.userId()});
+    Employees.remove({owner: Meteor.userId()});
+    Group.remove({owner: Meteor.userId()});
+    Meteor.users.remove({_id: Meteor.userId()});
   },
 
   'schedules.add'(schedule){

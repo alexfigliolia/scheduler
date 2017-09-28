@@ -142,8 +142,7 @@ export default class ManageEmployees extends Component {
 		return(
 			<div className={this.props.classes}>
 				<div className={this.state.firstScreenClasses}>
-					<button onClick={this.props.showAddEmployee}>
-					</button>
+					<button onClick={this.props.showAddEmployee}></button>
 					<h2>Manage your Employees</h2>
 					<div>
 						{
@@ -165,7 +164,7 @@ export default class ManageEmployees extends Component {
 							})
 						}
 					</div>
-					<div>
+					<div className="new-employee-input">
 						<input 
 							onChange={this.handleChange}
 							type="text" 

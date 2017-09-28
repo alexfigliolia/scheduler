@@ -1,0 +1,66 @@
+.remove-account {
+	position: fixed;
+	top: 15%;
+	left: 5%;
+	background: #fff;
+	height: 240px;
+	border-radius: 5px;
+	@include center;
+	@include headerShadow;
+	z-index: 12948;
+	width: 90%;
+	transform: translateX(100vw);
+	transition-duration: 0.4s;
+	transition-delay: -0.25s;
+	transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+	@media #{$mq-670} {
+		width: 400px;
+		left: calc(50% - 200px);
+		top: 10%;
+	}
+	&>div {
+		width: 95%;
+		@include center;
+		flex-direction: column;
+		color: #666DD2;
+		max-width: 280px;
+		&>h2 {
+			margin-bottom: 10px;
+		}
+		&>p {
+			width: 90%;
+			margin-top: 10px;
+			font-size: 0.9em;
+		}
+		&>div {
+			@include center;
+			flex-direction: row;
+			justify-content: space-between;
+			margin-bottom: 27.5px;
+			width: 87.5%;
+			margin-top: 20px;
+			&>button {
+				outline: none;
+				border: 2px solid #666DD2;
+				color: #fff;
+				height: 40px;
+				padding: 0 10px;
+				background: #666DD2;
+				text-transform: uppercase;
+				border-radius: 2.5px;
+				font-size: 0.8em;
+			}
+			&>button:last-of-type {
+				background: $redish;
+				color: #fff;
+				border: 2px solid $redish;
+			}
+		}
+	}
+}
+
+.remove-account-show {
+	transform: translateX(0vw);
+	transition-delay: 0.3s;
+	transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+}

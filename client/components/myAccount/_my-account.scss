@@ -29,13 +29,11 @@
 		}
 		&>a:last-of-type {
 			background: #666DD2;
-			// max-width: 300px;
-			// @include center;
 			padding: 11px 25px;
 			color: #fff;
 			border-radius: 2.5px;
 			font-size: 0.8em;
-			// @include buttonShadow;
+			@include buttonShadow;
 		}
 	}
 }

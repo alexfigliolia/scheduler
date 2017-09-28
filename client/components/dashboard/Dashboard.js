@@ -34,6 +34,13 @@ export default class Dashboard extends Component {
 		}, 1000);
 	}
 
+	componentWillReceiveProps(prevProps, nextProps) {
+		if(prevProps.startDay !== nextProps.startDay || prevProps.endDay !== nextProps.endDay) {
+			this.createHours(this.props.startDay, this.props.endDay);
+			this.updateNumberShit();
+		}
+	}
+
 	createHours = (start, end) => {
 		let hours = [],
 				stop = end + 12;
@@ -106,9 +113,9 @@ export default class Dashboard extends Component {
 	}
 
 	render = () => {
-		const week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"];
-		const forDate = (this.props.schedule !== undefined) ? new Date(this.props.schedule.schedule[0].for) : false;
-		const mondays = this.state.mondays;
+		const week = ["Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Saturday", "Sunday"],
+					forDate = (this.props.schedule !== undefined) ? new Date(this.props.schedule.schedule[0].for) : false,
+					mondays = this.state.mondays;
 		let dates = [];
 		for(let i = 0; i < mondays.length; i++) {
 			dates.push(new Date(mondays[i]).getDate() - 1);
@@ -134,16 +141,18 @@ export default class Dashboard extends Component {
 					{
 						this.props.schedule !== undefined &&
 						<div className="days">
-							<div className="time-header"></div>
+							<div 
+								className="time-header"
+								onClick={this.props.displaySetTimes}></div>
 							{
 								week.map((day, i) => {
 									return (
 										<div 
 											className="day"
-											data-sm={day.substring(0,3)}
-											data-lg={day}
 											key={i}
+											data-day={day}
 											onClick={this.props.displayAddAShift}>
+											{day}
 										</div>
 									);
 								})
@@ -183,13 +192,19 @@ export default class Dashboard extends Component {
 								</div>
 							</div>
 						</div>
-						<div className="times" style={{height: this.state.scheduleHeight}}>
+						<div 
+							className="times" 
+							onClick={this.props.displaySetTimes}
+							style={{height: this.state.scheduleHeight}}>
 							{
 								this.state.hours.map((hour, i) => {
 									return (
 										<div 
 											key={(hour >= 12) ? (hour - 12 === 0) ? hour + "pm" : (hour - 12) + "pm": hour + "am"} 
-											className="time">
+											className="time"
+											style={{
+												height: (100 / this.state.hours.length) + "%"
+											}}>
 											<div>{(hour >= 12) ? (hour - 12 === 0) ? hour + "pm" : (hour - 12) + "pm": hour + "am"} </div>
 										</div>
 									);
@@ -211,8 +226,8 @@ export default class Dashboard extends Component {
 															key={j} 
 															className={this.state.barClasses} 
 															style={{
-																top: this.calcDif(this.props.startDay, parseInt(slot.times.on.substring( 0, slot.times.on.length-2 ))) * (100 / this.state.hours.length) + "%",
-																height: this.calcDif(parseInt(slot.times.on.substring( 0, slot.times.on.length-2 )), parseInt(slot.times.off.substring( 0, slot.times.on.length-2 ))) * (100 / this.state.hours.length) + "%",
+																top: ( this.calcDif(this.props.startDay, parseInt(slot.times.on.substring( 0, slot.times.on.length-2 ))) * (100 / this.state.hours.length) <= 100) ? this.calcDif(this.props.startDay, parseInt(slot.times.on.substring( 0, slot.times.on.length-2 ))) * (100 / this.state.hours.length) + "%" : "0%",
+																height: ( this.calcDif(parseInt(slot.times.on.substring( 0, slot.times.on.length-2 )), parseInt(slot.times.off.substring( 0, slot.times.on.length-2 ))) * (100 / this.state.hours.length) <= 100 ) ? this.calcDif(parseInt(slot.times.on.substring( 0, slot.times.on.length-2 )), parseInt(slot.times.off.substring( 0, slot.times.on.length-2 ))) * (100 / this.state.hours.length) + "%" : "100%",
 																width: 80 / day.length + "%",
 																left: ((80 / day.length) * j) + 10 + "%",
 																background: slot.color,

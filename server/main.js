@@ -66,7 +66,8 @@ Meteor.publish('group', function(){
       password: 1,
       emails: 1,
       owner: 1,
-      name: 1
+      name: 1,
+      times: 1
     }
   });
   if(currentUser){
@@ -97,7 +98,15 @@ Meteor.methods({
 
   'group.create'(name){
     check(name, String);
-    return Group.insert({owner: Meteor.userId(), employees: [], emails: [], password: name, name: name});
+    return Group.insert({owner: Meteor.userId(), employees: [], emails: [], password: name, name: name, times: {on: "8am", off: "7pm"}});
+  },
+
+  'group.setTimes'(start, end) {
+    check(start, String);
+    check(end, String);
+    return Group.update({owner: Meteor.userId()}, {
+      $set: {times: {on: start, off: end}}
+    });
   },
 
   'user.addPayment'(stuff){

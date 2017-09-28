@@ -119,6 +119,7 @@
 				left: 0px;
 				z-index: 2;
 				border-top-right-radius: 5px;
+				cursor: pointer;
 				@media #{$mq-1350} {
 					position: static;
 					background: url('clock.svg') no-repeat center;
@@ -130,25 +131,11 @@
 				height: 35px;
 				position: relative;
 				cursor: pointer;
-				&::after {	
-					content: attr(data-sm);
-					position: absolute;
-					top: 0;
-					left: 0;
-					height: 100%;
-					width: 100%;
-					@include center;
-					color: #fff;
-					text-transform: uppercase;
-					font-weight: 900;
-					font-size: 0.85em;
-					background: transparent;
-					// z-index: 2;
-					// border-right: 1px solid rgba(#fff, 0.15);
-					@media #{$mq-670} {
-						content: attr(data-lg);
-					}
-				}
+				color: #fff;
+				text-transform: uppercase;
+				font-weight: 900;
+				font-size: 0.85em;
+				@include center;
 			}
 		}
 		&>.schedule {
@@ -224,15 +211,8 @@
 					width: 85%;
 					font-size: 1.1em;
 					margin-top: 0;
-					// transform: translateY(-100%);
-					// opacity: 0;
-					// transition-duration: 0.3s;
-					// transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
 				}
 				&>.picker {
-					// transform: translateY(-50%);
-					// opacity: 0;
-					// transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
 					transition-timing-function: none;
 					transform: none;
 					opacity: 1;

@@ -250,6 +250,7 @@
 		@media #{$mq-800}{
 			z-index: 40;
 			transform: rotateY(180deg);
+			backface-visibility: visible;
 		}
 	}
 }

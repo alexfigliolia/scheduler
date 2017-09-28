@@ -14,6 +14,7 @@ import Options from './components/options/Options';
 import MySkedges from './components/mySkedges/MySkedges';
 import RemoveAccount from './components/removeAccount/RemoveAccount';
 import MyAccount from './components/myAccount/MyAccount';
+import SetHours from './components/setHours/SetHours';
 import './App.scss';
 
 export default class App extends Component {
@@ -37,6 +38,7 @@ export default class App extends Component {
       removeAccountClasses: "remove-account",
       optionsClasses: "options",
       accountClasses: "my-account",
+      setHoursClasses: "set-hours",
       height: window.innerHeight + "px",
       startDay: 8,
       endDay: 7,
@@ -47,397 +49,9 @@ export default class App extends Component {
                "#E84033", "#FD6E76", "#FEB409",
                "#44CD76", "#FD8D3D", "#41CAF6",
                "#A538C9", "#FC5599"],
-      employees: [{employee: "Alex", color: "#48CBC3"}, 
-                  {employee: "Steve", color: "#EB7CDA"}, 
-                  {employee: "Larry", color: "#7D78D4"},
-                  {employee: "Carl", color: "#53A8FF"},
-                  {employee: "Louis", color: "#64CE87"}],
-      schedule: [
-        // [
-        //   {
-        //     created: new Date(),
-        //     for: "Mon Aug 14 2017 00:00:00 GMT-0400 (EDT)"
-        //   },
-        //   [
-        //     {
-        //       employee: "Alex", 
-        //       times: {
-        //         on: "10am",
-        //         off: "4pm"
-        //       },
-        //       color: "#48CBC3"
-        //     },
-        //     {
-        //       employee: "Steve", 
-        //       times: {
-        //         on: "8am",
-        //         off: "7pm"
-        //       },
-        //       color: "#EB7CDA"
-        //     },
-        //     {
-        //       employee: "Larry", 
-        //       times: {
-        //         on: "10am",
-        //         off: "7pm"
-        //       },
-        //       color: "#7D78D4"
-        //     }
-        //   ],
-        //   [
-        //     {
-        //       employee: "Steve", 
-        //       times: {
-        //         on: "8am",
-        //         off: "5pm"
-        //       },
-        //       color: "#EB7CDA"
-        //     },
-        //     {
-        //       employee: "Alex", 
-        //       times: {
-        //         on: "9am",
-        //         off: "4pm"
-        //       },
-        //       color: "#48CBC3"
-        //     },
-        //     {
-        //       employee: "Larry", 
-        //       times: {
-        //         on: "3pm",
-        //         off: "7pm"
-        //       },
-        //       color: "#7D78D4"
-        //     }
-        //   ],
-        //   [
-        //     {
-        //       employee: "Alex", 
-        //       times: {
-        //         on: "10am",
-        //         off: "4pm"
-        //       },
-        //       color: "#48CBC3"
-        //     },
-        //     {
-        //       employee: "Steve", 
-        //       times: {
-        //         on: "8am",
-        //         off: "7pm"
-        //       },
-        //       color: "#EB7CDA"
-        //     },
-        //     {
-        //       employee: "Larry", 
-        //       times: {
-        //         on: "12pm",
-        //         off: "6pm"
-        //       },
-        //       color: "#7D78D4"
-        //     }
-        //   ],
-        //   [
-        //     {
-        //       employee: "Alex", 
-        //       times: {
-        //         on: "8am",
-        //         off: "4pm"
-        //       },
-        //       color: "#48CBC3"
-        //     },
-        //     {
-        //       employee: "Steve", 
-        //       times: {
-        //         on: "8am",
-        //         off: "3pm"
-        //       },
-        //       color: "#EB7CDA"
-        //     },
-        //     {
-        //       employee: "Larry", 
-        //       times: {
-        //         on: "12pm",
-        //         off: "7pm"
-        //       },
-        //       color: "#7D78D4"
-        //     }
-        //   ],
-        //   [
-        //     {
-        //       employee: "Alex", 
-        //       times: {
-        //         on: "12pm",
-        //         off: "4pm"
-        //       },
-        //       color: "#48CBC3"
-        //     },
-        //     {
-        //       employee: "Steve", 
-        //       times: {
-        //         on: "12pm",
-        //         off: "4pm"
-        //       },
-        //       color: "#EB7CDA"
-        //     },
-        //     {
-        //       employee: "Larry", 
-        //       times: {
-        //         on: "8am",
-        //         off: "7pm"
-        //       },
-        //       color: "#7D78D4"
-        //     }
-        //   ],
-        //   [
-        //     {
-        //       employee: "Alex", 
-        //       times: {
-        //         on: "8am",
-        //         off: "7pm"
-        //       },
-        //       color: "#48CBC3"
-        //     },
-        //     {
-        //       employee: "Steve", 
-        //       times: {
-        //         on: "12pm",
-        //         off: "7pm"
-        //       },
-        //       color: "#EB7CDA"
-        //     },
-        //     {
-        //       employee: "Larry", 
-        //       times: {
-        //         on: "3pm",
-        //         off: "7pm"
-        //       },
-        //       color: "#7D78D4"
-        //     }
-        //   ],
-        //   [
-        //     {
-        //       employee: "Steve", 
-        //       times: {
-        //         on: "12pm",
-        //         off: "7pm"
-        //       },
-        //       color: "#EB7CDA"
-        //     },
-        //     {
-        //       employee: "Alex", 
-        //       times: {
-        //         on: "10am",
-        //         off: "4pm"
-        //       },
-        //       color: "#48CBC3"
-        //     },
-        //     {
-        //       employee: "Larry", 
-        //       times: {
-        //         on: "8am",
-        //         off: "4pm"
-        //       },
-        //       color: "#7D78D4"
-        //     }
-        //   ]
-        // ],
-        // [
-        //   {
-        //     created: new Date(),
-        //     for: "Mon Aug 21 2017 00:00:00 GMT-0400 (EDT)"
-        //   },
-        //   [
-        //     {
-        //       employee: "Alex", 
-        //       times: {
-        //         on: "8am",
-        //         off: "2pm"
-        //       },
-        //       color: "#48CBC3"
-        //     },
-        //     {
-        //       employee: "Steve", 
-        //       times: {
-        //         on: "10am",
-        //         off: "4pm"
-        //       },
-        //       color: "#EB7CDA"
-        //     },
-        //     {
-        //       employee: "Larry", 
-        //       times: {
-        //         on: "11am",
-        //         off: "7pm"
-        //       },
-        //       color: "#7D78D4"
-        //     }
-        //   ],
-        //   [
-        //     {
-        //       employee: "Steve", 
-        //       times: {
-        //         on: "10am",
-        //         off: "7pm"
-        //       },
-        //       color: "#EB7CDA"
-        //     },
-        //     {
-        //       employee: "Alex", 
-        //       times: {
-        //         on: "8am",
-        //         off: "5pm"
-        //       },
-        //       color: "#48CBC3"
-        //     },
-        //     {
-        //       employee: "Larry", 
-        //       times: {
-        //         on: "12pm",
-        //         off: "7pm"
-        //       },
-        //       color: "#7D78D4"
-        //     }
-        //   ],
-        //   [
-        //     {
-        //       employee: "Alex", 
-        //       times: {
-        //         on: "10am",
-        //         off: "4pm"
-        //       },
-        //       color: "#48CBC3"
-        //     },
-        //     {
-        //       employee: "Steve", 
-        //       times: {
-        //         on: "8am",
-        //         off: "7pm"
-        //       },
-        //       color: "#EB7CDA"
-        //     },
-        //     {
-        //       employee: "Larry", 
-        //       times: {
-        //         on: "12pm",
-        //         off: "6pm"
-        //       },
-        //       color: "#7D78D4"
-        //     }
-        //   ],
-        //   [
-        //     {
-        //       employee: "Alex", 
-        //       times: {
-        //         on: "8am",
-        //         off: "4pm"
-        //       },
-        //       color: "#48CBC3"
-        //     },
-        //     {
-        //       employee: "Steve", 
-        //       times: {
-        //         on: "8am",
-        //         off: "3pm"
-        //       },
-        //       color: "#EB7CDA"
-        //     },
-        //     {
-        //       employee: "Larry", 
-        //       times: {
-        //         on: "12pm",
-        //         off: "7pm"
-        //       },
-        //       color: "#7D78D4"
-        //     }
-        //   ],
-        //   [
-        //     {
-        //       employee: "Alex", 
-        //       times: {
-        //         on: "12pm",
-        //         off: "4pm"
-        //       },
-        //       color: "#48CBC3"
-        //     },
-        //     {
-        //       employee: "Steve", 
-        //       times: {
-        //         on: "12pm",
-        //         off: "4pm"
-        //       },
-        //       color: "#EB7CDA"
-        //     },
-        //     {
-        //       employee: "Larry", 
-        //       times: {
-        //         on: "8am",
-        //         off: "7pm"
-        //       },
-        //       color: "#7D78D4"
-        //     }
-        //   ],
-        //   [
-        //     {
-        //       employee: "Alex", 
-        //       times: {
-        //         on: "8am",
-        //         off: "7pm"
-        //       },
-        //       color: "#48CBC3"
-        //     },
-        //     {
-        //       employee: "Steve", 
-        //       times: {
-        //         on: "12pm",
-        //         off: "7pm"
-        //       },
-        //       color: "#EB7CDA"
-        //     },
-        //     {
-        //       employee: "Larry", 
-        //       times: {
-        //         on: "3pm",
-        //         off: "7pm"
-        //       },
-        //       color: "#7D78D4"
-        //     }
-        //   ],
-        //   [
-        //     {
-        //       employee: "Steve", 
-        //       times: {
-        //         on: "12pm",
-        //         off: "7pm"
-        //       },
-        //       color: "#EB7CDA"
-        //     },
-        //     {
-        //       employee: "Alex", 
-        //       times: {
-        //         on: "10am",
-        //         off: "4pm"
-        //       },
-        //       color: "#48CBC3"
-        //     },
-        //     {
-        //       employee: "Larry", 
-        //       times: {
-        //         on: "8am",
-        //         off: "4pm"
-        //       },
-        //       color: "#7D78D4"
-        //     }
-        //   ]
-        // ]
-      ],
-      currentShift: {
-        employee: "Alex", 
-        times: {
-          on: "10am",
-          off: "4pm"
-        },
-        color: "#48CBC3"
-      },
+      employees: [],
+      schedule: [],
+      currentShift: {},
       currentShiftDay: "Monday",
       currentSkedgeIndex: 0,
       month: [],
@@ -502,7 +116,9 @@ export default class App extends Component {
       employees: path.employees,
       currentSkedgeIndex: this.state.schedule !== undefined && path.schedules.length === this.state.schedule.length ? this.state.currentSkedgeIndex : path.schedules.length - 1,
       length: path.schedules.length,
-      user: path.user
+      user: path.user,
+      startDay: (path.group[0] !== undefined && path.group[0].times !== undefined) ? parseInt((path.group[0].times.on).slice(0, -2)) : 8, 
+      endDay: (path.group[0] !== undefined && path.group[0].times !== undefined) ?  parseInt((path.group[0].times.off).slice(0, -2)) : 7,
     });
     setTimeout(() => {
       this.setState({
@@ -597,6 +213,11 @@ export default class App extends Component {
                     loggedIn: true
                   });
                 }, 1800);
+                setTimeout(() => {
+                  this.setState({
+                    setHoursClasses: "set-hours set-hours-show"
+                  });
+                }, 2100);
               }
             });
           }
@@ -690,6 +311,28 @@ export default class App extends Component {
                       "mobile-menu mobile-menu-show mobile-menu-account-show" :
                       "mobile-menu mobile-menu-show",
         paymentClasses: "payment-info"
+      }
+    });
+  }
+
+  //DISPLAY "SET TIMES" UI
+  displaySetTimes = () => {
+    this.setState((prevState, prevProps) => {
+      return {
+        setHoursClasses: (prevState.setHoursClasses === "set-hours") ?
+                         "set-hours set-hours-show" :
+                         "set-hours"
+      }
+    });
+  }
+
+  //SET NEW HOURS 
+  setNewHours = (on, off) => {
+    Meteor.call('group.setTimes', on, off, (error, result) => {
+      if(error) {
+        console.log(error);
+      } else {
+        this.displaySetTimes();
       }
     });
   }
@@ -831,7 +474,7 @@ export default class App extends Component {
   //DISPLAY ADD A SHIFT UI
   displayAddAShift = (e) => {
     if(this.state.createClasses === "create") {
-      const day = e.target.dataset.lg;
+      const day = e.target.dataset.day;
       this.setState({
         createClasses: "create create-show",
         currentShiftDay: day
@@ -861,7 +504,7 @@ export default class App extends Component {
   //ADD A SHIFT TO THE SCHEDULE
   saveShift = (employee, color, start, end) => {
     const state = this.state.schedule,
-          day = this.week.indexOf(this.state.currentShiftDay) + 1,
+          day = parseInt(this.week.indexOf(this.state.currentShiftDay)) + 1,
           shift = {
             employee: employee, 
             times: {
@@ -1143,7 +786,8 @@ export default class App extends Component {
             renderSkedge={this.renderSkedge}
             showAddEmployee={this.showAddEmployee}
             displayOptions={this.displayOptions}
-            hideDrawer={this.displayJustDatePicker} />
+            hideDrawer={this.displayJustDatePicker}
+            displaySetTimes={this.displaySetTimes} />
         }
 
         {
@@ -1190,7 +834,11 @@ export default class App extends Component {
             employees={this.props.employees}
             displayAddAShift={this.displayAddAShift}
             flip={this.flip}
-            saveShift={this.saveShift} />
+            saveShift={this.saveShift}
+            on={(this.props.group[0].times !== undefined) ?   
+                 this.props.group[0].times.on : "8am"}
+            off={(this.props.group[0].times !== undefined) ? 
+                  this.props.group[0].times.off : "7pm"} />
         }
 
         {
@@ -1239,6 +887,18 @@ export default class App extends Component {
             logout={this.logout}
             displayEditPayment={this.displayEditPaymentLarge}
             deleteAccount={this.displayDeleteAccount} />
+        }
+
+        {
+          this.state.loggedIn &&
+          <SetHours
+            classes={this.state.setHoursClasses}
+            on={(this.props.group[0].times !== undefined) ?   
+                 this.props.group[0].times.on : "8am"}
+            off={(this.props.group[0].times !== undefined) ? 
+                  this.props.group[0].times.off : "7pm"}
+            setNewHours={this.setNewHours}
+            close={this.displaySetTimes} />
         }
 
 			</div>

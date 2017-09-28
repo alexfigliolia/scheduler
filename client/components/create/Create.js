@@ -85,9 +85,9 @@ export default class Create extends Component {
 				<div className="back">
 					<h3 style={{color: this.state.color}}>Add a times for {this.state.employee}'s shift</h3>
 					<div className="bubble" style={{background: this.state.color}}>
-						<input ref="timeOn" placeholder="8am" />
+						<input ref="timeOn" placeholder={this.props.on} />
 						<h4>To</h4>
-						<input ref="timeOff" placeholder="7pm" />
+						<input ref="timeOff" placeholder={this.props.off} />
 					</div>
 					<div className="back-buttons">
 						<button 

@@ -1,0 +1,125 @@
+.set-hours {
+	position: fixed;
+	top: 20%;
+	left: 5%;
+	height: 60%;
+	width: 90%;
+	background: #fff;
+	border-radius: 5px;
+	@include headerShadow;
+	@include center;
+	z-index: 1234089;
+	transform: scale(0);
+	transition-duration: 0.4s;
+	transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+	@media #{$mq-550} {
+		width: 400px;
+		height: 300px;
+		top: calc(50% - 150px);
+		left: calc(50% - 200px);
+	}
+	&>button {
+		position: absolute;
+		top: 1px;
+		right: 1px;
+		background: #fff url('cross2.svg') no-repeat center;
+		background-size: contain;
+		border-radius: 50%;
+		outline: none;
+		border: none;
+		height: 27.5px;
+		width: 27.5px;
+		transform: rotate(360deg) scale(0);
+		transition-duration: 0.3s;
+		transition-timing-function: cubic-bezier(0.6, -0.28, 0.735, 0.045);
+	}
+	&>div {
+		@include center;
+		width: 90%;
+		flex-direction: column;
+		&>h2 {
+			text-align: center;
+			font-weight: 400;
+			color: #666DD2;
+			font-size: 1.25em;
+			margin-top: 0;
+		}
+		&>h3 {
+			text-align: center;
+			font-weight: 700;
+			color: $redish;
+			font-size: 1em;
+			margin-top: 0;
+		}
+		&>div {
+			width: 100%;
+			max-width: 350px;
+			height: 50px;
+			border-radius: 60px;
+			background: #666DD2;
+			color: #fff;
+			@include center;
+			flex-direction: row;
+			justify-content: space-between;
+			font-weight: 900;
+			margin-bottom: 25px;
+			&>div {
+				width: 45%;
+				@include center;
+				max-width: 120px;
+				&>input {
+					width: 60%;
+					border: none;
+					outline: none;
+					border-bottom: 1px solid #fff;
+					background: transparent;
+					border-radius: 0;
+					color: #fff;
+					text-align: center;
+				}
+				::-webkit-input-placeholder { /* Chrome/Opera/Safari */
+				  color: #fff;
+				  font-weight: 200;
+				}
+				::-moz-placeholder { /* Firefox 19+ */
+				  color: #fff;
+				  font-weight: 200;
+				}
+				:-ms-input-placeholder { /* IE 10+ */
+				  color: #fff;
+				  font-weight: 200;
+				}
+				:-moz-placeholder { /* Firefox 18- */
+				  color: #fff;
+				  font-weight: 200;
+				}
+			}
+			&>div:first-of-type {
+				margin-left: 2.5px;
+			}
+			&>div:last-of-type {
+				margin-right: 2.5px;
+			}
+		}
+		&>button {
+			border-radius: 2.5px;
+			outline: none;
+			border: none;
+			background: #fff;
+			padding: 10px 20px;
+			border: 2px solid #666DD2;
+			color: #666DD2;
+			font-weight: 500;
+		}
+	}
+}
+
+.set-hours-show {
+	transform: scale(1);
+	transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+	&>button {
+		transform: rotate(0deg) scale(1);
+		transition-timing-function: cubic-bezier(0.175, 0.885, 0.32, 1.275);
+		transition-delay: 0.25s;
+	}
+}

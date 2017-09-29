@@ -1,8 +1,8 @@
 .create {
 	position: fixed;
-	top: 25%;
+	top: 22.5%;
 	left: 5%;
-	height: 50%;
+	height: 65%;
 	width: 90%;
 	background: rgba(#FFF, 1);
 	@include center;
@@ -78,10 +78,11 @@
 			color: #fff;
 			cursor: pointer;
 			&>.select-options {
-				max-height: 80px;
+				// height: 80px;
 				height: auto;
 				width: 100%;
-				overflow-y: scroll;
+				// overflow-y: scroll;
+				// -webkit-overflow-scrolling: touch;
 				position: absolute;
 				top: 100%;
 				left: 0;
